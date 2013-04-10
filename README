@@ -1,19 +1,28 @@
 Nemo Transfer Engine
 
-Simple engine for keeping track of transfers (sync, download, upload) and providing plugin mechanism for 
-share plugins.
+Nemo Transfer Engine is an engine for sharing content and keeping track of sync, download and uploads.
+This engine doesn't provide any UI specific components, but instead it makes possible to build e.g.
+Transfer UI for displaying all the transfers (finished, failed, canceled or in progress) by using the
+API it defines.
 
-Transfer engine provides D-Bus API for managing the database and querying transfer information.
+To create share plugins, Nemo Transfer Engine defines required interfaces, which each plugin must
+implement.
 
-Building:
+For more details about API and implementing share plugins, generate docs according to instructions below. 
 
-qmake
-make
 
-Generating Docs:
+Building using qmake:
+
+# qmake
+# make
+
+Generating Docs to docs/html directory:
 make sure qdoc3 is installed and run:
 
-make docs
+# make docs
 
+Building using 'mb' script in Mer Platform SDK:
+
+# mb build -t <your target name> rpm/transfer-engine.spec
 
 

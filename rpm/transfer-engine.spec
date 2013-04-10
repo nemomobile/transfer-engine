@@ -8,12 +8,12 @@ URL: https://github.com/nemomobile/transfer-engine
 Source0: %{name}-%{version}.tar.gz
 BuildRequires: pkgconfig(QtCore)
 BuildRequires: pkgconfig(accounts-qt)
-BuildRequires: pkgconfig(qmsystem2)
 BuildRequires: pkgconfig(QtSystemInfo)
 BuildRequires: desktop-file-utils
 BuildRequires: pkgconfig(mlite)
 BuildRequires: pkgconfig(accounts-qt)
 BuildRequires: pkgconfig(quillmetadata)
+BuildRequires: qt-devel-tools
 
 %description
 %{summary}.

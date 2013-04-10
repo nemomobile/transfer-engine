@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- transferengine.cpp -->
+  <title>Nemo TransferEngine 1.0: TransferEngine Class Reference</title>
+<li>Modules</li>
+<li>TransferEngine</li>
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#public-slots">Public Slots</a></li>
+<li class="level1"><a href="#signals">Signals</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<h1 class="title">TransferEngine Class Reference</h1>
+<!-- $$$TransferEngine-brief -->
+<p>The TransferEngine class implements the functionality for different transfer types. <a href="#details">More...</a></p>
+<!-- @@@TransferEngine -->
+<pre class="cpp"> <span class="preprocessor">#include &lt;TransferEngine&gt;</span></pre><ul>
+<li><a href="transferengine-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-functions"></a>
+<h2>Public Functions</h2>
+<table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#TransferEngine">TransferEngine</a></b> ( QObject * <i>parent</i> = 0 )</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#dtor.TransferEngine">~TransferEngine</a></b> ()</td></tr>
+</table>
+<a name="public-slots"></a>
+<h2>Public Slots</h2>
+<table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#cancelTransfer">cancelTransfer</a></b> ( int <i>transferId</i> )</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#clearTransfers">clearTransfers</a></b> ()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#createDownload">createDownload</a></b> ( const QString &amp; <i>displayName</i>, const QString &amp; <i>applicationIcon</i>, const QString &amp; <i>serviceIcon</i>, const QString &amp; <i>filePath</i>, const QString &amp; <i>mimeType</i>, qlonglong <i>expectedFileSize</i>, const QStringList &amp; <i>callback</i>, const QString &amp; <i>cancelMethod</i>, const QString &amp; <i>restartMethod</i> )</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#createSync">createSync</a></b> ( const QString &amp; <i>displayName</i>, const QString &amp; <i>applicationIcon</i>, const QString &amp; <i>serviceIcon</i>, const QStringList &amp; <i>callback</i>, const QString &amp; <i>cancelMethod</i>, const QString &amp; <i>restartMethod</i> )</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#enableNotifications">enableNotifications</a></b> ( bool <i>enable</i> )</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#finishTransfer">finishTransfer</a></b> ( int <i>transferId</i>, int <i>status</i>, const QString &amp; <i>reason</i> )</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> bool </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#notificationsEnabled">notificationsEnabled</a></b> ()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#restartTransfer">restartTransfer</a></b> ( int <i>transferId</i> )</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#startTransfer">startTransfer</a></b> ( int <i>transferId</i> )</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QList&lt;TransferMethodInfo&gt; </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#transferMethods">transferMethods</a></b> ()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QList&lt;TransferDBRecord&gt; </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#transfers">transfers</a></b> ()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#updateTransferProgress">updateTransferProgress</a></b> ( int <i>transferId</i>, double <i>progress</i> )</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#uploadMediaItem">uploadMediaItem</a></b> ( const QString &amp; <i>source</i>, const QString &amp; <i>serviceId</i>, const QString &amp; <i>mimeType</i>, bool <i>metadataStripped</i>, const QVariantMap &amp; <i>userData</i> )</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> int </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#uploadMediaItemContent">uploadMediaItemContent</a></b> ( const QVariantMap &amp; <i>content</i>, const QString &amp; <i>serviceId</i>, const QVariantMap &amp; <i>userData</i> )</td></tr>
+</table>
+<a name="signals"></a>
+<h2>Signals</h2>
+<table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#progressChanged">progressChanged</a></b> ( int <i>transferId</i>, double <i>progress</i> )</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#statusChanged">statusChanged</a></b> ( int <i>transferId</i>, int <i>status</i> )</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#transferMethodListChanged">transferMethodListChanged</a></b> ()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="transferengine.html#transfersChanged">transfersChanged</a></b> ()</td></tr>
+</table>
+<a name="details"></a>
+<!-- $$$TransferEngine-description -->
+<div class="descr">
+<h2>Detailed Description</h2>
+<p>The TransferEngine class implements the functionality for different transfer types.</p>
+<p>TransferEngine is the central place for:</p>
+<ul>
+<li>Sharing - Provides requires plugin interfaces for share plugins</li>
+<li>Downloads - Provides an API to create Download entries</li>
+<li>Syncs - Provides an API to create Sync entries</li>
+</ul>
+<p>For Downloads and Syncs, the Transfer Engine acts only a place to keep track of these operations. The actual Download and Sync is executed by a client using TransferEngine API. For sharing the TransferEngine provides an API containing a few interaces, which a share plugin must implement. TransferEngine also takes care of loading and executing the sharing, based on the API it defines.</p>
+<p>The most essential thing to remember is that Transfer Engine provides share plugin API, DBus API e.g&#x2e; for creating Transfer UI or Share UIs, it stores data to the local sqlite database using <a href="dbmanager.html">DbManager</a> and that's it.</p>
+<p>How to implement a share plugin see: <a href="transferplugininterface.html">TransferPluginInterface</a>, MediaTransferInterface, MediaItem, TransferPluginInfo</p>
+<p>TransferEngine provides DBus API, but instead of using it directly, it's recommended to use <a href="transferengineclient.html">TransferEngineClient</a>. If there is a need to create UI to display e.g&#x2e; transfer statuses, then the DBus API is the recommend way to implement it.</p>
+</div>
+<!-- @@@TransferEngine -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$TransferEngine[overload1]$$$TransferEngineQObject* -->
+<h3 class="fn"><a name="TransferEngine"></a>TransferEngine::<span class="name">TransferEngine</span> ( <span class="type">QObject</span> * <i>parent</i> = 0 )</h3>
+<p>Constructor with optional <i>parent</i> arguement.</p>
+<!-- @@@TransferEngine -->
+<!-- $$$~TransferEngine[overload1]$$$~TransferEngine -->
+<h3 class="fn"><a name="dtor.TransferEngine"></a>TransferEngine::<span class="name">~TransferEngine</span> ()</h3>
+<p>Destructor.</p>
+<!-- @@@~TransferEngine -->
+<!-- $$$cancelTransfer[overload1]$$$cancelTransferint -->
+<h3 class="fn"><a name="cancelTransfer"></a><span class="type">void</span> TransferEngine::<span class="name">cancelTransfer</span> ( <span class="type">int</span> <i>transferId</i> )<tt> [slot]</tt></h3>
+<p>DBus adaptor calls this method to cancel an existing transfer with a <i>transferId</i>.</p>
+<p>If the transfer is Upload, then this method calls MediaTransferInterface instance's cancel method. In a case of Sync or Download this method calls client's cancel callback method, if the one exists.</p>
+<p>Calling this method causes <a href="transferengine.html#statusChanged">statusChanged</a>() signal to be emitted.</p>
+<!-- @@@cancelTransfer -->
+<!-- $$$clearTransfers[overload1]$$$clearTransfers -->
+<h3 class="fn"><a name="clearTransfers"></a><span class="type">void</span> TransferEngine::<span class="name">clearTransfers</span> ()<tt> [slot]</tt></h3>
+<p>DBus adaptor calls this method to clear all the finished, canceled or interrupted transfers in the database.</p>
+<!-- @@@clearTransfers -->
+<!-- $$$createDownload[overload1]$$$createDownloadconstQString&constQString&constQString&constQString&constQString&qlonglongconstQStringList&constQString&constQString& -->
+<h3 class="fn"><a name="createDownload"></a><span class="type">int</span> TransferEngine::<span class="name">createDownload</span> ( const <span class="type">QString</span> &amp; <i>displayName</i>, const <span class="type">QString</span> &amp; <i>applicationIcon</i>, const <span class="type">QString</span> &amp; <i>serviceIcon</i>, const <span class="type">QString</span> &amp; <i>filePath</i>, const <span class="type">QString</span> &amp; <i>mimeType</i>, <span class="type">qlonglong</span> <i>expectedFileSize</i>, const <span class="type">QStringList</span> &amp; <i>callback</i>, const <span class="type">QString</span> &amp; <i>cancelMethod</i>, const <span class="type">QString</span> &amp; <i>restartMethod</i> )<tt> [slot]</tt></h3>
+<p>DBus adaptor calls this method to create a download entry. Note that this is purely write-only method and doesn't involve anything else from <a href="transferengine.html">TransferEngine</a> side than creating a new DB record of type 'Download'.</p>
+<ul>
+<li><i>displayName</i> The name for Download which may be used by the UI displaying the download</li>
+<li><i>applicationIcon</i> The application icon of the application created the download</li>
+<li><i>serviceIcon</i> The service icon, which provides the file to be downloaded</li>
+<li><i>filePath</i> The filePath e.g&#x2e; url to the file to be downloaded</li>
+<li><i>mimeType</i> the MimeType of the file to be downloaded</li>
+<li><i>expectedFileSize</i> The file size of the file to be downloaded</li>
+<li><i>callback</i> QStringList containing DBus callback information such as: service, path and interface</li>
+<li><i>cancelMethod</i> The name of the cancel callback method, which DBus callback provides</li>
+<li><i>restartMethod</i> The name of the restart callback method, which DBus callback provides</li>
+</ul>
+<p>This method returns the transfer id of the created Download transfer. Note that this method only creates an entry to the database. To start the actual transfer, the <a href="transferengine.html#startTransfer">startTransfer</a>() method must be called.</p>
+<p><b>See also </b><a href="transferengine.html#startTransfer">startTransfer</a>(), <a href="transferengine.html#restartTransfer">restartTransfer</a>(), <a href="transferengine.html#finishTransfer">finishTransfer</a>(), and <a href="transferengine.html#updateTransferProgress">updateTransferProgress</a>().</p>
+<!-- @@@createDownload -->
+<!-- $$$createSync[overload1]$$$createSyncconstQString&constQString&constQString&constQStringList&constQString&constQString& -->
+<h3 class="fn"><a name="createSync"></a><span class="type">int</span> TransferEngine::<span class="name">createSync</span> ( const <span class="type">QString</span> &amp; <i>displayName</i>, const <span class="type">QString</span> &amp; <i>applicationIcon</i>, const <span class="type">QString</span> &amp; <i>serviceIcon</i>, const <span class="type">QStringList</span> &amp; <i>callback</i>, const <span class="type">QString</span> &amp; <i>cancelMethod</i>, const <span class="type">QString</span> &amp; <i>restartMethod</i> )<tt> [slot]</tt></h3>
+<p>DBus adaptor calls this method to create a Sync entry. Note that this is purely write-only method and doesn't involve anything else from <a href="transferengine.html">TransferEngine</a> side than creating a new DB record of type 'Download'.</p>
+<ul>
+<li><i>displayName</i> The name for download which may be used by the UI displaying the download</li>
+<li><i>applicationIcon</i> The application icon of the application created the download</li>
+<li><i>serviceIcon</i> The service icon, which provides the file to be downloaded</li>
+<li><i>callback</i> QStringList containing DBus callback information such as: service, path and interface</li>
+<li><i>cancelMethod</i> The name of the cancel callback method, which DBus callback provides</li>
+<li><i>restartMethod</i> The name of the restart callback method, which DBus callback provides</li>
+</ul>
+<p>This method returns the transfer id of the created Download transfer. Note that this method only creates an entry to the database. To start the actual transfer, the <a href="transferengine.html#startTransfer">startTransfer</a>() method must be called.</p>
+<p><b>See also </b><a href="transferengine.html#startTransfer">startTransfer</a>(), <a href="transferengine.html#restartTransfer">restartTransfer</a>(), <a href="transferengine.html#finishTransfer">finishTransfer</a>(), and <a href="transferengine.html#updateTransferProgress">updateTransferProgress</a>().</p>
+<!-- @@@createSync -->
+<!-- $$$enableNotifications[overload1]$$$enableNotificationsbool -->
+<h3 class="fn"><a name="enableNotifications"></a><span class="type">void</span> TransferEngine::<span class="name">enableNotifications</span> ( <span class="type">bool</span> <i>enable</i> )<tt> [slot]</tt></h3>
+<p>DBus adaptor calls this method to enable or disable transfer speicific notifications based on <i>enable</i> argument.</p>
+<!-- @@@enableNotifications -->
+<!-- $$$finishTransfer[overload1]$$$finishTransferintintconstQString& -->
+<h3 class="fn"><a name="finishTransfer"></a><span class="type">void</span> TransferEngine::<span class="name">finishTransfer</span> ( <span class="type">int</span> <i>transferId</i>, <span class="type">int</span> <i>status</i>, const <span class="type">QString</span> &amp; <i>reason</i> )<tt> [slot]</tt></h3>
+<p>Finish an existing Sync or Download transfer with a <i>transferId</i>. Transfer can be finished with different <i>status</i> e.g for successfully finish status can be set to <a href="transferenginedata.html#TransferStatus-enum">TransferEngineData::TransferFinished</a>, for canceling TransferEngineData::Canceled and for failure with <a href="transferenginedata.html#TransferStatus-enum">TransferEngineData::TransferInterrupted</a>. In a case of failure, the client can also provide a <i>reason</i>.</p>
+<p>This method causes <a href="transferengine.html#statusChanged">statusChanged</a>() signal to be emitted. If a sync has been successfully finished, then it will also be removed from the database automatically which causes transferChanged() signal to be emitted.</p>
+<!-- @@@finishTransfer -->
+<!-- $$$notificationsEnabled[overload1]$$$notificationsEnabled -->
+<h3 class="fn"><a name="notificationsEnabled"></a><span class="type">bool</span> TransferEngine::<span class="name">notificationsEnabled</span> ()<tt> [slot]</tt></h3>
+<p>DBus adaptor calls this method. Returns true or false depending if notifications are enabled or disabled.</p>
+<!-- @@@notificationsEnabled -->
+<!-- $$$progressChanged[overload1]$$$progressChangedintdouble -->
+<h3 class="fn"><a name="progressChanged"></a><span class="type">void</span> TransferEngine::<span class="name">progressChanged</span> ( <span class="type">int</span> <i>transferId</i>, <span class="type">double</span> <i>progress</i> )<tt> [signal]</tt></h3>
+<!-- @@@progressChanged -->
+<!-- $$$restartTransfer[overload1]$$$restartTransferint -->
+<h3 class="fn"><a name="restartTransfer"></a><span class="type">void</span> TransferEngine::<span class="name">restartTransfer</span> ( <span class="type">int</span> <i>transferId</i> )<tt> [slot]</tt></h3>
+<p>DBus adaptor calls this method to restart a canceled or failed transfer with a <b class="redFont"><code>\transferId</code></b>. In a case of Upload, this method creates MediaItem instance of the existing transfer and instantiates the required share plugin. The MediaItem instance is passed to the plugin and sharing is restarted.</p>
+<p>For Sync and Download entries, this method calls their callbacks methods, if a callback interface has been defined by the client originally created the Sync or Download entry.</p>
+<!-- @@@restartTransfer -->
+<!-- $$$startTransfer[overload1]$$$startTransferint -->
+<h3 class="fn"><a name="startTransfer"></a><span class="type">void</span> TransferEngine::<span class="name">startTransfer</span> ( <span class="type">int</span> <i>transferId</i> )<tt> [slot]</tt></h3>
+<p>DBus adaptor calls this method to start the actual transfer. This method changes the transfer status of the existing transfer with a <i>key</i> to <a href="transferenginedata.html#TransferStatus-enum">TransferEngineData::TransferStarted</a>. This method can only be called for Sync and Download transfers.</p>
+<p>Calling this method causes the corresponding <a href="transferengine.html#statusChanged">statusChanged</a>() signal to be emitted.</p>
+<!-- @@@startTransfer -->
+<!-- $$$statusChanged[overload1]$$$statusChangedintint -->
+<h3 class="fn"><a name="statusChanged"></a><span class="type">void</span> TransferEngine::<span class="name">statusChanged</span> ( <span class="type">int</span> <i>transferId</i>, <span class="type">int</span> <i>status</i> )<tt> [signal]</tt></h3>
+<!-- @@@statusChanged -->
+<!-- $$$transferMethodListChanged[overload1]$$$transferMethodListChanged -->
+<h3 class="fn"><a name="transferMethodListChanged"></a><span class="type">void</span> TransferEngine::<span class="name">transferMethodListChanged</span> ()<tt> [signal]</tt></h3>
+<!-- @@@transferMethodListChanged -->
+<!-- $$$transferMethods[overload1]$$$transferMethods -->
+<h3 class="fn"><a name="transferMethods"></a><span class="type">QList</span>&lt;<span class="type"><a href="transfermethodinfo.html">TransferMethodInfo</a></span>&gt; TransferEngine::<span class="name">transferMethods</span> ()<tt> [slot]</tt></h3>
+<p>DBus adaptor calls this method to fetch a list of transfer methods. This method returns QList&lt;<a href="transfermethodinfo.html">TransferMethodInfo</a>&gt;.</p>
+<p>Transfer methods are basically a list of share plugins installed to the system.</p>
+<!-- @@@transferMethods -->
+<!-- $$$transfers[overload1]$$$transfers -->
+<h3 class="fn"><a name="transfers"></a><span class="type">QList</span>&lt;<span class="type"><a href="transferdbrecord.html">TransferDBRecord</a></span>&gt; TransferEngine::<span class="name">transfers</span> ()<tt> [slot]</tt></h3>
+<p>DBus adaptor calls this method to fetch a list of transfers. This method returns QList&lt;<a href="transferdbrecord.html">TransferDBRecord</a>&gt;.</p>
+<!-- @@@transfers -->
+<!-- $$$transfersChanged[overload1]$$$transfersChanged -->
+<h3 class="fn"><a name="transfersChanged"></a><span class="type">void</span> TransferEngine::<span class="name">transfersChanged</span> ()<tt> [signal]</tt></h3>
+<!-- @@@transfersChanged -->
+<!-- $$$updateTransferProgress[overload1]$$$updateTransferProgressintdouble -->
+<h3 class="fn"><a name="updateTransferProgress"></a><span class="type">void</span> TransferEngine::<span class="name">updateTransferProgress</span> ( <span class="type">int</span> <i>transferId</i>, <span class="type">double</span> <i>progress</i> )<tt> [slot]</tt></h3>
+<p>DBus adaptor calls this method to update transfer progress of the transfer with a <i>transferId</i> and with a new <i>progress</i>.</p>
+<!-- @@@updateTransferProgress -->
+<!-- $$$uploadMediaItem[overload1]$$$uploadMediaItemconstQString&constQString&constQString&boolconstQVariantMap& -->
+<h3 class="fn"><a name="uploadMediaItem"></a><span class="type">int</span> TransferEngine::<span class="name">uploadMediaItem</span> ( const <span class="type">QString</span> &amp; <i>source</i>, const <span class="type">QString</span> &amp; <i>serviceId</i>, const <span class="type">QString</span> &amp; <i>mimeType</i>, <span class="type">bool</span> <i>metadataStripped</i>, const <span class="type">QVariantMap</span> &amp; <i>userData</i> )<tt> [slot]</tt></h3>
+<p>DBus adaptor calls this method to start uploading a media item. The minimum information needed to start an upload and to create an entry to the transfer database is: <i>source</i> the path to the media item to be downloaded. <i>serviceId</i> the ID of the share plugin. See <a href="transferplugininterface.html#pluginId">TransferPluginInterface::pluginId</a>() for more details. <i>mimeType</i> is the MimeType of the media item e.g&#x2e; &quot;image/jpeg&quot;. <i>metadataStripped</i> boolean to indicate if the metadata should be kept or removed before uploading. <i>userData</i> is various kind of data which share UI may provide to the engine. UserData is QVariant map i.e&#x2e; the data must be provided as key-value pairs, where the keys must be QStrings.</p>
+<p><a href="transferengine.html">TransferEngine</a> handles the following user defined data automatically and stores them to the database:</p>
+<ul>
+<li>&quot;title&quot; Title for the media</li>
+<li>&quot;description&quot; Description for the media</li>
+<li>&quot;accountId&quot; The ID of the account which is used for sharing. See qt-accounts for more details.</li>
+<li>&quot;scalePercent&quot; The scale percent e.g&#x2e; downscale image to 50% from original before uploading.</li>
+</ul>
+<p>In practice this method instantiates a share plugin with <i>serviceId</i> and passes a MediaItem instance filled with required data to it. When the plugin has been loaded, the <a href="mediatransferinterface.html#start">MediaTransferInterface::start</a>() method is called and the actual sharing starts.</p>
+<p>This method returns a transfer ID which can be used later to fetch information of this specific transfer.</p>
+<!-- @@@uploadMediaItem -->
+<!-- $$$uploadMediaItemContent[overload1]$$$uploadMediaItemContentconstQVariantMap&constQString&constQVariantMap& -->
+<h3 class="fn"><a name="uploadMediaItemContent"></a><span class="type">int</span> TransferEngine::<span class="name">uploadMediaItemContent</span> ( const <span class="type">QVariantMap</span> &amp; <i>content</i>, const <span class="type">QString</span> &amp; <i>serviceId</i>, const <span class="type">QVariantMap</span> &amp; <i>userData</i> )<tt> [slot]</tt></h3>
+<p>DBus adaptor calls this method to start uploading media item content. Sometimes the content to be shared is not a file, but data e.g&#x2e; contact information in vcard format. In order to avoid serializing data to a file, pass url to the file, reading the data, deleting the file, <a href="transferengine.html">TransferEngine</a> provides this convenience API.</p>
+<p><i>content</i> is the media item content to be shared. <i>serviceId</i> is the id of the share plugin. See <a href="transferplugininterface.html#pluginId">TransferPluginInterface::pluginId</a>() for more details. <i>userData</i> is a QVariantMap containing share plugin specific data. See TransferEngine::uploadMediaItem for more details.</p>
+<p>This method returns a transfer ID which can be used later to fetch information of this specific transfer.</p>
+<!-- @@@uploadMediaItemContent -->
+</div>
+</body>
+</html>

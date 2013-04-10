@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- imageoperation.cpp -->
+  <title>Nemo TransferEngine 1.0: ImageOperation Class Reference</title>
+<li>Modules</li>
+<li>ImageOperation</li>
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#static-public-members">Static Public Members</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<h1 class="title">ImageOperation Class Reference</h1>
+<!-- $$$ImageOperation-brief -->
+<p>The ImageOperation class is a helper class to manipulate images. <a href="#details">More...</a></p>
+<!-- @@@ImageOperation -->
+<pre class="cpp"> <span class="preprocessor">#include &lt;ImageOperation&gt;</span></pre><ul>
+<li><a href="imageoperation-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="static-public-members"></a>
+<h2>Static Public Members</h2>
+<table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> QString </td><td class="memItemRight bottomAlign"><b><a href="imageoperation.html#removeImageMetadata">removeImageMetadata</a></b> ( const QString &amp; <i>sourceFile</i> )</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString </td><td class="memItemRight bottomAlign"><b><a href="imageoperation.html#scaleImage">scaleImage</a></b> ( const QString &amp; <i>sourceFile</i>, qreal <i>scaleFactor</i>, const QString &amp; <i>targetFile</i> = QString() )</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QString </td><td class="memItemRight bottomAlign"><b><a href="imageoperation.html#tempFilePath">tempFilePath</a></b> ( const QString &amp; <i>sourceFile</i> )</td></tr>
+</table>
+<a name="details"></a>
+<!-- $$$ImageOperation-description -->
+<div class="descr">
+<h2>Detailed Description</h2>
+<p>The ImageOperation class is a helper class to manipulate images.</p>
+<p>This class is meant to be used by share plugins. It can be used for:</p>
+<ul>
+<li>Removing image metadata</li>
+<li>Scaling image</li>
+<li>Create a temp files from the image paths</li>
+</ul>
+</div>
+<!-- @@@ImageOperation -->
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$removeImageMetadata[overload1]$$$removeImageMetadataconstQString& -->
+<h3 class="fn"><a name="removeImageMetadata"></a><span class="type">QString</span> ImageOperation::<span class="name">removeImageMetadata</span> ( const <span class="type">QString</span> &amp; <i>sourceFile</i> )<tt> [static]</tt></h3>
+<p>Helper method to remove metadata from jpeg files. Only author and location related metadata will be removed. <i>sourceFile</i> is the path to the original file.</p>
+<p>Returns a path to the copy of the image with metadata removed.</p>
+<!-- @@@removeImageMetadata -->
+<!-- $$$scaleImage[overload1]$$$scaleImageconstQString&qrealconstQString& -->
+<h3 class="fn"><a name="scaleImage"></a><span class="type">QString</span> ImageOperation::<span class="name">scaleImage</span> ( const <span class="type">QString</span> &amp; <i>sourceFile</i>, <span class="type">qreal</span> <i>scaleFactor</i>, const <span class="type">QString</span> &amp; <i>targetFile</i> = QString() )<tt> [static]</tt></h3>
+<p>Scale image <i>sourceFile</i> using <i>scaleFactor</i>. The scaled image is stored to the <i>targetFile</i> or if <i>targetFile</i> is not given, then a temporary file is created for saving.</p>
+<p>The <i>scaleFactor</i> argument must be &gt; 0. This function returns path to the scaled image. Note that if user doesn't specify <i>targetFile</i> the scaled image is stored under temp directory. Nothing guarantees that created file will remain in that diretory forewer so the caller is reponsible of copying file for more permanent storing.</p>
+<p>Returns a path to the scaled image.</p>
+<p>It is also recommended that if the caller doesn't use the scaled file, which is stored to the temp directory later, the caller should remove the file.</p>
+<!-- @@@scaleImage -->
+<!-- $$$tempFilePath[overload1]$$$tempFilePathconstQString& -->
+<h3 class="fn"><a name="tempFilePath"></a><span class="type">QString</span> ImageOperation::<span class="name">tempFilePath</span> ( const <span class="type">QString</span> &amp; <i>sourceFile</i> )<tt> [static]</tt></h3>
+<p>Creates a temporary file from the <i>sourceFile</i>. This function uses sourceFile as a template to create a temp file. Temporary file will be e.g:</p>
+<p>Source file: &quot;/home/nemo/Pictures/img_001.jpg&quot; Temporary file: &quot;/var/tmp/img_001_0.jpg&quot;</p>
+<p>Note that it's caller's responsibility to remove created temp file.</p>
+<!-- @@@tempFilePath -->
+</div>
+</body>
+</html>

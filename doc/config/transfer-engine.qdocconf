@@ -1,0 +1,2 @@
+include(transfer-engine-project.qdocconf)
+include(qt-html-templates.qdocconf)

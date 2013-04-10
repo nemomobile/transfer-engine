@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en_US" lang="en_US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- transfermethodinfo.cpp -->
+  <title>Nemo TransferEngine 1.0: TransferMethodInfo Class Reference</title>
+<li>Modules</li>
+<li>TransferMethodInfo</li>
+<div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#public-types">Public Types</a></li>
+<li class="level1"><a href="#public-functions">Public Functions</a></li>
+<li class="level1"><a href="#static-public-members">Static Public Members</a></li>
+<li class="level1"><a href="#details">Detailed Description</a></li>
+</ul>
+</div>
+<h1 class="title">TransferMethodInfo Class Reference</h1>
+<!-- $$$TransferMethodInfo-brief -->
+<p>The TransferMethodInfo class encapsulate information of a single transfer method. <a href="#details">More...</a></p>
+<!-- @@@TransferMethodInfo -->
+<pre class="cpp"> <span class="preprocessor">#include &lt;TransferMethodInfo&gt;</span></pre><ul>
+<li><a href="transfermethodinfo-members.html">List of all members, including inherited members</a></li>
+</ul>
+<a name="public-types"></a>
+<h2>Public Types</h2>
+<table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> enum </td><td class="memItemRight bottomAlign"><b><a href="transfermethodinfo.html#TransferMethodInfoField-enum">TransferMethodInfoField</a></b> { DisplayName, UserName, MethodId, AccountId, ShareUIPath, Capabilities }</td></tr>
+</table>
+<a name="public-functions"></a>
+<h2>Public Functions</h2>
+<table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="transfermethodinfo.html#TransferMethodInfo">TransferMethodInfo</a></b> ()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="transfermethodinfo.html#TransferMethodInfo-2">TransferMethodInfo</a></b> ( const TransferMethodInfo &amp; <i>other</i> )</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> </td><td class="memItemRight bottomAlign"><b><a href="transfermethodinfo.html#dtor.TransferMethodInfo">~TransferMethodInfo</a></b> ()</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> QVariant </td><td class="memItemRight bottomAlign"><b><a href="transfermethodinfo.html#value">value</a></b> ( int <i>index</i> ) const</td></tr>
+<tr><td class="memItemLeft rightAlign topAlign"> TransferMethodInfo &amp; </td><td class="memItemRight bottomAlign"><b><a href="transfermethodinfo.html#operator-eq">operator=</a></b> ( const TransferMethodInfo &amp; <i>other</i> )</td></tr>
+</table>
+<a name="static-public-members"></a>
+<h2>Static Public Members</h2>
+<table class="alignedsummary">
+<tr><td class="memItemLeft rightAlign topAlign"> void </td><td class="memItemRight bottomAlign"><b><a href="transfermethodinfo.html#registerType">registerType</a></b> ()</td></tr>
+</table>
+<a name="details"></a>
+<!-- $$$TransferMethodInfo-description -->
+<div class="descr">
+<h2>Detailed Description</h2>
+<p>The TransferMethodInfo class encapsulate information of a single transfer method.</p>
+<p>Share plugin must create a list of instances of TransferMethodInfo class to encapsulate information about the plugin for example filling information for the Bluetooth sharing plugin:</p>
+<pre class="cpp"> <span class="type">QList</span><span class="operator">&lt;</span>TransferMethodInfo<span class="operator">&gt;</span> infoList;
+ TransferMethodInfo info;
+
+ <span class="type">QStringList</span> capabilities;
+ capabilities <span class="operator">&lt;</span><span class="operator">&lt;</span> QLatin1String(<span class="string">&quot;*&quot;</span>);
+
+ info<span class="operator">.</span>displayName     <span class="operator">=</span> QLatin1String(<span class="string">&quot;Bluetooth&quot;</span>);
+ info<span class="operator">.</span>userName        <span class="operator">=</span> <span class="string">&quot;&quot;</span>;
+ info<span class="operator">.</span>accountId       <span class="operator">=</span> <span class="string">&quot;&quot;</span>;
+ info<span class="operator">.</span>methodId        <span class="operator">=</span> QLatin1String(<span class="string">&quot;bluetooth&quot;</span>);
+ info<span class="operator">.</span>shareUIPath     <span class="operator">=</span> SHARE_UI_PATH <span class="operator">+</span> QLatin1String(<span class="string">&quot;/BluetoothShareUI.qml&quot;</span>);
+ info<span class="operator">.</span>capabilitities  <span class="operator">=</span> capabilities;
+ infoList <span class="operator">&lt;</span><span class="operator">&lt;</span> info;</pre>
+</div>
+<!-- @@@TransferMethodInfo -->
+<div class="types">
+<h2>Member Type Documentation</h2>
+<!-- $$$TransferMethodInfoField$$$DisplayName$$$UserName$$$MethodId$$$AccountId$$$ShareUIPath$$$Capabilities -->
+<h3 class="fn"><a name="TransferMethodInfoField-enum"></a>enum TransferMethodInfo::<span class="name">TransferMethodInfoField</span></h3>
+<!-- @@@TransferMethodInfoField -->
+</div>
+<div class="func">
+<h2>Member Function Documentation</h2>
+<!-- $$$TransferMethodInfo[overload1]$$$TransferMethodInfo -->
+<h3 class="fn"><a name="TransferMethodInfo"></a>TransferMethodInfo::<span class="name">TransferMethodInfo</span> ()</h3>
+<!-- @@@TransferMethodInfo -->
+<!-- $$$TransferMethodInfo$$$TransferMethodInfoconstTransferMethodInfo& -->
+<h3 class="fn"><a name="TransferMethodInfo-2"></a>TransferMethodInfo::<span class="name">TransferMethodInfo</span> ( const <span class="type">TransferMethodInfo</span> &amp; <i>other</i> )</h3>
+<!-- @@@TransferMethodInfo -->
+<!-- $$$~TransferMethodInfo[overload1]$$$~TransferMethodInfo -->
+<h3 class="fn"><a name="dtor.TransferMethodInfo"></a>TransferMethodInfo::<span class="name">~TransferMethodInfo</span> ()</h3>
+<!-- @@@~TransferMethodInfo -->
+<!-- $$$registerType[overload1]$$$registerType -->
+<h3 class="fn"><a name="registerType"></a><span class="type">void</span> TransferMethodInfo::<span class="name">registerType</span> ()<tt> [static]</tt></h3>
+<!-- @@@registerType -->
+<!-- $$$value[overload1]$$$valueint -->
+<h3 class="fn"><a name="value"></a><span class="type">QVariant</span> TransferMethodInfo::<span class="name">value</span> ( <span class="type">int</span> <i>index</i> ) const</h3>
+<p>Returns the value using the <i>index</i>. Actually the index is enum <a href="transfermethodinfo.html#TransferMethodInfoField-enum">TransferMethodInfoField</a>.</p>
+<!-- @@@value -->
+<!-- $$$operator=[overload1]$$$operator=constTransferMethodInfo& -->
+<h3 class="fn"><a name="operator-eq"></a><span class="type">TransferMethodInfo</span> &amp; TransferMethodInfo::<span class="name">operator=</span> ( const <span class="type">TransferMethodInfo</span> &amp; <i>other</i> )</h3>
+<!-- @@@operator= -->
+</div>
+</body>
+</html>

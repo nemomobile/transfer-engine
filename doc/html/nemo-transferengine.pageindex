@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qtPageIndex>
+    <page id="{85c6958d-e94a-4a40-824c-794dc28d0e92}">
+        <pageWords>ImageOperation class reference</pageWords>
+        <pageTitle>ImageOperation Class Reference</pageTitle>
+        <pageUrl>imageoperation.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{30c782a0-42ad-4f20-a98b-270281604574}">
+        <pageWords>tempFilePath function ImageOperation</pageWords>
+        <pageTitle>tempFilePath Function Reference</pageTitle>
+        <pageUrl>imageoperation.html#tempFilePath</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{0a7eead6-8172-4896-a66f-294637d811ff}">
+        <pageWords>removeImageMetadata function ImageOperation</pageWords>
+        <pageTitle>removeImageMetadata Function Reference</pageTitle>
+        <pageUrl>imageoperation.html#removeImageMetadata</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{6d476b68-834f-4f7f-a311-a4afe4818fce}">
+        <pageWords>scaleImage function ImageOperation</pageWords>
+        <pageTitle>scaleImage Function Reference</pageTitle>
+        <pageUrl>imageoperation.html#scaleImage</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{09261a5f-903d-4ea7-b8aa-4ba573399d42}">
+        <pageWords>CallbackInterface class reference</pageWords>
+        <pageTitle>CallbackInterface Class Reference</pageTitle>
+        <pageUrl>callbackinterface.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{4140d55a-0347-4a81-981a-820dd190061c}">
+        <pageWords>CallbackInterface function CallbackInterface</pageWords>
+        <pageTitle>CallbackInterface Function Reference</pageTitle>
+        <pageUrl>callbackinterface.html#CallbackInterface</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{a9983f97-4c86-419f-aee7-ef86d36c8f19}">
+        <pageWords>CallbackInterface function CallbackInterface</pageWords>
+        <pageTitle>CallbackInterface Function Reference</pageTitle>
+        <pageUrl>callbackinterface.html#CallbackInterface</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{dac893aa-0130-4f51-93cc-7483953d53f9}">
+        <pageWords>~CallbackInterface function CallbackInterface</pageWords>
+        <pageTitle>~CallbackInterface Function Reference</pageTitle>
+        <pageUrl>callbackinterface.html#~CallbackInterface</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{3bb832fa-721d-43ab-a290-3881b519fb9d}">
+        <pageWords>TransferEngineClient class reference</pageWords>
+        <pageTitle>TransferEngineClient Class Reference</pageTitle>
+        <pageUrl>transferengineclient.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{b6f2785e-fdfb-43a0-8534-3350825b6a6b}">
+        <pageWords>Status enum type TransferEngineClient</pageWords>
+        <pageTitle>Status Enum Reference</pageTitle>
+        <pageUrl>transferengineclient.html#Status-enum</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{9192d9ce-d040-4b65-9020-9faeaa04b51b}">
+        <pageWords>TransferEngineClient function TransferEngineClient</pageWords>
+        <pageTitle>TransferEngineClient Function Reference</pageTitle>
+        <pageUrl>transferengineclient.html#TransferEngineClient</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{75b83d8a-7b35-4f5f-9dd0-452ed0643e89}">
+        <pageWords>~TransferEngineClient function TransferEngineClient</pageWords>
+        <pageTitle>~TransferEngineClient Function Reference</pageTitle>
+        <pageUrl>transferengineclient.html#~TransferEngineClient</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{7b131ab8-5367-47c4-90b0-714d896776e3}">
+        <pageWords>createDownloadEvent function TransferEngineClient</pageWords>
+        <pageTitle>createDownloadEvent Function Reference</pageTitle>
+        <pageUrl>transferengineclient.html#createDownloadEvent</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{cb5e1af8-cb01-4baf-9016-48837d71a128}">
+        <pageWords>createSyncEvent function TransferEngineClient</pageWords>
+        <pageTitle>createSyncEvent Function Reference</pageTitle>
+        <pageUrl>transferengineclient.html#createSyncEvent</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{6921c467-e907-444a-bc61-00608e6738c2}">
+        <pageWords>startTransfer function TransferEngineClient</pageWords>
+        <pageTitle>startTransfer Function Reference</pageTitle>
+        <pageUrl>transferengineclient.html#startTransfer</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{6614d6bc-4ad7-4f60-b7aa-c0db5d64d791}">
+        <pageWords>updateTransferProgress function TransferEngineClient</pageWords>
+        <pageTitle>updateTransferProgress Function Reference</pageTitle>
+        <pageUrl>transferengineclient.html#updateTransferProgress</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{6de3283a-9ca8-471b-8a9e-390ee4494743}">
+        <pageWords>finishTransfer function TransferEngineClient</pageWords>
+        <pageTitle>finishTransfer Function Reference</pageTitle>
+        <pageUrl>transferengineclient.html#finishTransfer</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{95c113a6-edef-43c0-ab42-6b0b591bb408}">
+        <pageWords>DbManager class reference</pageWords>
+        <pageTitle>DbManager Class Reference</pageTitle>
+        <pageUrl>dbmanager.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{277cd7ab-f0db-406a-affb-c3c490c5863d}">
+        <pageWords>instance function DbManager</pageWords>
+        <pageTitle>instance Function Reference</pageTitle>
+        <pageUrl>dbmanager.html#instance</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{227fdd13-ed7d-4aa0-9916-d23a009a2a50}">
+        <pageWords>~DbManager function DbManager</pageWords>
+        <pageTitle>~DbManager Function Reference</pageTitle>
+        <pageUrl>dbmanager.html#~DbManager</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{dc363760-e769-4ef2-aa4b-a1e68afc7e08}">
+        <pageWords>createMetadataEntry function DbManager</pageWords>
+        <pageTitle>createMetadataEntry Function Reference</pageTitle>
+        <pageUrl>dbmanager.html#createMetadataEntry</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{a55f3108-e2a0-47fb-89f2-c485f017ea58}">
+        <pageWords>callback function DbManager</pageWords>
+        <pageTitle>callback Function Reference</pageTitle>
+        <pageUrl>dbmanager.html#callback</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{7ff1939c-61dd-4d76-b588-bd42d3ab3a53}">
+        <pageWords>createCallbackEntry function DbManager</pageWords>
+        <pageTitle>createCallbackEntry Function Reference</pageTitle>
+        <pageUrl>dbmanager.html#createCallbackEntry</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{8c52b3e5-4f50-4807-aaf7-2690392f973f}">
+        <pageWords>createTransferEntry function DbManager</pageWords>
+        <pageTitle>createTransferEntry Function Reference</pageTitle>
+        <pageUrl>dbmanager.html#createTransferEntry</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{9d41b9a4-75fa-4266-9f2a-f563b0be1d2b}">
+        <pageWords>updateTransferStatus function DbManager</pageWords>
+        <pageTitle>updateTransferStatus Function Reference</pageTitle>
+        <pageUrl>dbmanager.html#updateTransferStatus</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{838caf8e-06ec-4999-b718-e65ed2b2aa72}">
+        <pageWords>updateProgress function DbManager</pageWords>
+        <pageTitle>updateProgress Function Reference</pageTitle>
+        <pageUrl>dbmanager.html#updateProgress</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{da7a22a3-38bb-4a24-8552-9f3880da2f5c}">
+        <pageWords>removeTransfer function DbManager</pageWords>
+        <pageTitle>removeTransfer Function Reference</pageTitle>
+        <pageUrl>dbmanager.html#removeTransfer</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{1cef8afc-08a0-40de-ab84-c2cbc2d0de83}">
+        <pageWords>clearTransfers function DbManager</pageWords>
+        <pageTitle>clearTransfers Function Reference</pageTitle>
+        <pageUrl>dbmanager.html#clearTransfers</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{b1df0083-ef88-417e-91a8-07ec972aef13}">
+        <pageWords>transfers function DbManager</pageWords>
+        <pageTitle>transfers Function Reference</pageTitle>
+        <pageUrl>dbmanager.html#transfers</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{3ac2b724-b8fa-419b-b89b-bceb7e231010}">
+        <pageWords>transferType function DbManager</pageWords>
+        <pageTitle>transferType Function Reference</pageTitle>
+        <pageUrl>dbmanager.html#transferType</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{d4f39068-91d3-492e-8620-4b4caa9a0138}">
+        <pageWords>transferStatus function DbManager</pageWords>
+        <pageTitle>transferStatus Function Reference</pageTitle>
+        <pageUrl>dbmanager.html#transferStatus</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{f85f32e0-59ad-4f26-b624-cd25610a860d}">
+        <pageWords>callbackMethods function DbManager</pageWords>
+        <pageTitle>callbackMethods Function Reference</pageTitle>
+        <pageUrl>dbmanager.html#callbackMethods</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{5d0bdd28-9c68-4672-bdf1-ea696db8e044}">
+        <pageWords>mediaItem function DbManager</pageWords>
+        <pageTitle>mediaItem Function Reference</pageTitle>
+        <pageUrl>dbmanager.html#mediaItem</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{a3d94888-956a-45db-8106-7085052a4c8f}">
+        <pageWords>TransferEngine class reference</pageWords>
+        <pageTitle>TransferEngine Class Reference</pageTitle>
+        <pageUrl>transferengine.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{ba74af6e-7d2e-4fe0-8126-a7849d414c5a}">
+        <pageWords>TransferEngine function TransferEngine</pageWords>
+        <pageTitle>TransferEngine Function Reference</pageTitle>
+        <pageUrl>transferengine.html#TransferEngine</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{8a5c470f-3b07-4e79-a956-2bf4323aea62}">
+        <pageWords>~TransferEngine function TransferEngine</pageWords>
+        <pageTitle>~TransferEngine Function Reference</pageTitle>
+        <pageUrl>transferengine.html#~TransferEngine</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{f247a6c8-4267-4c8c-a074-571bed0ec85b}">
+        <pageWords>uploadMediaItem function TransferEngine</pageWords>
+        <pageTitle>uploadMediaItem Function Reference</pageTitle>
+        <pageUrl>transferengine.html#uploadMediaItem</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{ed38fca5-eb0b-451e-9072-e01cca10835e}">
+        <pageWords>uploadMediaItemContent function TransferEngine</pageWords>
+        <pageTitle>uploadMediaItemContent Function Reference</pageTitle>
+        <pageUrl>transferengine.html#uploadMediaItemContent</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{61e70d88-575f-4d31-9b34-1eea2658239d}">
+        <pageWords>createDownload function TransferEngine</pageWords>
+        <pageTitle>createDownload Function Reference</pageTitle>
+        <pageUrl>transferengine.html#createDownload</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{feb60383-a02d-4cdc-bd66-63c20e081d3f}">
+        <pageWords>createSync function TransferEngine</pageWords>
+        <pageTitle>createSync Function Reference</pageTitle>
+        <pageUrl>transferengine.html#createSync</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{94ae6868-28dd-4f96-b931-b9166abea6df}">
+        <pageWords>startTransfer function TransferEngine</pageWords>
+        <pageTitle>startTransfer Function Reference</pageTitle>
+        <pageUrl>transferengine.html#startTransfer</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{1d1bae3e-7482-47af-b368-3695e0590fcb}">
+        <pageWords>restartTransfer function TransferEngine</pageWords>
+        <pageTitle>restartTransfer Function Reference</pageTitle>
+        <pageUrl>transferengine.html#restartTransfer</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{99abafb7-c336-40be-a8f5-cd629c79c7fe}">
+        <pageWords>finishTransfer function TransferEngine</pageWords>
+        <pageTitle>finishTransfer Function Reference</pageTitle>
+        <pageUrl>transferengine.html#finishTransfer</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{258818b1-575c-4aa2-ab21-a35cedd8ccfa}">
+        <pageWords>updateTransferProgress function TransferEngine</pageWords>
+        <pageTitle>updateTransferProgress Function Reference</pageTitle>
+        <pageUrl>transferengine.html#updateTransferProgress</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{cb1304d4-e1f2-42ee-8420-5561a8b2318b}">
+        <pageWords>transfers function TransferEngine</pageWords>
+        <pageTitle>transfers Function Reference</pageTitle>
+        <pageUrl>transferengine.html#transfers</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{f0443677-6f19-4bb6-92a7-b1f0d16676ef}">
+        <pageWords>transferMethods function TransferEngine</pageWords>
+        <pageTitle>transferMethods Function Reference</pageTitle>
+        <pageUrl>transferengine.html#transferMethods</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{1c3ab4b3-d794-455d-8811-944effca3d7e}">
+        <pageWords>clearTransfers function TransferEngine</pageWords>
+        <pageTitle>clearTransfers Function Reference</pageTitle>
+        <pageUrl>transferengine.html#clearTransfers</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{514c7917-b39c-4f0e-a715-dba2b273c96d}">
+        <pageWords>cancelTransfer function TransferEngine</pageWords>
+        <pageTitle>cancelTransfer Function Reference</pageTitle>
+        <pageUrl>transferengine.html#cancelTransfer</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{da6a39c9-c1ef-460e-bac1-b1fa7666e226}">
+        <pageWords>enableNotifications function TransferEngine</pageWords>
+        <pageTitle>enableNotifications Function Reference</pageTitle>
+        <pageUrl>transferengine.html#enableNotifications</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{debe7658-3fc5-437e-9c8e-d1500c2934a1}">
+        <pageWords>notificationsEnabled function TransferEngine</pageWords>
+        <pageTitle>notificationsEnabled Function Reference</pageTitle>
+        <pageUrl>transferengine.html#notificationsEnabled</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{e34434f4-83ff-48cf-b01b-a9586dec58d7}">
+        <pageWords>progressChanged function TransferEngine</pageWords>
+        <pageTitle>progressChanged Function Reference</pageTitle>
+        <pageUrl>transferengine.html#progressChanged</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{92b2353f-238d-44dc-b381-c09896787694}">
+        <pageWords>statusChanged function TransferEngine</pageWords>
+        <pageTitle>statusChanged Function Reference</pageTitle>
+        <pageUrl>transferengine.html#statusChanged</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{dc2f3e9a-9e98-48d7-962f-730ccbc0911a}">
+        <pageWords>transferMethodListChanged function TransferEngine</pageWords>
+        <pageTitle>transferMethodListChanged Function Reference</pageTitle>
+        <pageUrl>transferengine.html#transferMethodListChanged</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{f11e1f81-e42a-4829-bc21-c9a12bf9caa8}">
+        <pageWords>transfersChanged function TransferEngine</pageWords>
+        <pageTitle>transfersChanged Function Reference</pageTitle>
+        <pageUrl>transferengine.html#transfersChanged</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{8f5cf65b-45de-4d87-b173-df73eb5e75d3}">
+        <pageWords>TransferMethodInfo class reference</pageWords>
+        <pageTitle>TransferMethodInfo Class Reference</pageTitle>
+        <pageUrl>transfermethodinfo.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{f486c676-2d7f-4d09-afcf-bd751b428416}">
+        <pageWords>TransferMethodInfoField enum type TransferMethodInfo</pageWords>
+        <pageTitle>TransferMethodInfoField Enum Reference</pageTitle>
+        <pageUrl>transfermethodinfo.html#TransferMethodInfoField-enum</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{5b2e7009-a0fb-4fc7-a2c6-845f59eda6eb}">
+        <pageWords>TransferMethodInfo function TransferMethodInfo</pageWords>
+        <pageTitle>TransferMethodInfo Function Reference</pageTitle>
+        <pageUrl>transfermethodinfo.html#TransferMethodInfo</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{a7c09392-74b9-40e2-ad27-a1451e52127a}">
+        <pageWords>operator= function TransferMethodInfo</pageWords>
+        <pageTitle>operator= Function Reference</pageTitle>
+        <pageUrl>transfermethodinfo.html#operator=</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{8da995b0-06d9-4397-80d5-1da09cd7c882}">
+        <pageWords>TransferMethodInfo function TransferMethodInfo</pageWords>
+        <pageTitle>TransferMethodInfo Function Reference</pageTitle>
+        <pageUrl>transfermethodinfo.html#TransferMethodInfo</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{b06d6b43-434e-4023-ae3d-eb15e2cdadf6}">
+        <pageWords>~TransferMethodInfo function TransferMethodInfo</pageWords>
+        <pageTitle>~TransferMethodInfo Function Reference</pageTitle>
+        <pageUrl>transfermethodinfo.html#~TransferMethodInfo</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{1a9a4067-2f31-4f92-986c-08b904884ab1}">
+        <pageWords>registerType function TransferMethodInfo</pageWords>
+        <pageTitle>registerType Function Reference</pageTitle>
+        <pageUrl>transfermethodinfo.html#registerType</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{81dffc6f-6e3d-4374-bd3e-cfd5bc8a7202}">
+        <pageWords>value function TransferMethodInfo</pageWords>
+        <pageTitle>value Function Reference</pageTitle>
+        <pageUrl>transfermethodinfo.html#value</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{be83250a-5d70-4572-8dd5-3a052e2735c2}">
+        <pageWords>displayName TransferMethodInfo</pageWords>
+        <pageTitle>displayName</pageTitle>
+        <pageUrl>transfermethodinfo.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{dab1e5e7-bd1f-43d3-b0c6-a85a2b596aac}">
+        <pageWords>userName TransferMethodInfo</pageWords>
+        <pageTitle>userName</pageTitle>
+        <pageUrl>transfermethodinfo.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{da469911-7ead-4f88-b09a-c0f5516a2b92}">
+        <pageWords>methodId TransferMethodInfo</pageWords>
+        <pageTitle>methodId</pageTitle>
+        <pageUrl>transfermethodinfo.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{baf69dc6-97f6-41f5-9c2f-9d6f2c86fec8}">
+        <pageWords>shareUIPath TransferMethodInfo</pageWords>
+        <pageTitle>shareUIPath</pageTitle>
+        <pageUrl>transfermethodinfo.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{ccd59f4e-f3ec-4879-ba77-a0f7d771eb2d}">
+        <pageWords>capabilitities TransferMethodInfo</pageWords>
+        <pageTitle>capabilitities</pageTitle>
+        <pageUrl>transfermethodinfo.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{f2bc82ae-0fe9-46fe-bab8-0cba0880d4fe}">
+        <pageWords>accountId TransferMethodInfo</pageWords>
+        <pageTitle>accountId</pageTitle>
+        <pageUrl>transfermethodinfo.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{02608e51-78b8-4fc7-b1c9-0600d546bcd3}">
+        <pageWords>TransferPluginInterface class reference</pageWords>
+        <pageTitle>TransferPluginInterface Class Reference</pageTitle>
+        <pageUrl>transferplugininterface.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{981dff52-479a-4452-958e-99f04668b83b}">
+        <pageWords>transferObject function TransferPluginInterface</pageWords>
+        <pageTitle>transferObject Function Reference</pageTitle>
+        <pageUrl>transferplugininterface.html#transferObject</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{7ed5be19-6856-49f9-8f48-d77e78e01cb9}">
+        <pageWords>infoObject function TransferPluginInterface</pageWords>
+        <pageTitle>infoObject Function Reference</pageTitle>
+        <pageUrl>transferplugininterface.html#infoObject</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{3e0844d4-a960-4738-9dd5-d001292b6ad2}">
+        <pageWords>pluginId function TransferPluginInterface</pageWords>
+        <pageTitle>pluginId Function Reference</pageTitle>
+        <pageUrl>transferplugininterface.html#pluginId</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{f1bdb01a-ef9c-469b-8e88-14731a71203a}">
+        <pageWords>enabled function TransferPluginInterface</pageWords>
+        <pageTitle>enabled Function Reference</pageTitle>
+        <pageUrl>transferplugininterface.html#enabled</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{b71415fa-7c47-481d-a17f-b834cb9dbbcc}">
+        <pageWords>TransferDBRecord class reference</pageWords>
+        <pageTitle>TransferDBRecord Class Reference</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{f079830c-e084-4ddf-aff0-3a9a6d8fab53}">
+        <pageWords>TransferDBRecordField enum type TransferDBRecord</pageWords>
+        <pageTitle>TransferDBRecordField Enum Reference</pageTitle>
+        <pageUrl>transferdbrecord.html#TransferDBRecordField-enum</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{ee2e1139-e87a-45db-878c-95fbb3a0e23d}">
+        <pageWords>TransferDBRecord function TransferDBRecord</pageWords>
+        <pageTitle>TransferDBRecord Function Reference</pageTitle>
+        <pageUrl>transferdbrecord.html#TransferDBRecord</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{a3b9a280-ba0f-4d4b-97b3-21dea2b99706}">
+        <pageWords>operator= function TransferDBRecord</pageWords>
+        <pageTitle>operator= Function Reference</pageTitle>
+        <pageUrl>transferdbrecord.html#operator=</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{34e6eae3-9e46-4bbc-b1bb-925a1d63383e}">
+        <pageWords>TransferDBRecord function TransferDBRecord</pageWords>
+        <pageTitle>TransferDBRecord Function Reference</pageTitle>
+        <pageUrl>transferdbrecord.html#TransferDBRecord</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{41580a9e-e211-415f-b1c8-1c584cc4aaef}">
+        <pageWords>~TransferDBRecord function TransferDBRecord</pageWords>
+        <pageTitle>~TransferDBRecord Function Reference</pageTitle>
+        <pageUrl>transferdbrecord.html#~TransferDBRecord</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{c1de6327-22bf-4c5a-8311-e985f0205845}">
+        <pageWords>registerType function TransferDBRecord</pageWords>
+        <pageTitle>registerType Function Reference</pageTitle>
+        <pageUrl>transferdbrecord.html#registerType</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{1b503256-c487-4baf-aaa6-65c48f78275d}">
+        <pageWords>value function TransferDBRecord</pageWords>
+        <pageTitle>value Function Reference</pageTitle>
+        <pageUrl>transferdbrecord.html#value</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{271dece9-66cf-416f-91cf-177c93eb59a5}">
+        <pageWords>transfer_id TransferDBRecord</pageWords>
+        <pageTitle>transfer_id</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{29a09989-59eb-4b3f-86da-a74fa24a8d52}">
+        <pageWords>transfer_type TransferDBRecord</pageWords>
+        <pageTitle>transfer_type</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{fd74867c-fd47-4ee1-8426-03549436f069}">
+        <pageWords>status TransferDBRecord</pageWords>
+        <pageTitle>status</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{e84667d6-f7e9-4af8-bce6-3607a33ec864}">
+        <pageWords>size TransferDBRecord</pageWords>
+        <pageTitle>size</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{4ec5ce90-429d-4411-802e-70fcdffe4428}">
+        <pageWords>progress TransferDBRecord</pageWords>
+        <pageTitle>progress</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{5bf18bc9-39f3-4bae-a830-46bbf3de1e80}">
+        <pageWords>plugin_id TransferDBRecord</pageWords>
+        <pageTitle>plugin_id</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{098eaed0-e22b-4b11-b81f-7b1f13af2f4b}">
+        <pageWords>url TransferDBRecord</pageWords>
+        <pageTitle>url</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{d1f1a8eb-a208-4b4e-bf79-180f01c1a4f9}">
+        <pageWords>timestamp TransferDBRecord</pageWords>
+        <pageTitle>timestamp</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{0749f51f-1d2b-496f-b17d-e94545138f9c}">
+        <pageWords>display_name TransferDBRecord</pageWords>
+        <pageTitle>display_name</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{af2ae480-cb7e-48e4-b464-30d230c7b72b}">
+        <pageWords>resource_name TransferDBRecord</pageWords>
+        <pageTitle>resource_name</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{9bcb1df9-a255-4473-9060-22fd0b48d32b}">
+        <pageWords>mime_type TransferDBRecord</pageWords>
+        <pageTitle>mime_type</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{996a0ddd-e18f-417a-90fd-a6cc83322908}">
+        <pageWords>service_icon TransferDBRecord</pageWords>
+        <pageTitle>service_icon</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{cb3a98d9-440b-42c9-9540-866a85d2d63a}">
+        <pageWords>application_icon TransferDBRecord</pageWords>
+        <pageTitle>application_icon</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{616171e7-dfc8-4c76-9b8d-0d0bdfd50279}">
+        <pageWords>thumbnail_icon TransferDBRecord</pageWords>
+        <pageTitle>thumbnail_icon</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{947d6fbf-5edc-4b4c-b2de-d970938c28ba}">
+        <pageWords>cancel_supported TransferDBRecord</pageWords>
+        <pageTitle>cancel_supported</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{950df11d-19be-4d95-b3f8-90fd1fbcce80}">
+        <pageWords>restart_supported TransferDBRecord</pageWords>
+        <pageTitle>restart_supported</pageTitle>
+        <pageUrl>transferdbrecord.html</pageUrl>
+        <pageType>APIPage</pageType>
+    </page>
+    <page id="{d6f3998a-acf3-41fa-8609-14c7326af963}">
+        <pageWords>Nemo Transfer Engine</pageWords>
+        <pageTitle>Nemo Transfer Engine</pageTitle>
+        <pageUrl>index.html</pageUrl>
+        <pageType>Article</pageType>
+    </page>
+    <page id="{6a8b70bc-f5bd-42e7-b309-1113863f815c}">
+        <pageWords>Nemo Transfer Engine Nemo Transfer Engine API</pageWords>
+        <pageTitle>Nemo Transfer Engine API</pageTitle>
+        <pageUrl>index.html#nemo-transfer-engine-api</pageUrl>
+        <pageType>Article</pageType>
+    </page>
+    <page id="{7c162191-7e9a-4994-b892-434716289420}">
+        <pageWords>Nemo Transfer Engine Share Plugin API</pageWords>
+        <pageTitle>Share Plugin API</pageTitle>
+        <pageUrl>index.html#share-plugin-api</pageUrl>
+        <pageType>Article</pageType>
+    </page>
+    <page id="{78593773-4bac-411e-93db-084e0769826e}">
+        <pageWords>Nemo Transfer Engine Client API</pageWords>
+        <pageTitle>Client API</pageTitle>
+        <pageUrl>index.html#client-api</pageUrl>
+        <pageType>Article</pageType>
+    </page>
+</qtPageIndex>

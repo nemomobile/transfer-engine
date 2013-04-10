@@ -1,0 +1,19 @@
+Nemo Transfer Engine
+
+Simple engine for keeping track of transfers (sync, download, upload) and providing plugin mechanism for 
+share plugins.
+
+Transfer engine provides D-Bus API for managing the database and querying transfer information.
+
+Building:
+
+qmake
+make
+
+Generating Docs:
+make sure qdoc3 is installed and run:
+
+make docs
+
+
+

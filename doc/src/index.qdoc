@@ -1,0 +1,90 @@
+/****************************************************************************************
+**
+** Copyright (C) 2013 Jolla Ltd.
+** Contact: Marko Mattila <marko.mattila@jollamobile.com>
+** All rights reserved.
+**
+** This file is part of Nemo Transfer Engine package.
+**
+** You may use this file under the terms of BSD license as follows:
+**
+** Redistribution and use in source and binary forms, with or without
+** modification, are permitted provided that the following conditions are met:
+**     * Redistributions of source code must retain the above copyright
+**       notice, this list of conditions and the following disclaimer.
+**     * Redistributions in binary form must reproduce the above copyright
+**       notice, this list of conditions and the following disclaimer in the
+**       documentation and/or other materials provided with the distribution.
+**     * Neither the name of the Jolla Ltd nor the
+**       names of its contributors may be used to endorse or promote products
+**       derived from this software without specific prior written permission.
+**
+** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+** ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+** WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+** DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE FOR
+** ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+** (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+** LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+** ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+**
+****************************************************************************************/
+
+/*!
+\contentspage {Nemo Transfer Engine Contents}
+\page index.html
+
+\title Nemo Transfer Engine
+
+The Nemo Transfer Engine is a daemon process which takes care of tracking sharing, sync and downloads.
+In addition to just tracking those operations, it provides an API to create new share plugins and different
+functionality related these operations.The Nemo Transfer Engine doesn't provide any UI components, but the
+plugin interface expects sharing UIs to be written as QML.
+
+The Nemo Transfer Engine can be understood as a front end to the database which contain all the information
+about sharing, syncs and downloads. For syncs and downloads it acts only as storage manager so clients can
+use Nemo Transfer Engine client API to create and update sync and download events. For sharing, Nemo Transfer
+Engine provides own API and supports share plugins.
+
+See TransferEngine DbManager
+
+
+\section2 Nemo Transfer Engine API
+
+The API can be divided in two different parts: the share plugin API and the client API.
+
+\section3 Share Plugin API
+
+Share plugin is a Qt plugin, which must be implemented using C++ interfaces defined by Nemo Transfer Engine.
+The plugins must be installed to the specific location where Nemo Transfer Engine loads them. The actual
+share functionality implementation depends on the client e.g. if it's HW specific like NFC or online service
+such as Facebook. Each plugin must implement or use the following interface:
+
+\list
+    \o \l {TransferPluginInterface} Share plugin must implement this interface
+    \o \l {MediaTransferInterface} Share plugin must implement this interface
+    \o \l {TransferPluginInfo} Share plugin must provide information about plugin using this class
+    \o \l {TransferMethodInfo} Share plugin must provide information about e.g. accounts using this class
+\endlist
+
+\section3 Client API
+
+Client API can also be divided in two sections: full features DBus API and TransferEngineClient Interface.
+The first one supports all the features Nemo Transfer Engine provides and makes possible to implement for
+example Transfer UI and client side sharing interface on top of it. The TransferEngineClient is meant to
+be used by clients who want to inform Nemo Transfer Engine of ongoing Sync or Downloads.
+
+\list
+    \o DBus API - see org.nemomobile.transferengine.xml. For the client side it will generate TransferEngineInterface
+    class which can be used directly.
+    \o TransferEngineClient - The convenience API to create Sync and Download events.
+\endlist
+
+\section3 Reference
+\list
+    \o \l {Nemo Transfer Engine Reference}
+\endlist
+
+*/

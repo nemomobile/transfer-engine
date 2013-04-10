@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QtHelpProject version="1.0">
+    <namespace>Transfer.Engine.100</namespace>
+    <virtualFolder>transferengine</virtualFolder>
+    <customFilter name="Nemo TransferEngine 1.0.0">
+        <filterAttribute>1.0.0</filterAttribute>
+        <filterAttribute>transferengine</filterAttribute>
+    </customFilter>
+    <filterSection>
+        <filterAttribute>1.0.0</filterAttribute>
+        <filterAttribute>transferengine</filterAttribute>
+        <toc>
+            <section ref="index.html" title="Nemo Transfer Engine Reference Documentation"/>
+        </toc>
+        <keywords>
+            <keyword name="CallbackInterface" id="CallbackInterface" ref="callbackinterface.html"/>
+            <keyword name="~CallbackInterface" id="CallbackInterface::~CallbackInterface" ref="callbackinterface.html#dtor.CallbackInterface"/>
+            <keyword name="DbManager" id="DbManager" ref="dbmanager.html"/>
+            <keyword name="callback" id="DbManager::callback" ref="dbmanager.html#callback"/>
+            <keyword name="callbackMethods" id="DbManager::callbackMethods" ref="dbmanager.html#callbackMethods"/>
+            <keyword name="clearTransfers" id="DbManager::clearTransfers" ref="dbmanager.html#clearTransfers"/>
+            <keyword name="createCallbackEntry" id="DbManager::createCallbackEntry" ref="dbmanager.html#createCallbackEntry"/>
+            <keyword name="createMetadataEntry" id="DbManager::createMetadataEntry" ref="dbmanager.html#createMetadataEntry"/>
+            <keyword name="createTransferEntry" id="DbManager::createTransferEntry" ref="dbmanager.html#createTransferEntry"/>
+            <keyword name="instance" id="DbManager::instance" ref="dbmanager.html#instance"/>
+            <keyword name="mediaItem" id="DbManager::mediaItem" ref="dbmanager.html#mediaItem"/>
+            <keyword name="removeTransfer" id="DbManager::removeTransfer" ref="dbmanager.html#removeTransfer"/>
+            <keyword name="transferStatus" id="DbManager::transferStatus" ref="dbmanager.html#transferStatus"/>
+            <keyword name="transferType" id="DbManager::transferType" ref="dbmanager.html#transferType"/>
+            <keyword name="transfers" id="DbManager::transfers" ref="dbmanager.html#transfers"/>
+            <keyword name="updateProgress" id="DbManager::updateProgress" ref="dbmanager.html#updateProgress"/>
+            <keyword name="updateTransferStatus" id="DbManager::updateTransferStatus" ref="dbmanager.html#updateTransferStatus"/>
+            <keyword name="~DbManager" id="DbManager::~DbManager" ref="dbmanager.html#dtor.DbManager"/>
+            <keyword name="ImageOperation" id="ImageOperation" ref="imageoperation.html"/>
+            <keyword name="removeImageMetadata" id="ImageOperation::removeImageMetadata" ref="imageoperation.html#removeImageMetadata"/>
+            <keyword name="scaleImage" id="ImageOperation::scaleImage" ref="imageoperation.html#scaleImage"/>
+            <keyword name="tempFilePath" id="ImageOperation::tempFilePath" ref="imageoperation.html#tempFilePath"/>
+            <keyword name="Nemo Transfer Engine" id="Nemo Transfer Engine" ref="index.html"/>
+            <keyword name="TransferDBRecord" id="TransferDBRecord" ref="transferdbrecord.html"/>
+            <keyword name="TransferDBRecord::TransferDBRecordField" id="TransferDBRecord::TransferDBRecordField" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::TransferID" id="TransferDBRecord::TransferID" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::TransferType" id="TransferDBRecord::TransferType" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::Progress" id="TransferDBRecord::Progress" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::URL" id="TransferDBRecord::URL" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::Status" id="TransferDBRecord::Status" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::PluginID" id="TransferDBRecord::PluginID" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::Timestamp" id="TransferDBRecord::Timestamp" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::DisplayName" id="TransferDBRecord::DisplayName" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::ResourceName" id="TransferDBRecord::ResourceName" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::MimeType" id="TransferDBRecord::MimeType" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::FileSize" id="TransferDBRecord::FileSize" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::ServiceIcon" id="TransferDBRecord::ServiceIcon" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::ApplicationIcon" id="TransferDBRecord::ApplicationIcon" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::ThumbnailIcon" id="TransferDBRecord::ThumbnailIcon" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::CancelSupported" id="TransferDBRecord::CancelSupported" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="TransferDBRecord::RestartSupported" id="TransferDBRecord::RestartSupported" ref="transferdbrecord.html#TransferDBRecordField-enum"/>
+            <keyword name="application_icon" id="TransferDBRecord::application_icon" ref="transferdbrecord.html#application_icon-var"/>
+            <keyword name="cancel_supported" id="TransferDBRecord::cancel_supported" ref="transferdbrecord.html#cancel_supported-var"/>
+            <keyword name="display_name" id="TransferDBRecord::display_name" ref="transferdbrecord.html#display_name-var"/>
+            <keyword name="mime_type" id="TransferDBRecord::mime_type" ref="transferdbrecord.html#mime_type-var"/>
+            <keyword name="operator=" id="TransferDBRecord::operator=" ref="transferdbrecord.html#operator-eq"/>
+            <keyword name="plugin_id" id="TransferDBRecord::plugin_id" ref="transferdbrecord.html#plugin_id-var"/>
+            <keyword name="progress" id="TransferDBRecord::progress" ref="transferdbrecord.html#progress-var"/>
+            <keyword name="registerType" id="TransferDBRecord::registerType" ref="transferdbrecord.html#registerType"/>
+            <keyword name="resource_name" id="TransferDBRecord::resource_name" ref="transferdbrecord.html#resource_name-var"/>
+            <keyword name="restart_supported" id="TransferDBRecord::restart_supported" ref="transferdbrecord.html#restart_supported-var"/>
+            <keyword name="service_icon" id="TransferDBRecord::service_icon" ref="transferdbrecord.html#service_icon-var"/>
+            <keyword name="size" id="TransferDBRecord::size" ref="transferdbrecord.html#size-var"/>
+            <keyword name="status" id="TransferDBRecord::status" ref="transferdbrecord.html#status-var"/>
+            <keyword name="thumbnail_icon" id="TransferDBRecord::thumbnail_icon" ref="transferdbrecord.html#thumbnail_icon-var"/>
+            <keyword name="timestamp" id="TransferDBRecord::timestamp" ref="transferdbrecord.html#timestamp-var"/>
+            <keyword name="transfer_id" id="TransferDBRecord::transfer_id" ref="transferdbrecord.html#transfer_id-var"/>
+            <keyword name="transfer_type" id="TransferDBRecord::transfer_type" ref="transferdbrecord.html#transfer_type-var"/>
+            <keyword name="url" id="TransferDBRecord::url" ref="transferdbrecord.html#url-var"/>
+            <keyword name="value" id="TransferDBRecord::value" ref="transferdbrecord.html#value"/>
+            <keyword name="~TransferDBRecord" id="TransferDBRecord::~TransferDBRecord" ref="transferdbrecord.html#dtor.TransferDBRecord"/>
+            <keyword name="TransferEngine" id="TransferEngine" ref="transferengine.html"/>
+            <keyword name="cancelTransfer" id="TransferEngine::cancelTransfer" ref="transferengine.html#cancelTransfer"/>
+            <keyword name="clearTransfers" id="TransferEngine::clearTransfers" ref="transferengine.html#clearTransfers"/>
+            <keyword name="createDownload" id="TransferEngine::createDownload" ref="transferengine.html#createDownload"/>
+            <keyword name="createSync" id="TransferEngine::createSync" ref="transferengine.html#createSync"/>
+            <keyword name="enableNotifications" id="TransferEngine::enableNotifications" ref="transferengine.html#enableNotifications"/>
+            <keyword name="finishTransfer" id="TransferEngine::finishTransfer" ref="transferengine.html#finishTransfer"/>
+            <keyword name="notificationsEnabled" id="TransferEngine::notificationsEnabled" ref="transferengine.html#notificationsEnabled"/>
+            <keyword name="progressChanged" id="TransferEngine::progressChanged" ref="transferengine.html#progressChanged"/>
+            <keyword name="restartTransfer" id="TransferEngine::restartTransfer" ref="transferengine.html#restartTransfer"/>
+            <keyword name="startTransfer" id="TransferEngine::startTransfer" ref="transferengine.html#startTransfer"/>
+            <keyword name="statusChanged" id="TransferEngine::statusChanged" ref="transferengine.html#statusChanged"/>
+            <keyword name="transferMethodListChanged" id="TransferEngine::transferMethodListChanged" ref="transferengine.html#transferMethodListChanged"/>
+            <keyword name="transferMethods" id="TransferEngine::transferMethods" ref="transferengine.html#transferMethods"/>
+            <keyword name="transfers" id="TransferEngine::transfers" ref="transferengine.html#transfers"/>
+            <keyword name="transfersChanged" id="TransferEngine::transfersChanged" ref="transferengine.html#transfersChanged"/>
+            <keyword name="updateTransferProgress" id="TransferEngine::updateTransferProgress" ref="transferengine.html#updateTransferProgress"/>
+            <keyword name="uploadMediaItem" id="TransferEngine::uploadMediaItem" ref="transferengine.html#uploadMediaItem"/>
+            <keyword name="uploadMediaItemContent" id="TransferEngine::uploadMediaItemContent" ref="transferengine.html#uploadMediaItemContent"/>
+            <keyword name="~TransferEngine" id="TransferEngine::~TransferEngine" ref="transferengine.html#dtor.TransferEngine"/>
+            <keyword name="TransferEngineClient" id="TransferEngineClient" ref="transferengineclient.html"/>
+            <keyword name="TransferEngineClient::Status" id="TransferEngineClient::Status" ref="transferengineclient.html#Status-enum"/>
+            <keyword name="TransferEngineClient::TransferFinished" id="TransferEngineClient::TransferFinished" ref="transferengineclient.html#Status-enum"/>
+            <keyword name="TransferEngineClient::TransferCanceled" id="TransferEngineClient::TransferCanceled" ref="transferengineclient.html#Status-enum"/>
+            <keyword name="TransferEngineClient::TransferInterrupted" id="TransferEngineClient::TransferInterrupted" ref="transferengineclient.html#Status-enum"/>
+            <keyword name="createDownloadEvent" id="TransferEngineClient::createDownloadEvent" ref="transferengineclient.html#createDownloadEvent"/>
+            <keyword name="createSyncEvent" id="TransferEngineClient::createSyncEvent" ref="transferengineclient.html#createSyncEvent"/>
+            <keyword name="finishTransfer" id="TransferEngineClient::finishTransfer" ref="transferengineclient.html#finishTransfer"/>
+            <keyword name="startTransfer" id="TransferEngineClient::startTransfer" ref="transferengineclient.html#startTransfer"/>
+            <keyword name="updateTransferProgress" id="TransferEngineClient::updateTransferProgress" ref="transferengineclient.html#updateTransferProgress"/>
+            <keyword name="~TransferEngineClient" id="TransferEngineClient::~TransferEngineClient" ref="transferengineclient.html#dtor.TransferEngineClient"/>
+            <keyword name="TransferMethodInfo" id="TransferMethodInfo" ref="transfermethodinfo.html"/>
+            <keyword name="TransferMethodInfo::TransferMethodInfoField" id="TransferMethodInfo::TransferMethodInfoField" ref="transfermethodinfo.html#TransferMethodInfoField-enum"/>
+            <keyword name="TransferMethodInfo::DisplayName" id="TransferMethodInfo::DisplayName" ref="transfermethodinfo.html#TransferMethodInfoField-enum"/>
+            <keyword name="TransferMethodInfo::UserName" id="TransferMethodInfo::UserName" ref="transfermethodinfo.html#TransferMethodInfoField-enum"/>
+            <keyword name="TransferMethodInfo::MethodId" id="TransferMethodInfo::MethodId" ref="transfermethodinfo.html#TransferMethodInfoField-enum"/>
+            <keyword name="TransferMethodInfo::AccountId" id="TransferMethodInfo::AccountId" ref="transfermethodinfo.html#TransferMethodInfoField-enum"/>
+            <keyword name="TransferMethodInfo::ShareUIPath" id="TransferMethodInfo::ShareUIPath" ref="transfermethodinfo.html#TransferMethodInfoField-enum"/>
+            <keyword name="TransferMethodInfo::Capabilities" id="TransferMethodInfo::Capabilities" ref="transfermethodinfo.html#TransferMethodInfoField-enum"/>
+            <keyword name="accountId" id="TransferMethodInfo::accountId" ref="transfermethodinfo.html#accountId-var"/>
+            <keyword name="capabilitities" id="TransferMethodInfo::capabilitities" ref="transfermethodinfo.html#capabilitities-var"/>
+            <keyword name="displayName" id="TransferMethodInfo::displayName" ref="transfermethodinfo.html#displayName-var"/>
+            <keyword name="methodId" id="TransferMethodInfo::methodId" ref="transfermethodinfo.html#methodId-var"/>
+            <keyword name="operator=" id="TransferMethodInfo::operator=" ref="transfermethodinfo.html#operator-eq"/>
+            <keyword name="registerType" id="TransferMethodInfo::registerType" ref="transfermethodinfo.html#registerType"/>
+            <keyword name="shareUIPath" id="TransferMethodInfo::shareUIPath" ref="transfermethodinfo.html#shareUIPath-var"/>
+            <keyword name="userName" id="TransferMethodInfo::userName" ref="transfermethodinfo.html#userName-var"/>
+            <keyword name="value" id="TransferMethodInfo::value" ref="transfermethodinfo.html#value"/>
+            <keyword name="~TransferMethodInfo" id="TransferMethodInfo::~TransferMethodInfo" ref="transfermethodinfo.html#dtor.TransferMethodInfo"/>
+            <keyword name="TransferPluginInterface" id="TransferPluginInterface" ref="transferplugininterface.html"/>
+            <keyword name="enabled" id="TransferPluginInterface::enabled" ref="transferplugininterface.html#enabled"/>
+            <keyword name="infoObject" id="TransferPluginInterface::infoObject" ref="transferplugininterface.html#infoObject"/>
+            <keyword name="pluginId" id="TransferPluginInterface::pluginId" ref="transferplugininterface.html#pluginId"/>
+            <keyword name="transferObject" id="TransferPluginInterface::transferObject" ref="transferplugininterface.html#transferObject"/>
+        </keywords>
+        <files>
+            <file>transferengineclient.html</file>
+            <file>transferdbrecord.html</file>
+            <file>imageoperation.html</file>
+            <file>index.html</file>
+            <file>transferengine.html</file>
+            <file>transfermethodinfo.html</file>
+            <file>transferplugininterface.html</file>
+            <file>callbackinterface.html</file>
+            <file>dbmanager.html</file>
+        </files>
+    </filterSection>
+</QtHelpProject>

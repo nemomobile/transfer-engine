@@ -24,7 +24,7 @@ BuildRequires: pkgconfig(quillmetadata)
 %{_bindir}/nemo-transfer-engine
 %{_datadir}/dbus-1/services/org.nemo.transferengine.service
 %{_datadir}/translations/nemo-transfer-engine_eng_en.qm
-/home/nemo/.config/nemomobile/*.conf
+
 
 
 %package -n nemo-transferengine-devel
@@ -104,9 +104,6 @@ if [ -n "%{te_pid}" ]
 then
     kill -s 10 %{te_pid}
 fi
-
-chown nemo:nemo -R /home/%{def_user}/.config/nemomobile
-chmod u+rw -R /home/%{def_user}/.config/nemomobile
 
 exit 0
 

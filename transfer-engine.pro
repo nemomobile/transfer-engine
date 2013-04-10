@@ -10,8 +10,3 @@ OTHER_FILES += \
     doc/src/* \
     doc/config/*
 
-
-config.files = nemo-transfer-engine.conf
-config.path = /home/nemo/.config/nemomobile
-
-INSTALLS += config

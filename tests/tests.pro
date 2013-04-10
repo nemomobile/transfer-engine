@@ -1,4 +1,5 @@
 TEMPLATE = app
+TARGET = ut_nemo-transfer-engine
 DEPENDPATH += .
 INCLUDEPATH += . ../src ../lib
 
@@ -30,8 +31,11 @@ LIBS += -lquillmetadata
 QT += testlib
 
 PATH = /opt/tests/nemo-transfer-engine
-resources.files = testimage.jpg
-resources.path = $$PATH
+
+test_def.files = tests.xml
+test_def.path = $$PATH
+resources.files = images/testimage.jpg
+resources.path = $$PATH/images
 target.path = $$PATH
 
-INSTALLS += target resources
+INSTALLS += target resources test_def

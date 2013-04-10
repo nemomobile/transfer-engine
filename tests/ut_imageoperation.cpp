@@ -95,10 +95,10 @@ void ut_imageoperation::testUniqueFilePath()
 void ut_imageoperation::testScale()
 {
 
-    QImage img("testimage.jpg");
+    QImage img("images/testimage.jpg");
     QVERIFY(!img.isNull());
 
-    QString filePath("testimage.jpg");
+    QString filePath("images/testimage.jpg");
 
     QString target = ImageOperation::uniqueFilePath(filePath);
 
@@ -136,8 +136,8 @@ void ut_imageoperation::testDropMetadata()
     // title description, but it contains the most essential fields related
     // to location and the author.
     // First make sure that there is metadata
-    QCOMPARE(QuillMetadata::canRead("testimage.jpg"), true);
-    QuillMetadata md("testimage.jpg");
+    QCOMPARE(QuillMetadata::canRead("images/testimage.jpg"), true);
+    QuillMetadata md("images/testimage.jpg");
     QCOMPARE(md.isValid(), true);
 
     QVariant creator = md.entry(QuillMetadata::Tag_Creator);
@@ -155,7 +155,7 @@ void ut_imageoperation::testDropMetadata()
     QCOMPARE(lat.isNull(), false);
     QCOMPARE(lon.isNull(), false);
 
-    QString path = ImageOperation::removeImageMetadata("testimage.jpg");
+    QString path = ImageOperation::removeImageMetadata("images/testimage.jpg");
     QVERIFY(!path.isNull());
     QCOMPARE(QFile::exists(path), true);
 

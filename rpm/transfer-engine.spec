@@ -76,7 +76,7 @@ Documentation for Nemo TransferEngine
 
 %files doc
 %defattr(-,root,root,-)
-/usr/share/doc/nemo-transfer-engine/*
+%{_datadir}/doc/nemo-transferengine/*
 
 
 
@@ -94,6 +94,9 @@ make docs
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{_datadir}/nemo-transferengine
 %qmake_install
+
+mkdir -p %{buildroot}/%{_docdir}/%{name}
+cp -R doc/html/* %{buildroot}/%{_docdir}/%{name}/
 
 %define def_uid $(grep "^UID_MIN" /etc/login.defs |  tr -s " " | cut -d " " -f2)
 %define def_user $(getent passwd %def_uid | sed 's/:.*//')

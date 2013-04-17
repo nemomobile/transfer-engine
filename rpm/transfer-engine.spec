@@ -20,6 +20,7 @@ BuildRequires: qt-devel-tools
 
 %files
 %defattr(-,root,root,-)
+%dir %{_datadir}/nemo-transferengine
 %{_libdir}/*.so*
 %{_bindir}/nemo-transfer-engine
 %{_datadir}/dbus-1/services/org.nemo.transferengine.service
@@ -91,6 +92,7 @@ make docs
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/%{_datadir}/nemo-transferengine
 %qmake_install
 
 %define def_uid $(grep "^UID_MIN" /etc/login.defs |  tr -s " " | cut -d " " -f2)

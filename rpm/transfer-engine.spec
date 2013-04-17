@@ -1,5 +1,5 @@
 Name: nemo-transferengine
-Version: 0.0.14
+Version: 0.0.15
 Release: 0
 Summary: Transfer Engine for uploading media content and tracking transfers.
 Group: System Environment/Daemon

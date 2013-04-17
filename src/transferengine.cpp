@@ -46,6 +46,7 @@
 #include <signal.h>
 
 #define SHARE_PLUGINS_PATH "/usr/lib/nemo-transferengine/plugins"
+#define CONFIG_PATH "/usr/share/nemo-transferengine/nemo-transfer-engine.conf"
 #define FILE_WATCHER_TIMEOUT 5000
 
 
@@ -74,6 +75,7 @@ TransferEngineSignalHandler::TransferEngineSignalHandler()
 
 TransferEnginePrivate::TransferEnginePrivate(TransferEngine *parent):
     m_notificationsEnabled(true),
+    m_settings(CONFIG_PATH, QSettings::IniFormat),
     q_ptr(parent)
 {
     m_fileWatcherTimer = new QTimer(this);

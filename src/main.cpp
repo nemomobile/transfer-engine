@@ -33,8 +33,6 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
-    QCoreApplication::setOrganizationName("nemomobile");
-    QCoreApplication::setApplicationName("nemo-transfer-engine");
 
     QString translationPath("/usr/share/translations/");
     QTranslator engineeringEnglish;

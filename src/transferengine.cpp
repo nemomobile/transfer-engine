@@ -217,6 +217,14 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
     QString eventType;
     bool bannerOnly = false;
 
+    QList<MNotification*> nList = MNotification::notifications();
+    QMultiMap <QString, MNotification*> nMap;
+
+    // Get the existing notifications and sort them based on their event types
+    foreach(MNotification *n, nList) {
+        nMap.insert(n->eventType(), n);
+    }
+
     if (status == TransferEngineData::TransferFinished) {
         switch(type) {
         case TransferEngineData::Upload:
@@ -228,13 +236,14 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
             bannerOnly = true;
             break;
         case TransferEngineData::Download:
+            eventType = MNotification::TransferCompleteEvent;
             //: Notification for successful file download
             //% "File downloaded"
             msgNBody = qtTrId("transferengine-no-file-download-success");
             //: NotificationGroup summary for successful download
-            //% "%1 file(s) downloaded"
-            msgGSummary = qtTrId("%1 file(s) downloaded");
-            eventType = MNotification::TransferCompleteEvent;
+            //% "%n file(s) downloaded"
+            msgGSummary = qtTrId("transferengine-no-number-of-downloads",
+                                 nMap.values(eventType).count() + 1);
             break;
         case TransferEngineData::Sync:
             // Ok exit
@@ -245,34 +254,39 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
         }
     } else {
     if (status == TransferEngineData::TransferInterrupted) {
+        eventType = MNotification::TransferErrorEvent;
+
         switch (type) {
         case TransferEngineData::Upload:
             //: Notification for failed file upload
             //% "Upload failed!"
             msgNBody = qtTrId("transferengine-no-file-upload-failure");
-            //% "%1 upload(s) failed"
-            msgGSummary = qtTrId("%1 file upload(s) failed");
+            //% "%n upload(s) failed"
+            msgGSummary = qtTrId("transferengine-no-number-of-upload-failures",
+                                 nMap.values(eventType).count() + 1);
             break;
         case TransferEngineData::Download:
-            //: Notification for successful file download
+            //: Notification for failed file download
             //% "Download failed!"
             msgNBody = qtTrId("transferengine-no-file-download-failure");
-            //% "%1 download(s) failed"
-            msgGSummary = qtTrId("%1 download(s) failed");
+            //% "%n download(s) failed"
+            msgGSummary = qtTrId("transferengine-no-number-of-download-failures",
+                                 nMap.values(eventType).count() + 1);
             break;
         case TransferEngineData::Sync:
             //: Notification for sync failure
             //% "Sync failed!"
             msgNBody = qtTrId("transferengine-no-sync-failure");
-            //% "%1 sync(s) failed"
-            msgGSummary = qtTrId("%1 sync(s) failed");
+            //% "%n sync(s) failed"
+            msgGSummary = qtTrId("transferengine-no-number-of-sync-failures",
+                                 nMap.values(eventType).count() + 1);
             break;
         default:
             qWarning() << "TransferEnginePrivate::sendNotification: unknown state";
             return;
         }
 
-        eventType = MNotification::TransferErrorEvent;
+
     } else {
     if (status == TransferEngineData::TransferCanceled) {
         // Exit, no banners or events when user has canceled a transfer
@@ -290,10 +304,6 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
     // - For failed uploads, downloads and syncs
     //
     // Use grouping always
-    //
-    // TODO: Add MRemoteAction for e.g. opening a file.
-    //      - Open a file, when there is only a one notification in that group
-    //      - Open The Settings with Transfer UI when there are more than one notifications
     if (!(msgNBody.isEmpty() && eventType.isEmpty())) {
         // First create the notification
         MNotification notification(eventType);
@@ -301,16 +311,6 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
         notification.setBody(msgNBody);
         notification.setImage("icon-l-share");
 
-        QList<MNotification*> nList = MNotification::notifications();
-        QMultiMap <QString, MNotification*> nMap;
-
-        // Get the existing notifications and sort them based on their event types
-        foreach(MNotification *n, nList) {
-            nMap.insert(n->eventType(), n);
-        }
-
-        // Get the number of existing events of this same type + this event
-        const int eventCount = nMap.values(eventType).count() + 1;
 
         // Check if we have existing group and use that instead of creating a new one.
         QList<MNotificationGroup*> groups = MNotificationGroup::notificationGroups();
@@ -337,7 +337,7 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
             group->setSummary(QString());
         } else {
             // This is the summary text which is shown when notifications are grouped
-            group->setSummary(msgGSummary.arg(eventCount));
+            group->setSummary(msgGSummary);
             group->setBody(fileName);
         }
 

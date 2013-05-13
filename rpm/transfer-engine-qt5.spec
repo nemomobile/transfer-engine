@@ -80,7 +80,7 @@ Documentation for Nemo TransferEngine
 
 %files doc
 %defattr(-,root,root,-)
-%{_datadir}/doc/nemo-transferengine/*
+%{_datadir}/doc/nemo-transferengine-qt5/*
 
 
 
@@ -96,7 +96,7 @@ make docs
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/%{_datadir}/nemo-transferengine
+mkdir -p %{buildroot}/%{_datadir}/nemo-transferengine-qt5
 %qmake5_install
 
 mkdir -p %{buildroot}/%{_docdir}/%{name}

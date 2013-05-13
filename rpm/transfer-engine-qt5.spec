@@ -43,7 +43,7 @@ Requires: nemo-transferengine = %{version}
 %files devel
 %defattr(-,root,root,-)
 %{_includedir}/TransferEngine-qt5/*.h
-%{_qt_datadir}/mkspecs/features/nemotransferengine-plugin.prf
+%{_datadir}/qt5/mkspecs/features/nemotransferengine-plugin.prf
 %{_libdir}/pkgconfig/nemotransferengine-qt5.pc
 
 %package ts-devel

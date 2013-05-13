@@ -21,7 +21,7 @@ BuildRequires: qt-devel-tools
 %files
 %defattr(-,root,root,-)
 %dir %{_datadir}/nemo-transferengine
-%{_libdir}/*.so*
+%{_libdir}/*.so.*
 %{_bindir}/nemo-transfer-engine
 %{_datadir}/dbus-1/services/org.nemo.transferengine.service
 %{_datadir}/translations/nemo-transfer-engine_eng_en.qm
@@ -38,6 +38,7 @@ Requires: nemo-transferengine = %{version}
 
 %files -n nemo-transferengine-devel
 %defattr(-,root,root,-)
+%{_libdir}/*.so
 %{_includedir}/TransferEngine/*.h
 %{_qt_datadir}/mkspecs/features/nemotransferengine-plugin.prf
 %{_libdir}/pkgconfig/nemotransferengine.pc

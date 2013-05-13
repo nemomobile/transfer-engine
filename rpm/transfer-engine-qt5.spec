@@ -25,7 +25,7 @@ BuildRequires: qt5-plugin-sqldriver-sqlite
 %files
 %defattr(-,root,root,-)
 %dir %{_datadir}/nemo-transferengine
-%{_libdir}/*.so*
+%{_libdir}/*.so.*
 %{_bindir}/nemo-transfer-engine
 %{_datadir}/dbus-1/services/org.nemo.transferengine.service
 %{_datadir}/translations/nemo-transfer-engine_eng_en.qm
@@ -35,13 +35,14 @@ BuildRequires: qt5-plugin-sqldriver-sqlite
 %package devel
 Summary: Development headers for transfer engine library.
 Group: Development/Libraries
-Requires: nemo-transferengine = %{version}
+Requires: nemo-transferengine-qt5 = %{version}
 
 %description -n nemo-transferengine-qt5-devel
 %{summary}.
 
 %files devel
 %defattr(-,root,root,-)
+%{_libdir}/*.so
 %{_includedir}/TransferEngine-qt5/*.h
 %{_datadir}/qt5/mkspecs/features/nemotransferengine-plugin-qt5.prf
 %{_libdir}/pkgconfig/nemotransferengine-qt5.pc

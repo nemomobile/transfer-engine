@@ -13,6 +13,7 @@ BuildRequires: pkgconfig(accounts-qt5)
 BuildRequires: desktop-file-utils
 BuildRequires: pkgconfig(mlite5)
 BuildRequires: pkgconfig(quillmetadata-qt5)
+BuildRequires: qt5-qttools-linguist
 
 %description
 %{summary}.

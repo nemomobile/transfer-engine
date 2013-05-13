@@ -96,7 +96,7 @@ make docs
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/%{_datadir}/nemo-transferengine-qt5
+mkdir -p %{buildroot}/%{_datadir}/nemo-transferengine
 %qmake5_install
 
 mkdir -p %{buildroot}/%{_docdir}/%{name}

@@ -38,7 +38,8 @@ HEADERS += \
 SOURCES += \
    transferengineinterface.cpp
 
-OTHER_FILES += nemotransfernegine.pc nemotransferengine-plugin.prf
+equals(QT_MAJOR_VERSION, 4): OTHER_FILES += nemotransfernegine.pc nemotransferengine-plugin.prf
+equals(QT_MAJOR_VERSION, 5): OTHER_FILES += nemotransfernegine-qt5.pc nemotransferengine-plugin-qt5.prf
 
 headers.files = $$HEADERS
 equals(QT_MAJOR_VERSION, 4): headers.path = /usr/include/TransferEngine
@@ -51,7 +52,8 @@ equals(QT_MAJOR_VERSION, 4): pkgconfigpc.files = nemotransferengine.pc
 equals(QT_MAJOR_VERSION, 5): pkgconfigpc.files = nemotransferengine-qt5.pc
 
 prf.path = $$[QT_INSTALL_DATA]/mkspecs/features
-prf.files = nemotransferengine-plugin.prf
+equals(QT_MAJOR_VERSION, 4): prf.files = nemotransferengine-plugin.prf
+equals(QT_MAJOR_VERSION, 5): prf.files = nemotransferengine-plugin-qt5.prf
 
 
 INSTALLS += target headers prf pkgconfigpc

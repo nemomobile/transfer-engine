@@ -149,6 +149,7 @@ void ut_mediatransferinterface::testProgress()
 
 
 
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
 void ut_mediatransferinterface::testStatus_data()
 {
     QTest::addColumn<MediaTransferInterface::TransferStatus>("status");
@@ -176,3 +177,4 @@ void ut_mediatransferinterface::testStatus()
 
 
 Q_DECLARE_METATYPE(MediaTransferInterface::TransferStatus)
+#endif

@@ -25,7 +25,7 @@
 ****************************************************************************************/
 
 #include "imageoperation.h"
-#include <quillmetadata/QuillMetadata>
+#include <QuillMetadata>
 
 #include <QFileInfo>
 #include <QtDebug>

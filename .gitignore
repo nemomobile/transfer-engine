@@ -1,0 +1,10 @@
+*.o
+moc_*
+Makefile
+lib/*.so*
+lib/transferengineinterface.*
+src/*.ts
+src/*.qm
+src/nemo-transfer-engine
+src/transferengineadaptor.*
+tests/ut_nemo-transfer-engine

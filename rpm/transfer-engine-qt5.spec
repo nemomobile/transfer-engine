@@ -15,6 +15,9 @@ BuildRequires: desktop-file-utils
 BuildRequires: pkgconfig(mlite5)
 BuildRequires: pkgconfig(quillmetadata-qt5)
 BuildRequires: qt5-qttools-linguist
+BuildRequires: qt5-qttools-qthelp-devel
+BuildRequires: qt5-plugin-platform-minimal
+BuildRequires: qt5-plugin-sqldriver-sqlite
 
 %description
 %{summary}.

@@ -119,8 +119,10 @@ cp -R doc/html/* %{buildroot}/%{_docdir}/%{name}/
 %define db_file /home/%{def_user}/.local/nemo-transferengine/transferdb.sqlite
 %define te_pid $(pgrep -f nemo-transfer-engine)
 
-%post -n nemo-transferengine-qt5
+%post -n libnemotransferengine-qt5
 /sbin/ldconfig
+
+%post -n nemo-transferengine-qt5
 if [ -n "%{te_pid}" ]
 then
     kill -s 10 %{te_pid}
@@ -128,9 +130,10 @@ fi
 
 exit 0
 
-%postun -n nemo-transferengine-qt5
+%postun -n libnemotransferengine-qt5
 /sbin/ldconfig
 
+%postun -n nemo-transferengine-qt5
 if [ -f "%{db_file}" ]
 then
     rm %{db_file}

@@ -18,29 +18,40 @@ BuildRequires: qt5-qttools-linguist
 BuildRequires: qt5-qttools-qthelp-devel
 BuildRequires: qt5-plugin-platform-minimal
 BuildRequires: qt5-plugin-sqldriver-sqlite
+Requires: libnemotransferengine-qt5 = %{version}
 
 %description
-%{summary}.
+%{summary}
 
 %files
 %defattr(-,root,root,-)
 %dir %{_datadir}/nemo-transferengine
-%{_libdir}/*.so.*
 %{_bindir}/nemo-transfer-engine
 %{_datadir}/dbus-1/services/org.nemo.transferengine.service
 %{_datadir}/translations/nemo-transfer-engine_eng_en.qm
 
 
 
-%package devel
+%package -n libnemotransferengine-qt5
+Summary: Transfer engine library.
+Group: Development/Libraries
+
+%description -n libnemotransferengine-qt5
+%{summary}
+
+%files -n libnemotransferengine-qt5
+%defattr(-,root,root,-)
+%{_libdir}/*.so.*
+
+%package -n libnemotransferengine-qt5-devel
 Summary: Development headers for transfer engine library.
 Group: Development/Libraries
-Requires: nemo-transferengine-qt5 = %{version}
+Requires: libnemotransferengine-qt5 = %{version}
 
-%description -n nemo-transferengine-qt5-devel
-%{summary}.
+%description -n libnemotransferengine-qt5-devel
+%{summary}
 
-%files devel
+%files -n libnemotransferengine-qt5-devel
 %defattr(-,root,root,-)
 %{_libdir}/*.so
 %{_includedir}/TransferEngine-qt5/*.h

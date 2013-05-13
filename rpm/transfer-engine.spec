@@ -14,29 +14,40 @@ BuildRequires: pkgconfig(mlite)
 BuildRequires: pkgconfig(accounts-qt)
 BuildRequires: pkgconfig(quillmetadata)
 BuildRequires: qt-devel-tools
+Requires: libnemotransferengine = %{version}
 
 %description
-%{summary}.
+%{summary}
 
 %files
 %defattr(-,root,root,-)
 %dir %{_datadir}/nemo-transferengine
-%{_libdir}/*.so.*
 %{_bindir}/nemo-transfer-engine
 %{_datadir}/dbus-1/services/org.nemo.transferengine.service
 %{_datadir}/translations/nemo-transfer-engine_eng_en.qm
 
 
 
-%package -n nemo-transferengine-devel
+%package -n libnemotransferengine
+Summary: Transfer engine library.
+Group: Development/Libraries
+
+%description -n libnemotransferengine
+%{summary}
+
+%files -n libnemotransferengine
+%defattr(-,root,root,-)
+%{_libdir}/*.so.*
+
+%package -n libnemotransferengine-devel
 Summary: Development headers for transfer engine library.
 Group: Development/Libraries
-Requires: nemo-transferengine = %{version}
+Requires: libnemotransferengine = %{version}
 
-%description -n nemo-transferengine-devel
-%{summary}.
+%description -n libnemotransferengine-devel
+%{summary}
 
-%files -n nemo-transferengine-devel
+%files -n libnemotransferengine-devel
 %defattr(-,root,root,-)
 %{_libdir}/*.so
 %{_includedir}/TransferEngine/*.h

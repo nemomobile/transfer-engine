@@ -59,8 +59,10 @@ private slots:
     void cleanup();
     void testSetMediaItem();
     void testProgress();
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
     void testStatus_data();
     void testStatus();
+#endif
 
 private:
     TestInterface *tf;

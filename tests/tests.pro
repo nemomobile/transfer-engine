@@ -2,7 +2,9 @@ TEMPLATE = app
 TARGET = ut_nemo-transfer-engine
 DEPENDPATH += .
 INCLUDEPATH += . ../src ../lib
-
+CONFIG += link_pkgconfig
+equals(QT_MAJOR_VERSION, 4): PKGCONFIG += quillmetadata
+equals(QT_MAJOR_VERSION, 5): PKGCONFIG += quillmetadata-qt5
 
 # Test files
 HEADERS += \
@@ -27,7 +29,6 @@ SOURCES += \
     ../lib/mediaitem.cpp
 
 
-LIBS += -lquillmetadata
 QT += testlib
 
 PATH = /opt/tests/nemo-transfer-engine

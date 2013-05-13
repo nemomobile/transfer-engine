@@ -26,7 +26,7 @@
 
 #include "ut_imageoperation.h"
 #include <qtest.h>
-#include <quillmetadata/QuillMetadata>
+#include <QuillMetadata>
 #include "imageoperation.h"
 #include <QtDebug>
 #include <QDir>

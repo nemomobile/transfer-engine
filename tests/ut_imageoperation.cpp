@@ -130,6 +130,39 @@ void ut_imageoperation::testScale()
     QFile::remove(result);
 }
 
+
+void ut_imageoperation::testScaleToSize()
+{
+    QImage img("images/testimage.jpg");
+    QVERIFY(!img.isNull());
+
+    QString filePath("images/testimage.jpg");
+
+    QString target = ImageOperation::uniqueFilePath(filePath);
+    QFileInfo f("images/testimage.jpg");
+    int targetSize = f.size() * 0.5;
+
+    // Invalid sourceFile -> fail
+    QCOMPARE(ImageOperation::scaleImageToSize("", targetSize, target), QString());
+
+    // Valid source file, invalid targetSize -> fail
+    QCOMPARE(ImageOperation::scaleImageToSize(filePath, -1.0, target), QString());
+    QCOMPARE(ImageOperation::scaleImageToSize(filePath, 0, target), QString());
+    QCOMPARE(ImageOperation::scaleImageToSize(filePath, targetSize*40, target), QString());
+
+    // Proper source file, proper scale factor, proper target file
+    QString result = ImageOperation::scaleImageToSize(filePath, targetSize, target);
+    QCOMPARE(result, target);
+
+    QImage tImg(result);
+    QFileInfo f2(result);
+    QVERIFY(f2.size() <= targetSize);
+    QVERIFY(tImg.width() < img.width());
+    QVERIFY(tImg.height() < img.height());
+    QFile::remove(result);
+}
+
+
 void ut_imageoperation::testDropMetadata()
 {
     // NOTE: The test image doesn't contain all metadata fields such as

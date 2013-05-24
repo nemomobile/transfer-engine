@@ -38,6 +38,7 @@ public:
 
 private slots:
     void testScale();
+    void testScaleToSize();
     void testDropMetadata();
     void testUniqueFilePath();
 };

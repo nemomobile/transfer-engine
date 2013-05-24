@@ -226,7 +226,6 @@ QString ImageOperation::scaleImageToSize(const QString &sourceFile, quint64 targ
     QFileInfo f(sourceFile);
     quint64 originalSize = f.size();
     if (originalSize <= targetSize) {
-        qWarning() << Q_FUNC_INFO << "Target size can not be larger than the original size!";
         return QString();
     }
 
@@ -264,7 +263,7 @@ QString ImageOperation::scaleImageToSize(const QString &sourceFile, quint64 targ
     qreal   r = w / (h * 1.0);                  // Aspect ratio
     qreal   a = originalSize / (w * h * 1.0);   // The magic number, which combines depth and compression
 
-    quint32 newWidth = qSqrt((targetSize * r) / a);
+    qint32 newWidth = qSqrt((targetSize * r) / a);
     QImage scaled = tmpImage.scaledToWidth(newWidth, Qt::SmoothTransformation);
 
     if (!scaled.save(tmpFile)) {

@@ -36,6 +36,7 @@ public:
     static QString uniqueFilePath(const QString &sourceFilePath, const QString &path = QDir::tempPath());
     static QString removeImageMetadata(const QString &sourceFile);
     static QString scaleImage(const QString &sourceFile, qreal scaleFactor, const QString &targetFile=QString());
+    static QString scaleImageToSize(const QString &sourceFile, quint64 targetSize, const QString &targetFile=QString());
 };
 
 #endif // IMAGEOPERATION_H

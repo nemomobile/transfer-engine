@@ -31,7 +31,7 @@
 #include <QtDebug>
 #include <QImage>
 #include <QSize>
-
+#include <QtCore/qmath.h>)
 /*!
     \class ImageOperation
     \brief The ImageOperation class is a helper class to manipulate images.
@@ -198,5 +198,77 @@ QString ImageOperation::scaleImage(const QString &sourceFile, qreal scaleFactor,
         return QString();
     }
 
+    return tmpFile;
+}
+
+/*!
+    Scale image from a \a sourceFile to the \a targetSize. If user gives \a targetFile argument, it is used for
+    saving the scaled image to that location.
+
+    NOTE: It's hard to predict what will be the actual file size after scaling because it depends on image data.
+          Therefore it's good to remember that \a targetSize is used by this algorithm, but the final file size
+          may varie a lot.
+
+    Returns a path to the scaled image.
+ */
+QString ImageOperation::scaleImageToSize(const QString &sourceFile, quint64 targetSize, const QString &targetFile)
+{
+    if (targetSize == 0) {
+        qWarning() << Q_FUNC_INFO << "Target size is 0. Can't scale image to 0 size!";
+        return QString();
+    }
+
+    if (!QFile::exists(sourceFile)) {
+        qWarning() << Q_FUNC_INFO << sourceFile << "doesn't exist!";
+        return QString();
+    }
+
+    QFileInfo f(sourceFile);
+    quint64 originalSize = f.size();
+    if (originalSize <= targetSize) {
+        return QString();
+    }
+
+    QString tmpFile = targetFile;
+    if (tmpFile.isEmpty()) {
+        tmpFile = uniqueFilePath(sourceFile);
+    }
+
+    QImage tmpImage(sourceFile);
+    if (tmpImage.isNull()) {
+        qWarning() << Q_FUNC_INFO << "NULL original image!";
+        return QString();
+    }
+
+    // NOTE: We really don't know the size on the disk after scaling and saving
+    //
+    // So this is a home made algorithm to downscale image based on give target size using the following
+    // logic:
+    //
+    // 1) First we figure out magic number (a) from the original image size (s) and width (w) and height(h).
+    //    Magic number is basically a combination of the image depth (bits per pixel) and compression:
+    //    a =  s / (w * h)
+    //
+    // 2) We want the image to be the same aspect ratio (r) than the original image.
+    //    r = w / h
+    //
+    // 3) Calculate the new width based on the following formula, where s' is the target size
+    //    w * h * a = s'            =>
+    //    w * w / r * a = s'        =>
+    //    w * w = (s' * r) / a      =>
+    //    w = sqrt( (s' * r) / a )
+
+    qint32  w = tmpImage.width();               // Width
+    qint32  h = tmpImage.height();              // Height
+    qreal   r = w / (h * 1.0);                  // Aspect ratio
+    qreal   a = originalSize / (w * h * 1.0);   // The magic number, which combines depth and compression
+
+    qint32 newWidth = qSqrt((targetSize * r) / a);
+    QImage scaled = tmpImage.scaledToWidth(newWidth, Qt::SmoothTransformation);
+
+    if (!scaled.save(tmpFile)) {
+        qWarning() << Q_FUNC_INFO << "Failed to save scaled image to temp file!";
+        return QString();
+    }
     return tmpFile;
 }

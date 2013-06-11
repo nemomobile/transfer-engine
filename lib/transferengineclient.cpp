@@ -162,7 +162,7 @@ public:
     if (ok) {
      status = TransferEngineClient::TransferFinished;
     } else {
-     status = TnrasferEngineClient::TransferInterrupted;
+     status = TransferEngineClient::TransferInterrupted;
      reason = "Something went wrong";
     }
 

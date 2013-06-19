@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testdefinition version="1.0">
-   <suite name="NemoTransferEngine" domain="middleware">
+   <suite name="@PACKAGENAME@-tests" domain="middleware">
        <description>Nemo Transfer Engine automatic tests</description>
-       <set name="unit-tests" feature="Internal UI Components">
+       <set name="@PACKAGENAME@-test0" feature="Internal UI Components">
            <description>Nemo Transfer Engine unit tests</description>
            <case manual="false" name="enginetests">
-               <step>/opt/tests/nemo-transfer-engine/ut_nemo-transfer-engine</step>
+               <step>/opt/tests/@PACKAGENAME@/ut_nemo-transfer-engine</step>
            </case>
        </set>
    </suite>

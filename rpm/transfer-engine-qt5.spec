@@ -80,7 +80,7 @@ Unit tests for Nemo TransferEngine
 
 %files tests
 %defattr(-,root,root,-)
-/opt/tests/nemo-transfer-engine/*
+/opt/tests/nemo-transfer-engine-qt5/*
 
 %package doc
 Summary:   Documentation for Nemo TransferEngine

@@ -1,3 +1,6 @@
+equals(QT_MAJOR_VERSION, 4): PACKAGENAME = nemo-transfer-engine
+equals(QT_MAJOR_VERSION, 5): PACKAGENAME = nemo-transfer-engine-qt5
+
 TEMPLATE = app
 TARGET = ut_nemo-transfer-engine
 DEPENDPATH += .
@@ -31,12 +34,24 @@ SOURCES += \
 
 QT += testlib
 
-PATH = /opt/tests/nemo-transfer-engine
+PATH = /opt/tests/$${PACKAGENAME}
 
-test_def.files = tests.xml
-test_def.path = $$PATH
+tests_xml.target = tests.xml
+tests_xml.depends = $$PWD/tests.xml.in
+tests_xml.commands = sed -e "s:@PACKAGENAME@:$${PACKAGENAME}:g" $< > $@
+
+QMAKE_EXTRA_TARGETS = tests_xml
+QMAKE_CLEAN += $$tests_xml.target
+PRE_TARGETDEPS += $$tests_xml.target
+
+tests_install.depends = tests_xml
+tests_install.path = $$PATH
+tests_install.files = $$tests_xml.target
+tests_install.CONFIG += no_check_exist
+
 resources.files = images/testimage.jpg
 resources.path = $$PATH/images
+
 target.path = $$PATH
 
-INSTALLS += target resources test_def
+INSTALLS += target resources tests_install

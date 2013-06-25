@@ -80,7 +80,7 @@ private:
     Q_DECLARE_PRIVATE(MediaTransferInterface)
     friend class TransferEngine;
     friend class TransferEnginePrivate;
-    friend class DbManager;
+    friend class DbManager;    
 };
 
 #endif // MEDIATRANSFERINTERFACE_H

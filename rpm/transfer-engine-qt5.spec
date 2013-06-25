@@ -1,5 +1,5 @@
 Name: nemo-transferengine-qt5
-Version: 0.0.17
+Version: 0.0.20
 Release: 0
 Summary: Transfer Engine for uploading media content and tracking transfers.
 Group: System Environment/Daemon
@@ -19,6 +19,9 @@ BuildRequires: qt5-qttools-qthelp-devel
 BuildRequires: qt5-plugin-platform-minimal
 BuildRequires: qt5-plugin-sqldriver-sqlite
 Requires: libnemotransferengine-qt5 = %{version}
+
+Obsoletes: nemo-transferengine <= 0.0.19
+Provides: nemo-transferengine > 0.0.19
 
 %description
 %{summary}

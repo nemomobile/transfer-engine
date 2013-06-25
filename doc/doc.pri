@@ -14,6 +14,7 @@ equals(QT_MAJOR_VERSION, 5): docs.commands = (cd doc/config; $$QDOC $$QDOCCONF; 
 QMAKE_EXTRA_TARGETS += docs
 
 doc.files = doc/html/*
-doc.path = /usr/share/doc/nemo-transfer-engine
+equals(QT_MAJOR_VERSION, 4): doc.path = /usr/share/doc/nemo-transferengine
+equals(QT_MAJOR_VERSION, 5): doc.path = /usr/share/doc/nemo-transferengine-qt5
 INSTALLS += doc
 

@@ -19,6 +19,8 @@ BuildRequires: qt5-qttools-qthelp-devel
 BuildRequires: qt5-plugin-platform-minimal
 BuildRequires: qt5-plugin-sqldriver-sqlite
 Requires: libnemotransferengine-qt5 = %{version}
+Provides: nemo-transferengine > 0.0.19
+Obsoletes: nemo-transferengine <= 0.0.19
 
 %description
 %{summary}
@@ -62,6 +64,8 @@ Requires: libnemotransferengine-qt5 = %{version}
 Summary:   Translation source for Nemo TransferEngine
 License:   LGPLv2.1
 Group:     System Environment/Daemon
+Provides: nemo-transferengine-ts-devel > 0.0.19
+Obsoletes: nemo-transferengine-ts-devel <= 0.0.19
 
 %description ts-devel
 Translation source for Nemo TransferEngine
@@ -86,6 +90,8 @@ Unit tests for Nemo TransferEngine
 Summary:   Documentation for Nemo TransferEngine
 License:   BSD
 Group:     System Environment/Daemon
+Provides: nemo-transferengine-doc > 0.0.19
+Obsoletes: nemo-transferengine-doc <= 0.0.19
 
 %description doc
 Documentation for Nemo TransferEngine

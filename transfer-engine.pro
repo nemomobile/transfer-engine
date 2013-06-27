@@ -3,7 +3,11 @@ SUBDIRS  = lib src tests
 
 tests.depends = lib
 
-include(doc/doc.pri)
+# no daemon for Qt 4
+equals(QT_MAJOR_VERSION, 4): SUBDIRS -= src
+
+# docs only for Qt 5
+equals(QT_MAJOR_VERSION, 5): include(doc/doc.pri)
 
 OTHER_FILES += \
     rpm/transfer-engine.spec \

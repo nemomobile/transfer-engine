@@ -22,7 +22,7 @@ Requires: libnemotransferengine = %{version}
 %package -n libnemotransferengine
 Summary: Transfer engine library.
 Group: Development/Libraries
-Requires: nemo-transfer-engine-qt5
+Requires: nemo-transferengine-qt5
 
 %description -n libnemotransferengine
 %{summary}

@@ -1,6 +1,7 @@
 TEMPLATE = subdirs
 SUBDIRS  = lib src tests
-CONFIG += ordered
+
+tests.depends = lib
 
 include(doc/doc.pri)
 

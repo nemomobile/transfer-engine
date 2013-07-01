@@ -48,7 +48,7 @@
 #define SHARE_PLUGINS_PATH "/usr/lib/nemo-transferengine/plugins"
 #define CONFIG_PATH "/usr/share/nemo-transferengine/nemo-transfer-engine.conf"
 #define FILE_WATCHER_TIMEOUT 5000
-#define ACTIVITY_MONITOR_TIMEOUT 1*60*1000 // 1 minutes in ms
+#define ACTIVITY_MONITOR_TIMEOUT 1*60*1000 // 1 minute in ms
 #define TRANSFER_EXPIRATION_THRESHOLD 3*60 // 3 minutes in seconds
 
 TransferEngineSignalHandler * TransferEngineSignalHandler::instance()

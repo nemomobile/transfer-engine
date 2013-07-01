@@ -103,8 +103,7 @@ CallbackInterface::~CallbackInterface()
 class TransferEngineClientPrivate
 {
 public:
-    TransferEngineInterface *m_client;
-    QString m_uuid;
+    TransferEngineInterface *m_client;    
 };
 
 /*!

@@ -48,7 +48,7 @@
 #define SHARE_PLUGINS_PATH "/usr/lib/nemo-transferengine/plugins"
 #define CONFIG_PATH "/usr/share/nemo-transferengine/nemo-transfer-engine.conf"
 #define FILE_WATCHER_TIMEOUT 5000
-#define ACTIVITY_MONITOR_TIMEOUT 3*60*1000 // 3 minutes in ms
+#define ACTIVITY_MONITOR_TIMEOUT 1*60*1000 // 1 minutes in ms
 #define TRANSFER_EXPIRATION_THRESHOLD 3*60 // 3 minutes in seconds
 
 TransferEngineSignalHandler * TransferEngineSignalHandler::instance()
@@ -119,7 +119,7 @@ void ClientActivityMonitor::checkActivity()
     // Check if there are existing transfers which are not yet finished and
     // they've been around too long. Notify TransferEngine about these transfers.
     QList<int> ids;
-    quint32 currTime = QDateTime::currentDateTime().toTime_t();
+    quint32 currTime = QDateTime::currentDateTimeUtc().toTime_t();
     QMap<int, quint32>::const_iterator i = m_activityMap.constBegin();
     while (i != m_activityMap.constEnd()) {
         if ((currTime - i.value()) >= TRANSFER_EXPIRATION_THRESHOLD) {

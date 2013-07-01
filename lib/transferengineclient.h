@@ -82,8 +82,17 @@ public:
     void finishTransfer(int transferId, Status status, const QString &reason = QString());
 
 private:
+    void cbCancelTransfer(int transferId);
+    void cbRestartTransfer(int transferId);
+    void clearTransfers();
+    void enableNotifications(bool enable);
+    bool notificationsEnabled() const;
+
+private:
     TransferEngineClientPrivate *d_ptr;
     Q_DECLARE_PRIVATE(TransferEngineClient)
+
+    friend class DeclarativeTransferInterface;
 };
 
 #endif // TRANSFERENGINECLIENT_H

@@ -103,7 +103,7 @@ CallbackInterface::~CallbackInterface()
 class TransferEngineClientPrivate
 {
 public:
-    TransferEngineInterface *m_client;
+    TransferEngineInterface *m_client;    
 };
 
 /*!
@@ -339,3 +339,58 @@ void TransferEngineClient::finishTransfer(int transferId, Status status, const Q
     d->m_client->finishTransfer(transferId, static_cast<int>(status), reason);
 }
 
+/*!
+    Private method for QML interface to cancel an ongoing transfer using \a transferId.
+ */
+void TransferEngineClient::cbCancelTransfer(int transferId)
+{
+    Q_D(TransferEngineClient);
+    d->m_client->cancelTransfer(transferId);
+}
+
+/*!
+    Private method for QML interface to restart canceled or interrupted transfer using \a transferId.
+ */
+void TransferEngineClient::cbRestartTransfer(int transferId)
+{
+    Q_D(TransferEngineClient);
+    d->m_client->restartTransfer(transferId);
+}
+
+/*!
+    Private method for QML interface to clear all canceled or interrupted events.
+ */
+void TransferEngineClient::clearTransfers()
+{
+    Q_D(TransferEngineClient);
+    d->m_client->clearTransfers();
+}
+
+/*!
+    Private method for QML interface to enable notifications.
+ */
+void TransferEngineClient::enableNotifications(bool enable)
+{
+    Q_D(TransferEngineClient);
+    d->m_client->enableNotifications(enable);
+}
+
+
+/*!
+    Private method for QML interface.
+
+    \returns true if notifications are enabled, otherwise false is returned.
+ */
+bool TransferEngineClient::notificationsEnabled() const
+{
+    Q_D(const TransferEngineClient);
+    QDBusPendingReply<bool> reply = d->m_client->notificationsEnabled();
+    reply.waitForFinished();
+
+    if (reply.isError()) {
+        qWarning() << Q_FUNC_INFO << "failed to get notifications!";
+        return false;
+    }
+
+    return reply.value();
+}

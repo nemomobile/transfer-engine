@@ -57,6 +57,31 @@ private:
     TransferEngineSignalHandler();
 };
 
+class ClientActivityMonitor: public QObject
+{
+    Q_OBJECT
+public:
+    ClientActivityMonitor(QObject *parent = 0);
+    ~ClientActivityMonitor();
+
+    void newActivity(int transferId);
+    void activityFinished(int transferId);
+
+    bool activeTransfers() const;
+
+public Q_SLOTS:
+    void checkActivity();
+
+Q_SIGNALS:
+    void transfersExpired(QList<int> transferIds);
+
+private:
+    // Map for transferId, timestamps
+    QMap<int, quint32> m_activityMap;
+    QTimer *m_timer;
+};
+
+
 
 class TransferEnginePrivate: QObject
 {
@@ -91,8 +116,8 @@ public:
 
 public Q_SLOTS:
     void exitSafely();
-    void inProgressTransfersCheck();
     void enabledPluginsCheck();
+    void cleanupExpiredTransfers(const QList<int> &expiredIds);
     void pluginDirChanged();
     void uploadItemStatusChanged(MediaTransferInterface::TransferStatus status);
     void updateProgress(qreal progress);
@@ -114,7 +139,7 @@ public:
     QFileSystemWatcher *m_fileWatcher;
     QTimer *m_fileWatcherTimer;
     QSettings m_settings;
-    quint32 m_transfersInProgressCount;
+    ClientActivityMonitor *m_activityMonitor;
     TransferEngine *q_ptr;
     Q_DECLARE_PUBLIC(TransferEngine)
 };

@@ -48,7 +48,8 @@
 #define SHARE_PLUGINS_PATH "/usr/lib/nemo-transferengine/plugins"
 #define CONFIG_PATH "/usr/share/nemo-transferengine/nemo-transfer-engine.conf"
 #define FILE_WATCHER_TIMEOUT 5000
-
+#define ACTIVITY_MONITOR_TIMEOUT 1*60*1000 // 1 minute in ms
+#define TRANSFER_EXPIRATION_THRESHOLD 3*60 // 3 minutes in seconds
 
 TransferEngineSignalHandler * TransferEngineSignalHandler::instance()
 {
@@ -68,6 +69,68 @@ void TransferEngineSignalHandler::signalHandler(int signal)
 TransferEngineSignalHandler::TransferEngineSignalHandler()
 {
     signal(SIGUSR1, TransferEngineSignalHandler::signalHandler);
+}
+
+// ---------------------------
+
+// ClientActivityMonitor runs periodic checks if there are transfers which are expired.
+// A transfer can be expired e.g. when a client has been crashed in the middle of Sync,
+// Download or Upload operation or the client API isn't used properly.
+//
+// NOTE: This class only monitors if there are expired transfers and emit signal to indicate
+// that it's cleaning time.  It is up to Transfer Engine to remoce expired ids from the
+// ClientActivityMonitor instance.
+ClientActivityMonitor::ClientActivityMonitor(QObject *parent)
+    : QObject(parent)
+    , m_timer(new QTimer(this))
+{
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(checkActivity()));
+    m_timer->start(ACTIVITY_MONITOR_TIMEOUT);
+}
+
+ClientActivityMonitor::~ClientActivityMonitor()
+{
+    m_activityMap.clear();
+}
+
+void ClientActivityMonitor::newActivity(int transferId)
+{
+    // Update or add a new timestamp
+    m_activityMap.insert(transferId, QDateTime::currentDateTimeUtc().toTime_t());
+}
+
+void ClientActivityMonitor::activityFinished(int transferId)
+{
+    if (!m_activityMap.contains(transferId)) {
+        qWarning() << Q_FUNC_INFO << "Could not find matching TransferId. This is probably an error!";
+        return;
+    }
+
+    m_activityMap.remove(transferId);
+}
+
+bool ClientActivityMonitor::activeTransfers() const
+{
+    return !m_activityMap.isEmpty();
+}
+
+void ClientActivityMonitor::checkActivity()
+{
+    // Check if there are existing transfers which are not yet finished and
+    // they've been around too long. Notify TransferEngine about these transfers.
+    QList<int> ids;
+    quint32 currTime = QDateTime::currentDateTimeUtc().toTime_t();
+    QMap<int, quint32>::const_iterator i = m_activityMap.constBegin();
+    while (i != m_activityMap.constEnd()) {
+        if ((currTime - i.value()) >= TRANSFER_EXPIRATION_THRESHOLD) {
+            ids << i.key();
+        }
+        i++;
+    }
+
+    if (!ids.isEmpty()) {
+        emit transfersExpired(ids);
+    }
 }
 
 
@@ -92,10 +155,14 @@ TransferEnginePrivate::TransferEnginePrivate(TransferEngine *parent):
     connect(m_accountManager, SIGNAL(accountUpdated(Accounts::AccountId)), this, SLOT(enabledPluginsCheck()));
     connect(m_accountManager, SIGNAL(enabledEvent(Accounts::AccountId)),   this, SLOT(enabledPluginsCheck()));    
 
-    m_transfersInProgressCount = 0;
-    connect(TransferEngineSignalHandler::instance(), SIGNAL(exitSafely()), this, SLOT(exitSafely()));
+    // Exit safely stuff if we recieve certain signal or there are no active transfers
     Q_Q(TransferEngine);
-    connect(q, SIGNAL(statusChanged(int,int)), this, SLOT(inProgressTransfersCheck()));
+    connect(TransferEngineSignalHandler::instance(), SIGNAL(exitSafely()), this, SLOT(exitSafely()));
+    connect(q, SIGNAL(statusChanged(int,int)), this, SLOT(exitSafely()));
+
+    // Monitor expired transfers and cleanup them if required
+    m_activityMonitor = new ClientActivityMonitor(this);
+    connect(m_activityMonitor, SIGNAL(transfersExpired(QList<int>)), this, SLOT(cleanupExpiredTransfers(QList<int>)));
 }
 
 void TransferEnginePrivate::pluginDirChanged()
@@ -108,25 +175,8 @@ void TransferEnginePrivate::pluginDirChanged()
 
 void TransferEnginePrivate::exitSafely()
 {
-    if (m_transfersInProgressCount == 0) {
+    if (!m_activityMonitor->activeTransfers()) {
         qDebug() << Q_FUNC_INFO;
-        qApp->exit();
-    }
-}
-
-void TransferEnginePrivate::inProgressTransfersCheck()
-{
-    int count = 0;
-    // Just read the statuses from the DB.
-    QList<TransferDBRecord> records = DbManager::instance()->transfers();
-    Q_FOREACH(TransferDBRecord record, records) {
-        if (record.status == TransferEngineData::TransferStarted ||
-            record.status == TransferEngineData::NotStarted) {
-            ++count;
-        }
-    }
-    m_transfersInProgressCount = count;
-    if (m_transfersInProgressCount == 0) {
         qApp->exit();
     }
 }
@@ -179,8 +229,20 @@ void TransferEnginePrivate::enabledPluginsCheck()
             qWarning() << Q_FUNC_INFO << loader.errorString();
         }
     }
+}
 
-
+void TransferEnginePrivate::cleanupExpiredTransfers(const QList<int> &expiredIds)
+{
+    // Clean up expired items from the database by changing the status to TransferInterrupted. This way
+    // database doesn't maintain objects with unifinished state and failed items can be cleaned by the
+    // user manually from the UI.
+    Q_Q(TransferEngine);
+    Q_FOREACH(int id, expiredIds) {
+        if (DbManager::instance()->updateTransferStatus(id, TransferEngineData::TransferInterrupted)) {
+            m_activityMonitor->activityFinished(id);
+            emit q->statusChanged(id, TransferEngineData::TransferInterrupted);
+        }
+    }
 }
 
 void TransferEnginePrivate::recoveryCheck()
@@ -188,10 +250,13 @@ void TransferEnginePrivate::recoveryCheck()
     QList<TransferDBRecord> records = DbManager::instance()->transfers();
     // Check all transfer which are not properly finished and mark those as
     //  interrupted
+    Q_Q(TransferEngine);
     Q_FOREACH(TransferDBRecord record, records) {
         if (record.status == TransferEngineData::TransferStarted ||
             record.status == TransferEngineData::NotStarted) {
-            DbManager::instance()->updateTransferStatus(record.transfer_id, TransferEngineData::TransferInterrupted);
+            if (DbManager::instance()->updateTransferStatus(record.transfer_id, TransferEngineData::TransferInterrupted)) {
+                emit q->statusChanged(record.transfer_id, TransferEngineData::TransferInterrupted);
+            }
         }
     }
 }
@@ -415,6 +480,7 @@ int TransferEnginePrivate::uploadMediaItem(MediaItem *mediaItem,
         return key;
     }
 
+    m_activityMonitor->newActivity(key);
     emit q->transfersChanged();
     emit q->statusChanged(key, TransferEngineData::NotStarted);
 
@@ -485,6 +551,7 @@ void TransferEnginePrivate::uploadItemStatusChanged(MediaTransferInterface::Tran
     switch(tStatus) {
     case TransferEngineData::TransferStarted:
         ok = DbManager::instance()->updateTransferStatus(key, tStatus);
+        m_activityMonitor->newActivity(key);
         break;
 
     case TransferEngineData::TransferInterrupted:
@@ -502,6 +569,7 @@ void TransferEnginePrivate::uploadItemStatusChanged(MediaTransferInterface::Tran
         }
         muif->deleteLater();
         muif = 0;
+        m_activityMonitor->activityFinished(key);
     } break;
 
     default:
@@ -528,6 +596,7 @@ void TransferEnginePrivate::updateProgress(qreal progress)
         return;
     }
 
+    m_activityMonitor->newActivity(key);
     Q_Q(TransferEngine);
     emit q->progressChanged(key, progress);
 }
@@ -602,9 +671,8 @@ void TransferEnginePrivate::callbackCall(int transferId, CallbackMethodType meth
     if (methodName.isEmpty()) {
         qWarning() << "TransferEnginePrivate::callbackCall: Failed to get callback method name!";
         return;
-    }
-
-    remoteInterface.call(methodName, transferId);
+    }    
+    remoteInterface.call(methodName, transferId);    
 }
 
 
@@ -701,15 +769,14 @@ TransferEngine::TransferEngine(QObject *parent) :
         qFatal("Could not register object \'/org/nemo/transferengine\'");
     }
 
+    new TransferEngineAdaptor(this);
 
     // Let's make sure that db is open by creating
     // DbManager singleton instance.
     DbManager::instance();
     Q_D(TransferEngine);
     d->recoveryCheck();
-    d->enabledPluginsCheck();
-
-    new TransferEngineAdaptor(this);
+    d->enabledPluginsCheck();    
 }
 
 /*!
@@ -871,9 +938,10 @@ int TransferEngine::createDownload(const QString &displayName,
     mediaItem->setValue(MediaItem::RestartSupported,!restartMethod.isEmpty());
 
     const int key = DbManager::instance()->createTransferEntry(mediaItem);
+    d->m_activityMonitor->newActivity(key);
     d->m_keyTypeCache.insert(key, TransferEngineData::Download);
     emit transfersChanged();
-    emit statusChanged(key, TransferEngineData::NotStarted);
+    emit statusChanged(key, TransferEngineData::NotStarted);    
     return key;
 }
 
@@ -917,6 +985,7 @@ int TransferEngine::createSync(const QString &displayName,
 
     const int key = DbManager::instance()->createTransferEntry(mediaItem);
     Q_D(TransferEngine);
+    d->m_activityMonitor->newActivity(key);
     d->m_keyTypeCache.insert(key, TransferEngineData::Sync);
     emit transfersChanged();
     emit statusChanged(key, TransferEngineData::NotStarted);
@@ -949,6 +1018,7 @@ void TransferEngine::startTransfer(int transferId)
     if (status == TransferEngineData::NotStarted ||
         status == TransferEngineData::TransferCanceled ||
         status == TransferEngineData::TransferInterrupted) {
+        d->m_activityMonitor->newActivity(transferId);
         DbManager::instance()->updateTransferStatus(transferId, TransferEngineData::TransferStarted);
         emit statusChanged(transferId, TransferEngineData::TransferStarted);
     } else {
@@ -991,6 +1061,7 @@ void TransferEngine::restartTransfer(int transferId)
         connect(muif, SIGNAL(progressUpdated(qreal)),
                 d, SLOT(updateProgress(qreal)));
 
+        d->m_activityMonitor->newActivity(transferId);
         d->m_keyTypeCache.insert(transferId, TransferEngineData::Upload);
         d->m_plugins.insert(muif, transferId);
         muif->start();
@@ -1004,6 +1075,7 @@ void TransferEngine::restartTransfer(int transferId)
     if (status == TransferEngineData::TransferCanceled ||
         status == TransferEngineData::TransferInterrupted) {
         DbManager::instance()->updateProgress(transferId, 0);
+        d->m_activityMonitor->newActivity(transferId);
         d->callbackCall(transferId, TransferEnginePrivate::RestartCallback);
     }
 }
@@ -1045,14 +1117,14 @@ void TransferEngine::finishTransfer(int transferId, int status, const QString &r
         transferStatus == TransferEngineData::TransferCanceled ||
         transferStatus == TransferEngineData::TransferInterrupted) {
         DbManager::instance()->updateTransferStatus(transferId, transferStatus);
-
+        d->m_activityMonitor->activityFinished(transferId);
         d->sendNotification(type, transferStatus, filePath);
         emit statusChanged(transferId, status);
 
         // We don't want to leave successfully finished syncs to populate the database, just remove it.
         if (type == TransferEngineData::Sync &&
             transferStatus == TransferEngineData::TransferFinished) {
-            if (DbManager::instance()->removeTransfer(transferId)) {
+            if (DbManager::instance()->removeTransfer(transferId)) {                
                 emit transfersChanged();
             }
         }
@@ -1072,8 +1144,8 @@ void TransferEngine::updateTransferProgress(int transferId, double progress)
         return;
     }
 
-
     if (DbManager::instance()->updateProgress(transferId, progress)) {
+        d->m_activityMonitor->newActivity(transferId);
         emit progressChanged(transferId, progress);
     } else {
          qWarning() << "TransferEngine::updateTransferProgress: Failed to update progress for " << transferId;
@@ -1129,6 +1201,7 @@ void TransferEngine::cancelTransfer(int transferId)
     // Handle canceling of Download or Sync
     if (type == TransferEngineData::Download || type == TransferEngineData::Sync) {
         d->callbackCall(transferId, TransferEnginePrivate::CancelCallback);
+        d->m_activityMonitor->activityFinished(transferId);
         return;
     }
 
@@ -1139,7 +1212,7 @@ void TransferEngine::cancelTransfer(int transferId)
             qWarning() << "TransferEngine::cancelTransfer: Failed to get MediaTransferInterface!";
             return;
         }
-
+        d->m_activityMonitor->activityFinished(transferId);
         muif->cancel();
     }
 }

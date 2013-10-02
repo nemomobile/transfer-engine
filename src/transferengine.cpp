@@ -263,18 +263,10 @@ void TransferEnginePrivate::recoveryCheck()
 
 void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType type,
                                              TransferEngineData::TransferStatus status,
-                                             const QUrl &url)
+                                             const QString &fileName)
 {
-    if (!m_notificationsEnabled || !url.isValid()) {
+    if (!m_notificationsEnabled || fileName.isEmpty()) {
         return;
-    }
-
-    QStringList split;
-    QString fileName;
-
-    if (type != TransferEngineData::Sync) {
-        split = url.toString().split(QDir::separator());
-        fileName = split.at(split.length()-1);
     }
 
     QString msgGSummary;
@@ -537,11 +529,23 @@ MediaTransferInterface *TransferEnginePrivate::loadPlugin(const QString &pluginI
     return 0;
 }
 
+QString TransferEnginePrivate::mediaFileOrResourceName(MediaItem *mediaItem) const
+{
+    if (!mediaItem) {
+        return QString();
+    }
+    QUrl url = mediaItem->value(MediaItem::Url).toUrl();
+    if (!url.isEmpty()) {
+        QStringList split = url.toString().split(QDir::separator());
+        return split.at(split.length()-1);
+    }
+    return mediaItem->value(MediaItem::ResourceName).toString();
+}
+
 void TransferEnginePrivate::uploadItemStatusChanged(MediaTransferInterface::TransferStatus status)
 {
     MediaTransferInterface *muif = qobject_cast<MediaTransferInterface*>(sender());
     const int key = m_plugins.value(muif);
-    const QUrl filePath = muif->mediaItem()->value(MediaItem::Url).toString();
     const TransferEngineData::TransferType type =
             static_cast<TransferEngineData::TransferType>(muif->mediaItem()->value(MediaItem::TransferType).toInt());
 
@@ -561,7 +565,7 @@ void TransferEnginePrivate::uploadItemStatusChanged(MediaTransferInterface::Tran
         // If the flow ends up here, we are not interested in any signals the same object
         // might emit. Let's just disconnect them.
         muif->disconnect();
-        sendNotification(type, tStatus, filePath);
+        sendNotification(type, tStatus, mediaFileOrResourceName(muif->mediaItem()));
         ok = DbManager::instance()->updateTransferStatus(key, tStatus);
         if (m_plugins.remove(muif) == 0) {
             qWarning() << "TransferEnginePrivate::uploadItemStatusChanged: Failed to remove media upload object from the map!";
@@ -1100,7 +1104,7 @@ void TransferEngine::finishTransfer(int transferId, int status, const QString &r
         return; // We don't handle plugins here
     }
 
-    QUrl filePath;
+    QString fileName;
     // Read the file path from the database for download
     if (type == TransferEngineData::Download) {
         MediaItem *mediaItem = DbManager::instance()->mediaItem(transferId);
@@ -1108,9 +1112,8 @@ void TransferEngine::finishTransfer(int transferId, int status, const QString &r
             qWarning() << "TransferEngine::finishTransfer: Failed to fetch MediaItem";
             return;
         }
-        filePath = mediaItem->value(MediaItem::Url).toUrl();
+        fileName = d->mediaFileOrResourceName(mediaItem);
     }
-
 
     TransferEngineData::TransferStatus transferStatus = static_cast<TransferEngineData::TransferStatus>(status);
     if (transferStatus == TransferEngineData::TransferFinished ||
@@ -1118,7 +1121,7 @@ void TransferEngine::finishTransfer(int transferId, int status, const QString &r
         transferStatus == TransferEngineData::TransferInterrupted) {
         DbManager::instance()->updateTransferStatus(transferId, transferStatus);
         d->m_activityMonitor->activityFinished(transferId);
-        d->sendNotification(type, transferStatus, filePath);
+        d->sendNotification(type, transferStatus, fileName);
         emit statusChanged(transferId, status);
 
         // We don't want to leave successfully finished syncs to populate the database, just remove it.

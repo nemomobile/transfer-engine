@@ -106,7 +106,7 @@ public:
     void recoveryCheck();
     void sendNotification(TransferEngineData::TransferType type,
                           TransferEngineData::TransferStatus status,
-                          const QUrl &filePath);
+                          const QString &fileName);
     int uploadMediaItem(MediaItem *mediaItem,
                         MediaTransferInterface *muif,
                         const QVariantMap &userData);
@@ -128,7 +128,7 @@ public:
     QStringList pluginList() const;
     QList <TransferMethodInfo> enabledPlugins() const;
     MediaTransferInterface *loadPlugin(const QString &pluginId) const;
-
+    QString mediaFileOrResourceName(MediaItem *mediaItem) const;
 
     QMap <MediaTransferInterface*, int> m_plugins;
     QMap <int, TransferEngineData::TransferType> m_keyTypeCache;

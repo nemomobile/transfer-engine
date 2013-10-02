@@ -412,11 +412,11 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
             group->setAction(rAct);
         }
 
-        // always publish the group to make updates appear
-        group->publish();
-
         notification.setGroup(*group);
         notification.publish();
+
+        // always publish the group to make updates appear
+        group->publish();
 
         // Cleanup
         if (groups.count()) {

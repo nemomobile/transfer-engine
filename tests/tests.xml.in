@@ -5,7 +5,7 @@
        <set name="@PACKAGENAME@-test0" feature="Internal UI Components">
            <description>Nemo Transfer Engine unit tests</description>
            <case manual="false" name="enginetests">
-               <step>/opt/tests/@PACKAGENAME@/ut_nemo-transfer-engine</step>
+               <step>cd /opt/tests/@PACKAGENAME@/ &amp;&amp; ./ut_nemo-transfer-engine</step>
            </case>
        </set>
    </suite>

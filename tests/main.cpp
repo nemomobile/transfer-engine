@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     int res = QTest::qExec(&t1);
 
     ut_mediatransferinterface t2;
-    res = QTest::qExec(&t2);
+    res += QTest::qExec(&t2);
 
     return res;
 }

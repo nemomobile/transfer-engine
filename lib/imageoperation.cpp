@@ -29,9 +29,9 @@
 
 #include <QFileInfo>
 #include <QtDebug>
-#include <QImage>
+#include <QImageReader>
 #include <QSize>
-#include <QtCore/qmath.h>)
+#include <QtCore/qmath.h>
 /*!
     \class ImageOperation
     \brief The ImageOperation class is a helper class to manipulate images.
@@ -70,7 +70,6 @@ QString ImageOperation::uniqueFilePath(const QString &sourceFilePath, const QStr
     }
 
     QFileInfo fileInfo(sourceFilePath);
-
 
     // Construct target temp file path first:
     QDir dir(path);
@@ -185,15 +184,32 @@ QString ImageOperation::scaleImage(const QString &sourceFile, qreal scaleFactor,
 
     // Using just basic QImage scale here. We can easily replace this implementation later, if we notice
     // performance bottlenecks here.
-    QImage tmpImg(sourceFile);
-    if (tmpImg.isNull()) {
-        qWarning() << Q_FUNC_INFO << "Null source image!";
+    QImageReader ir(sourceFile);
+    if (!ir.canRead()) {
+        qWarning() << Q_FUNC_INFO << "Couldn't' source image!";
         return QString();
     }
 
-    QImage scaled = tmpImg.scaled(tmpImg.size() * scaleFactor, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QSize imageSize(ir.size());
+    imageSize = imageSize.scaled(imageSize * scaleFactor, Qt::KeepAspectRatio);
+    ir.setScaledSize(imageSize);
+    QImage image = ir.read();
 
-    if (!scaled.save(tmpFile)) {
+    int angle;
+    bool mirrored;
+    imageOrientation(sourceFile, angle, &mirrored);
+
+    if (mirrored) {
+        image.mirrored(true, false);
+    }
+
+    if (angle != 0) {
+        QTransform transform;
+        transform.rotate(angle);
+        image = image.transformed(transform);
+    }
+
+    if (!image.save(tmpFile)) {
         qWarning() << Q_FUNC_INFO << "Failed to save scaled image to temp file!";
         return QString();
     }
@@ -234,9 +250,9 @@ QString ImageOperation::scaleImageToSize(const QString &sourceFile, quint64 targ
         tmpFile = uniqueFilePath(sourceFile);
     }
 
-    QImage tmpImage(sourceFile);
-    if (tmpImage.isNull()) {
-        qWarning() << Q_FUNC_INFO << "NULL original image!";
+    QImageReader ir(sourceFile);
+    if (!ir.canRead()) {
+        qWarning() << Q_FUNC_INFO << "Can't read the original image!";
         return QString();
     }
 
@@ -258,17 +274,61 @@ QString ImageOperation::scaleImageToSize(const QString &sourceFile, quint64 targ
     //    w * w = (s' * r) / a      =>
     //    w = sqrt( (s' * r) / a )
 
-    qint32  w = tmpImage.width();               // Width
-    qint32  h = tmpImage.height();              // Height
+    qint32  w = ir.size().width();              // Width
+    qint32  h = ir.size().height();             // Height
     qreal   r = w / (h * 1.0);                  // Aspect ratio
     qreal   a = originalSize / (w * h * 1.0);   // The magic number, which combines depth and compression
 
     qint32 newWidth = qSqrt((targetSize * r) / a);
-    QImage scaled = tmpImage.scaledToWidth(newWidth, Qt::SmoothTransformation);
+    qint32 newHeight = r / newWidth;
 
-    if (!scaled.save(tmpFile)) {
+    QSize imageSize(ir.size());
+    imageSize = imageSize.scaled(newWidth, newHeight, Qt::KeepAspectRatio);
+    ir.setScaledSize(imageSize);
+    QImage image = ir.read();
+
+    // Make sure orientation is right.
+    int angle;
+    bool mirrored;
+    imageOrientation(sourceFile, angle, &mirrored);
+
+    if (mirrored) {
+        image.mirrored(true, false);
+    }
+
+    if (angle != 0) {
+        QTransform transform;
+        transform.rotate(angle);
+        image = image.transformed(transform);
+    }
+
+    if (!image.save(tmpFile)) {
         qWarning() << Q_FUNC_INFO << "Failed to save scaled image to temp file!";
         return QString();
     }
+
     return tmpFile;
+}
+
+void ImageOperation::imageOrientation(const QString &sourceFile, int &angle, bool *mirror)
+{
+    QuillMetadata md(sourceFile);
+    if (!md.isValid() || !md.hasExif()) {
+        angle = 0;
+        mirror = false;
+        return;
+    }
+
+    int exifOrientation = md.entry(QuillMetadata::Tag_Orientation).toInt();
+    switch (exifOrientation) {
+    case 1: angle = 0  ; *mirror = false; break;
+    case 2: angle = 0  ; *mirror = true ; break;
+    case 3: angle = 180; *mirror = false; break;
+    case 4: angle = 180; *mirror = true ; break;
+    case 5: angle = 90 ; *mirror = true ; break;
+    case 6: angle = 90 ; *mirror = false; break;
+    case 7: angle = 270; *mirror = true ; break;
+    case 8: angle = 270; *mirror = false; break;
+    default: break;
+    }
 }

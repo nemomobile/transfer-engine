@@ -210,7 +210,9 @@ QString ImageOperation::scaleImage(const QString &sourceFile, qreal scaleFactor,
     }
 
     if (!image.save(tmpFile)) {
-        qWarning() << Q_FUNC_INFO << "Failed to save scaled image to temp file!";
+        qWarning() << Q_FUNC_INFO
+                   << "Failed to save scaled image to temp file!"
+                   << tmpFile;
         return QString();
     }
 
@@ -280,13 +282,18 @@ QString ImageOperation::scaleImageToSize(const QString &sourceFile, quint64 targ
     qreal   a = originalSize / (w * h * 1.0);   // The magic number, which combines depth and compression
 
     qint32 newWidth = qSqrt((targetSize * r) / a);
-    qint32 newHeight = r / newWidth;
+    qint32 newHeight = newWidth / r;
 
     QSize imageSize(ir.size());
     imageSize = imageSize.scaled(newWidth, newHeight, Qt::KeepAspectRatio);
     ir.setScaledSize(imageSize);
     QImage image = ir.read();
 
+    if (image.isNull()) {
+        qWarning() << Q_FUNC_INFO
+                   << "NULL image";
+        return QString();
+    }
     // Make sure orientation is right.
     int angle;
     bool mirrored;
@@ -303,7 +310,9 @@ QString ImageOperation::scaleImageToSize(const QString &sourceFile, quint64 targ
     }
 
     if (!image.save(tmpFile)) {
-        qWarning() << Q_FUNC_INFO << "Failed to save scaled image to temp file!";
+        qWarning() << Q_FUNC_INFO
+                   << "Failed to save scaled image to temp file!"
+                   << tmpFile;
         return QString();
     }
 
@@ -312,8 +321,15 @@ QString ImageOperation::scaleImageToSize(const QString &sourceFile, quint64 targ
 
 void ImageOperation::imageOrientation(const QString &sourceFile, int &angle, bool *mirror)
 {
+    if(!QuillMetadata::canRead(sourceFile)) {
+        qWarning() << Q_FUNC_INFO << "Can't read metadata";
+        angle = 0;
+        mirror = false;
+        return;
+    }
     QuillMetadata md(sourceFile);
-    if (!md.isValid() || !md.hasExif()) {
+    if (!md.hasExif()) {
+        qWarning() << "Metadata invalid";
         angle = 0;
         mirror = false;
         return;

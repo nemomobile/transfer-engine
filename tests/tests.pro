@@ -49,7 +49,7 @@ tests_install.path = $$PATH
 tests_install.files = $$tests_xml.target
 tests_install.CONFIG += no_check_exist
 
-resources.files = images/testimage.jpg
+resources.files = images/*.jpg
 resources.path = $$PATH/images
 
 target.path = $$PATH

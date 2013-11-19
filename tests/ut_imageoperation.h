@@ -41,6 +41,7 @@ private slots:
     void testScaleToSize();
     void testDropMetadata();
     void testUniqueFilePath();
+    void testOrientation();
 };
 
 #endif // UT_IMAGEOPERATION_H

@@ -114,17 +114,29 @@ void ut_imageoperation::testScale()
     QString result = ImageOperation::scaleImage(filePath, 0.5, target);
     QCOMPARE(result, target);
 
+    int angle;
+    bool mirror;
+    ImageOperation::imageOrientation(filePath, &angle, &mirror);
+    QCOMPARE(angle, 90);
+    QCOMPARE(mirror, false);
+
     QImage resImage(result);
+    QTransform x;
+    x.rotate(angle);
+    resImage = resImage.transformed(x);
+
     QCOMPARE(resImage.size(), img.size()*0.5);
     QFile::remove(result);
 
     result = ImageOperation::scaleImage(filePath, 0.1, target);
     resImage.load(result);
+    resImage = resImage.transformed(x);
     QCOMPARE(resImage.size(), img.size()*0.1);
     QFile::remove(result);
 
     result = ImageOperation::scaleImage(filePath, 0.9, target);
     resImage.load(result);
+    resImage = resImage.transformed(x);
     QVERIFY(qAbs(resImage.width() - img.width()*0.9) < 2);
     QVERIFY(qAbs(resImage.height() - img.height()*0.9) < 2);
     QFile::remove(result);
@@ -139,7 +151,20 @@ void ut_imageoperation::testScaleToSize()
     QString filePath("images/testimage.jpg");
 
     QString target = ImageOperation::uniqueFilePath(filePath);
+    QVERIFY(!target.isEmpty());
+
     QFileInfo f("images/testimage.jpg");
+
+    int angle;
+    bool mirror;
+    ImageOperation::imageOrientation(filePath, &angle, &mirror);
+    QCOMPARE(angle, 90);
+    QCOMPARE(mirror, false);
+
+    QTransform x;
+    x.rotate(angle);
+    img = img.transformed(x);
+
     int targetSize = f.size() * 0.5;
 
     // Invalid sourceFile -> fail
@@ -214,6 +239,43 @@ void ut_imageoperation::testDropMetadata()
 
     // Remove the test image
     QFile::remove(path);
+}
+
+void ut_imageoperation::testOrientation()
+{
+    int angle;
+    bool mirrored;
+    ImageOperation::imageOrientation("images/testimage-0.jpg", &angle, &mirrored);
+    QCOMPARE(angle, 0);
+    QCOMPARE(mirrored, false);
+
+    ImageOperation::imageOrientation("images/testimage-0-mirrored.jpg", &angle, &mirrored);
+    QCOMPARE(angle, 0);
+    QCOMPARE(mirrored, true);
+
+    ImageOperation::imageOrientation("images/testimage-90.jpg", &angle, &mirrored);
+    QCOMPARE(angle, 90);
+    QCOMPARE(mirrored, false);
+
+    ImageOperation::imageOrientation("images/testimage-90-mirrored.jpg", &angle, &mirrored);
+    QCOMPARE(angle, 90);
+    QCOMPARE(mirrored, true);
+
+    ImageOperation::imageOrientation("images/testimage-180.jpg", &angle, &mirrored);
+    QCOMPARE(angle, 180);
+    QCOMPARE(mirrored, false);
+
+    ImageOperation::imageOrientation("images/testimage-180-mirrored.jpg", &angle, &mirrored);
+    QCOMPARE(angle, 180);
+    QCOMPARE(mirrored, true);
+
+    ImageOperation::imageOrientation("images/testimage-270.jpg", &angle, &mirrored);
+    QCOMPARE(angle, 270);
+    QCOMPARE(mirrored, false);
+
+    ImageOperation::imageOrientation("images/testimage-270-mirrored.jpg", &angle, &mirrored);
+    QCOMPARE(angle, 270);
+    QCOMPARE(mirrored, true);
 }
 
 /*

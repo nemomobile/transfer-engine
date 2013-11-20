@@ -37,6 +37,7 @@ public:
     static QString removeImageMetadata(const QString &sourceFile);
     static QString scaleImage(const QString &sourceFile, qreal scaleFactor, const QString &targetFile=QString());
     static QString scaleImageToSize(const QString &sourceFile, quint64 targetSize, const QString &targetFile=QString());
+    static void imageOrientation(const QString &sourceFile, int *angle, bool *mirror);
 };
 
 #endif // IMAGEOPERATION_H

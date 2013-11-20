@@ -186,7 +186,7 @@ QString ImageOperation::scaleImage(const QString &sourceFile, qreal scaleFactor,
     // performance bottlenecks here.
     QImageReader ir(sourceFile);
     if (!ir.canRead()) {
-        qWarning() << Q_FUNC_INFO << "Couldn't' source image!";
+        qWarning() << Q_FUNC_INFO << "Couldn't read source image!";
         return QString();
     }
 
@@ -197,10 +197,10 @@ QString ImageOperation::scaleImage(const QString &sourceFile, qreal scaleFactor,
 
     int angle;
     bool mirrored;
-    imageOrientation(sourceFile, angle, &mirrored);
+    imageOrientation(sourceFile, &angle, &mirrored);
 
     if (mirrored) {
-        image.mirrored(true, false);
+        image = image.mirrored(true, false);
     }
 
     if (angle != 0) {
@@ -297,10 +297,10 @@ QString ImageOperation::scaleImageToSize(const QString &sourceFile, quint64 targ
     // Make sure orientation is right.
     int angle;
     bool mirrored;
-    imageOrientation(sourceFile, angle, &mirrored);
+    imageOrientation(sourceFile, &angle, &mirrored);
 
     if (mirrored) {
-        image.mirrored(true, false);
+        image = image.mirrored(true, false);
     }
 
     if (angle != 0) {
@@ -319,32 +319,32 @@ QString ImageOperation::scaleImageToSize(const QString &sourceFile, quint64 targ
     return tmpFile;
 }
 
-void ImageOperation::imageOrientation(const QString &sourceFile, int &angle, bool *mirror)
+void ImageOperation::imageOrientation(const QString &sourceFile, int *angle, bool *mirror)
 {
     if(!QuillMetadata::canRead(sourceFile)) {
         qWarning() << Q_FUNC_INFO << "Can't read metadata";
-        angle = 0;
-        mirror = false;
+        *angle = 0;
+        *mirror = false;
         return;
     }
     QuillMetadata md(sourceFile);
     if (!md.hasExif()) {
         qWarning() << "Metadata invalid";
-        angle = 0;
-        mirror = false;
+        *angle = 0;
+        *mirror = false;
         return;
     }
 
     int exifOrientation = md.entry(QuillMetadata::Tag_Orientation).toInt();
     switch (exifOrientation) {
-    case 1: angle = 0  ; *mirror = false; break;
-    case 2: angle = 0  ; *mirror = true ; break;
-    case 3: angle = 180; *mirror = false; break;
-    case 4: angle = 180; *mirror = true ; break;
-    case 5: angle = 90 ; *mirror = true ; break;
-    case 6: angle = 90 ; *mirror = false; break;
-    case 7: angle = 270; *mirror = true ; break;
-    case 8: angle = 270; *mirror = false; break;
+    case 1: *angle = 0  ; *mirror = false; break;
+    case 2: *angle = 0  ; *mirror = true ; break;
+    case 3: *angle = 180; *mirror = false; break;
+    case 4: *angle = 180; *mirror = true ; break;
+    case 5: *angle = 90 ; *mirror = true ; break;
+    case 6: *angle = 90 ; *mirror = false; break;
+    case 7: *angle = 270; *mirror = true ; break;
+    case 8: *angle = 270; *mirror = false; break;
     default: break;
     }
 }

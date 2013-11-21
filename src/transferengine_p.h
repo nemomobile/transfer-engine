@@ -35,7 +35,9 @@
 #include "mediatransferinterface.h"
 #include "transfermethodinfo.h"
 
-#include <Accounts/Manager>
+namespace Accounts {
+class Manager;
+}
 
 class QFileSystemWatcher;
 class QTimer;

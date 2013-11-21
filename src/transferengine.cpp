@@ -45,6 +45,8 @@
 
 #include <signal.h>
 
+#include <Accounts/Manager>
+
 #define SHARE_PLUGINS_PATH "/usr/lib/nemo-transferengine/plugins"
 #define CONFIG_PATH "/usr/share/nemo-transferengine/nemo-transfer-engine.conf"
 #define FILE_WATCHER_TIMEOUT 5000
@@ -153,7 +155,6 @@ TransferEnginePrivate::TransferEnginePrivate(TransferEngine *parent):
     connect(m_accountManager, SIGNAL(accountCreated(Accounts::AccountId)), this, SLOT(enabledPluginsCheck()));
     connect(m_accountManager, SIGNAL(accountRemoved(Accounts::AccountId)), this, SLOT(enabledPluginsCheck()));
     connect(m_accountManager, SIGNAL(accountUpdated(Accounts::AccountId)), this, SLOT(enabledPluginsCheck()));
-    connect(m_accountManager, SIGNAL(enabledEvent(Accounts::AccountId)),   this, SLOT(enabledPluginsCheck()));    
 
     // Exit safely stuff if we recieve certain signal or there are no active transfers
     Q_Q(TransferEngine);
@@ -188,6 +189,11 @@ void TransferEnginePrivate::enabledPluginsCheck()
         m_fileWatcherTimer->stop();
     }
 
+    if (m_infoObjects.count() > 0) {
+        qWarning() << Q_FUNC_INFO << "Already quering account info" << m_infoObjects.count();
+        return;
+    }
+
     // First clear old data
     m_enabledPlugins.clear();
     qDeleteAll(m_infoObjects);
@@ -217,12 +223,20 @@ void TransferEnginePrivate::enabledPluginsCheck()
                 continue;
             }
 
-            // Put info object to temporary container to wait that query result
-            // is returned. These object will be cleaned in pluginInfoReady() slot.
-            m_infoObjects << info;
-            connect(info, SIGNAL(infoReady()), this, SLOT(pluginInfoReady()));
-            connect(info, SIGNAL(infoError(QString)), this, SLOT(pluginInfoError(QString)));
-            info->query();
+            if (info->ready()) {
+                if (info->info().count() > 0) {
+                    m_enabledPlugins << info->info();
+                } else {
+                    // Plugin has nothing to provide, just ignore it
+                    delete info;
+                }
+            } else {
+                // These object will be cleaned in pluginInfoReady() slot.
+                m_infoObjects << info;
+                connect(info, SIGNAL(infoReady()), this, SLOT(pluginInfoReady()));
+                connect(info, SIGNAL(infoError(QString)), this, SLOT(pluginInfoError(QString)));
+                info->query();
+            }
         }
 
         if (!interface) {
@@ -608,10 +622,18 @@ void TransferEnginePrivate::updateProgress(qreal progress)
 void TransferEnginePrivate::pluginInfoReady()
 {
     TransferPluginInfo *infoObj = qobject_cast<TransferPluginInfo*>(sender());
-    m_enabledPlugins << infoObj->info();
 
-    m_infoObjects.removeOne(infoObj);
-    delete infoObj;
+    QList<TransferMethodInfo> infoList = infoObj->info();
+    if (!infoList.isEmpty()) {
+        m_enabledPlugins << infoList;
+    }
+
+    if (m_infoObjects.removeOne(infoObj)) {
+        delete infoObj;
+    } else {
+        qWarning() << Q_FUNC_INFO << "Failed to remove info object!";
+        delete infoObj;
+    }
 
     if (m_infoObjects.isEmpty()) {
         Q_Q(TransferEngine);

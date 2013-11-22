@@ -1,4 +1,4 @@
 [D-BUS Service]
 Interface=/org/nemo/transferengine
 Name=org.nemo.transferengine
-Exec=/usr/bin/nemo-transfer-engine
+Exec=/usr/bin/invoker --type=generic /usr/bin/nemo-transfer-engine

@@ -766,7 +766,7 @@ MediaItem * DbManager::mediaItem(int key) const
     //       this point if there isn't anything...
     if (query.next()) {
         item->setValue(MediaItem::Title, query.value(rec.indexOf("title")));
-        item->setValue(MediaItem::Title, query.value(rec.indexOf("description")));
+        item->setValue(MediaItem::Description, query.value(rec.indexOf("description")));
     }
 
     query.finish();

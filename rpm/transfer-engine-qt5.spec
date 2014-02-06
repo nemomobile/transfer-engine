@@ -1,5 +1,5 @@
 Name: nemo-transferengine-qt5
-Version: 0.0.27
+Version: 0.0.28
 Release: 0
 Summary: Transfer Engine for uploading media content and tracking transfers.
 Group: System Environment/Daemon
@@ -139,9 +139,3 @@ exit 0
 %postun -n libnemotransferengine-qt5
 /sbin/ldconfig
 
-%postun -n nemo-transferengine-qt5
-if [ -f "%{db_file}" ]
-then
-    rm %{db_file}
-fi
-exit 0

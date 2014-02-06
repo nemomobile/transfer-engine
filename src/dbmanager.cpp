@@ -451,7 +451,7 @@ int DbManager::createTransferEntry(MediaItem *mediaItem)
     // Create a metadata entry if user has passed any
     const QString title = mediaItem->value(MediaItem::Title).toString();
     const QString desc  = mediaItem->value(MediaItem::Description).toString();
-    if (!title.isEmpty() && !desc.isEmpty()) {
+    if (!title.isEmpty() || !desc.isEmpty()) {
         if (createMetadataEntry(rowId.toInt(), title, desc) < 0){
             qWarning() << "DbManager::createTransferEntry: Failed to create metadata entry";
             return -1;
@@ -766,7 +766,7 @@ MediaItem * DbManager::mediaItem(int key) const
     //       this point if there isn't anything...
     if (query.next()) {
         item->setValue(MediaItem::Title, query.value(rec.indexOf("title")));
-        item->setValue(MediaItem::Title, query.value(rec.indexOf("description")));
+        item->setValue(MediaItem::Description, query.value(rec.indexOf("description")));
     }
 
     query.finish();

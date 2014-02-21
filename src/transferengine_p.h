@@ -118,6 +118,7 @@ public:
 
 public Q_SLOTS:
     void exitSafely();
+    void delayedExitSafely();
     void enabledPluginsCheck();
     void cleanupExpiredTransfers(const QList<int> &expiredIds);
     void pluginDirChanged();

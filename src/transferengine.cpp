@@ -178,6 +178,16 @@ void TransferEnginePrivate::exitSafely()
 {
     if (!m_activityMonitor->activeTransfers()) {
         qDebug() << Q_FUNC_INFO;
+        QTimer::singleShot(2000, this, SLOT(delayedExitSafely()));
+    }
+}
+
+void TransferEnginePrivate::delayedExitSafely()
+{
+    if (m_activityMonitor->activeTransfers()) {
+        qDebug() << "Keeping transfer engine alive, transfers still ongoing";
+    } else {
+        qDebug() << "Stopping transfer engine";
         qApp->exit();
     }
 }

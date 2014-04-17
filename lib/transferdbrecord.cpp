@@ -248,6 +248,29 @@ QVariant TransferDBRecord::value(int index) const
         return restart_supported;
 
     default:
+        qWarning() << Q_FUNC_INFO << "Unknown index: " << index;
         return QVariant();
     }
 }
+
+bool TransferDBRecord::isValid() const
+{
+    return transfer_id > 0 && transfer_type > 0;
+}
+
+bool operator ==(const TransferDBRecord &left, const TransferDBRecord &right)
+{
+    return left.transfer_id == right.transfer_id &&
+           left.transfer_type == right.transfer_type &&
+           left.status == right.status &&
+           left.progress == right.progress;
+}
+
+bool operator !=(const TransferDBRecord &left, const TransferDBRecord &right)
+{
+    return left.transfer_id != right.transfer_id ||
+            left.transfer_type != right.transfer_type ||
+            left.status != right.status ||
+            left.progress != right.progress;
+}
+

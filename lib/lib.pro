@@ -20,7 +20,8 @@ HEADERS += \
     transfermethodinfo.h \
     transferplugininfo.h \
     transferengineclient.h \
-    imageoperation.h
+    imageoperation.h \
+    content.h
 
 SOURCES += \
     transferdbrecord.cpp \
@@ -28,7 +29,8 @@ SOURCES += \
     mediaitem.cpp \
     transfermethodinfo.cpp \
     transferengineclient.cpp \
-    imageoperation.cpp
+    imageoperation.cpp \
+    content.cpp
 
 # generated files
 HEADERS += \

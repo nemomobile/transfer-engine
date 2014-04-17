@@ -1,7 +1,7 @@
 /****************************************************************************************
 **
-** Copyright (C) 2013 Jolla Ltd.
-** Contact: Marko Mattila <marko.mattila@jollamobile.com>
+** Copyright (C) 2014 Jolla Ltd.
+** Contact: Marko Mattila <marko.mattila@jolla.com>
 ** All rights reserved.
 **
 ** This file is part of Nemo Transfer Engine package.
@@ -24,27 +24,34 @@
 **
 ****************************************************************************************/
 
-#ifndef TRANSFERTYPES_H
-#define TRANSFERTYPES_H
+#include <QtGlobal>
+#include <QtQml>
+#include <QQmlEngine>
+#include <QQmlExtensionPlugin>
 
-namespace TransferEngineData
+#include "declarativetransfermodel.h"
+
+class Q_DECL_EXPORT DeclarativePlugin: public QQmlExtensionPlugin
 {
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.nemomobile.transferengine")
 
-    enum TransferStatus {
-        Unknown = 0,
-        NotStarted,
-        TransferStarted,
-        TransferCanceled,
-        TransferFinished,
-        TransferInterrupted
-    };
+public:
 
-    enum TransferType {
-        Undefined = 0,
-        Upload,
-        Download,
-        Sync
-    };
+    void initializeEngine(QQmlEngine *engine, const char *uri)
+    {
+        Q_UNUSED(engine)
+        Q_UNUSED(uri)
+        Q_ASSERT(QLatin1String(uri) == QLatin1String("org.nemomobile.transferengine"));
 
-}
-#endif // TRANSFERTYPES_H
+    }
+
+    void registerTypes(const char *uri)
+    {
+        Q_ASSERT(QLatin1String(uri) == QLatin1String("org.nemomobile.transferengine"));
+
+        qmlRegisterType<TransferModel>(uri, 1, 0, "TransferModel");
+    }
+};
+
+#include "plugin.moc"

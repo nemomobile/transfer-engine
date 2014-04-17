@@ -1,5 +1,5 @@
 Name: nemo-transferengine-qt5
-Version: 0.0.29
+Version: 0.0.30
 Release: 0
 Summary: Transfer Engine for uploading media content and tracking transfers.
 Group: System Environment/Daemon
@@ -33,7 +33,6 @@ Obsoletes: nemo-transferengine <= 0.0.19
 %{_datadir}/translations/nemo-transfer-engine_eng_en.qm
 
 
-
 %package -n libnemotransferengine-qt5
 Summary: Transfer engine library.
 Group: Development/Libraries
@@ -44,6 +43,7 @@ Group: Development/Libraries
 %files -n libnemotransferengine-qt5
 %defattr(-,root,root,-)
 %{_libdir}/*.so.*
+%{_libdir}/qt5/qml/org/nemomobile/transferengine/*
 
 %package -n libnemotransferengine-qt5-devel
 Summary: Development headers for transfer engine library.

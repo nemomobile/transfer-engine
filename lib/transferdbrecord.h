@@ -67,6 +67,12 @@ public:
 
     QVariant value(int index) const;
 
+    bool isValid() const;
+
+    friend bool operator ==(const TransferDBRecord &left, const TransferDBRecord &right);
+    friend bool operator !=(const TransferDBRecord &left, const TransferDBRecord &right);
+
+
 // TODO: Maybe this could use QVariantList internally to ease of pain of keeping thigs up to date
 //       when database structure / fields change
     int     transfer_id;
@@ -86,6 +92,9 @@ public:
     bool    cancel_supported;
     bool    restart_supported;
 };
+
+bool operator ==(const TransferDBRecord &left, const TransferDBRecord &right);
+bool operator !=(const TransferDBRecord &left, const TransferDBRecord &right);
 
 
 

@@ -557,10 +557,38 @@ bool DbManager::removeTransfer(int key)
 
     QSqlQuery query;
     if (!query.exec(queryStr)) {
-        qWarning() << "Failed to execute SQL query. Couldn't delete the transfer with key " << key;
+        qWarning() << Q_FUNC_INFO;
+        qWarning() << "Failed to execute SQL query: " << query.lastQuery();
+        qWarning() << query.lastError().text();
         return false;
     }
 
+    query.finish();
+    return true;
+}
+
+/*!
+    Remove failed transfers with same provider except the one having the \a excludeKey. Argument \a type defines the type
+    of the removed failed transfers and can be one of TransferEngineData::Download, TransferEngineData::Upload
+    or TransferEngineData::Sync.
+
+    This methods returns true on success or false on failure
+ */
+bool DbManager::clearFailedTransfers(int excludeKey, TransferEngineData::TransferType type)
+{
+    // DELETE FROM transfers where transfer_id!=4584 AND status=5 AND  display_name=(SELECT display_name FROM transfers WHERE transfer_id=4584);
+    QString queryStr = QString("DELETE FROM transfers WHERE transfer_id!=%1 AND status=%2 AND transfer_type=%3 AND display_name=(SELECT display_name FROM transfers WHERE transfer_id=%1);")
+            .arg(excludeKey)
+            .arg(TransferEngineData::TransferInterrupted)
+            .arg(type);
+
+    QSqlQuery query;
+    if (!query.exec(queryStr)) {
+        qWarning() << Q_FUNC_INFO;
+        qWarning() << "Failed to execute query: " << query.lastQuery();
+        qWarning() << query.lastError().text();
+        return false;
+    }
     query.finish();
     return true;
 }

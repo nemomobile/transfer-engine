@@ -656,7 +656,7 @@ void TransferEnginePrivate::pluginInfoError(const QString &msg)
     qWarning() << "TransferEnginePrivate::pluginInfoError:" << msg;
     TransferPluginInfo *infoObj = qobject_cast<TransferPluginInfo*>(sender());
     m_infoObjects.removeOne(infoObj);
-    delete infoObj;
+    infoObj->deleteLater();
 
     if (m_infoObjects.isEmpty()) {
         Q_Q(TransferEngine);
@@ -1152,17 +1152,30 @@ void TransferEngine::finishTransfer(int transferId, int status, const QString &r
         transferStatus == TransferEngineData::TransferCanceled ||
         transferStatus == TransferEngineData::TransferInterrupted) {
         DbManager::instance()->updateTransferStatus(transferId, transferStatus);
-        d->m_activityMonitor->activityFinished(transferId);
         d->sendNotification(type, transferStatus, fileName);
         emit statusChanged(transferId, status);
 
-        // We don't want to leave successfully finished syncs to populate the database, just remove it.
-        if (type == TransferEngineData::Sync &&
-            transferStatus == TransferEngineData::TransferFinished) {
-            if (DbManager::instance()->removeTransfer(transferId)) {                
-                emit transfersChanged();
+        bool notify = false;
+
+        // Clean up old failed syncs from the database and leave only the latest one there
+        if (type == TransferEngineData::Sync) {
+            if (DbManager::instance()->clearFailedTransfers(transferId, type)) {
+                notify = true;
+            }
+
+            // We don't want to leave successfully finished syncs to populate the database, just remove it.
+            if (transferStatus == TransferEngineData::TransferFinished) {
+                if (DbManager::instance()->removeTransfer(transferId)) {
+                    notify = true;
+                }
             }
         }
+
+        if (notify) {
+            emit transfersChanged();
+        }
+
+        d->m_activityMonitor->activityFinished(transferId);
     }
 }
 

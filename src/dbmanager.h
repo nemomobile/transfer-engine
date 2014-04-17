@@ -59,6 +59,8 @@ public:
 
     bool removeTransfer(int key);
 
+    bool clearFailedTransfers(int excludeKey, TransferEngineData::TransferType type);
+
     bool clearTransfers();
 
     QList<TransferDBRecord> transfers() const;

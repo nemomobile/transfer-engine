@@ -5,12 +5,11 @@ CONFIG += qt plugin
 INCLUDEPATH += ../lib
 LIBS += -lnemotransferengine-qt5 -L../lib
 
-equals(QT_MAJOR_VERSION, 5): TARGET = declarativetransferengine
-equals(QT_MAJOR_VERSION, 5): QT += qml
+TARGET = declarativetransferengine
+QT += qml
 
 uri = org.nemomobile.transferengine
 
-#system(qdbusxml2cpp -v -c AmbienceInterface -p ambienceinterface.h:ambienceinterface.cpp ../../dbus/com.jolla.ambienced.xml)
 
 # Input
 SOURCES += \
@@ -31,8 +30,7 @@ OTHER_FILES = qmldir *.qml *.js
     PRE_TARGETDEPS += $$copy_qmldir.target
 }
 
-
-equals(QT_MAJOR_VERSION, 5): target.path = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
+target.path = $$[QT_INSTALL_QML]/$$replace(uri, \\., /)
 
 qmldir.files = qmldir *.qml *.js
 qmldir.path = $$target.path

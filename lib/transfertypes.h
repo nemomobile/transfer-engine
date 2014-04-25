@@ -31,7 +31,7 @@ namespace TransferEngineData
 {
 
     enum TransferStatus {
-        Unknown = 0,
+        Unknown,
         NotStarted,
         TransferStarted,
         TransferCanceled,
@@ -40,7 +40,7 @@ namespace TransferEngineData
     };
 
     enum TransferType {
-        Undefined = 0,
+        Undefined,
         Upload,
         Download,
         Sync

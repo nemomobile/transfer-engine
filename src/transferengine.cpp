@@ -1162,13 +1162,12 @@ void TransferEngine::finishTransfer(int transferId, int status, const QString &r
             if (DbManager::instance()->clearFailedTransfers(transferId, type)) {
                 notify = true;
             }
-        }
 
-        // We don't want to leave successfully finished syncs to populate the database, just remove it.
-        if (type == TransferEngineData::Sync &&
-            transferStatus == TransferEngineData::TransferFinished) {
-            if (DbManager::instance()->removeTransfer(transferId)) {
-                notify = true;
+            // We don't want to leave successfully finished syncs to populate the database, just remove it.
+            if (transferStatus == TransferEngineData::TransferFinished) {
+                if (DbManager::instance()->removeTransfer(transferId)) {
+                    notify = true;
+                }
             }
         }
 

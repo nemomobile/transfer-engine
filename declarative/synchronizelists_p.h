@@ -132,7 +132,7 @@ public:
     }
 
 private:
-    // Tests if the cached contact id at i matches a referenceId.
+    // Tests if the cached id at i matches a referenceId.
     // If there is a match removes all items traversed in the cache since the previous match
     // and inserts any items in the reference set found to to not be in the cache.
     bool cacheMatch(int i, int count, typename ReferenceList::const_reference referenceItem)
@@ -148,7 +148,7 @@ private:
         }
     }
 
-    // Tests if the reference contact id at i matches a cacheId.
+    // Tests if the referenceid at i matches a cacheId.
     // If there is a match inserts all items traversed in the reference set since the
     // previous match and removes any items from the cache that were not found in the
     // reference list.

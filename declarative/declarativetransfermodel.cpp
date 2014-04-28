@@ -381,11 +381,6 @@ bool TransferModel::executeQuery(QVector<TransferDBRecord> *rows, int *activeTra
 
     QMutexLocker locker(&m_mutex);
     m_asyncRows = *rows;
-    if (!m_notified) {
-        m_notified = true;
-        QCoreApplication::postEvent(this, new QEvent(QEvent::UpdateRequest));
-    }
-
     return true;
 }
 

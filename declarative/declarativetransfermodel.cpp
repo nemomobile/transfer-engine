@@ -336,52 +336,15 @@ bool TransferModel::executeQuery(QVector<TransferDBRecord> *rows, int *activeTra
         return false;
     }
 
-    static QAtomicInt uid(0);
-    const QString table = QLatin1String("transfers_") + QString::number(uid.fetchAndAddAcquire(1));
-
-    const QString queryStatement = QString(QStringLiteral(
-            "\n CREATE TEMPORARY TABLE %1 AS"
-            "\n SELECT *"
-            "\n FROM transfers ORDER BY transfer_id DESC")).arg(table);
-
     QSqlQuery query(db);
     query.setForwardOnly(true);
 
-    if (!query.prepare(queryStatement)) {
-        qWarning() << Q_FUNC_INFO ;
-        qWarning() << "Failed to prepare transfer query!";
-        *errorString = query.lastError().text();
-        return false;
-    }
-
-    if (!query.exec()) {
+    if (!query.exec(QString(QStringLiteral("SELECT * FROM transfers ORDER BY transfer_id DESC")))) {
         qWarning() << Q_FUNC_INFO;
         qWarning() << "Failed to create tmp table";
         qWarning() << query.lastQuery();
         qWarning() << query.lastError().text();
         *errorString = query.lastError().text();
-        return false;
-    }
-    query.finish();
-
-    if (!query.exec(QString(QStringLiteral(
-                           "\n SELECT"
-                           "\n  *"
-                           "\n  FROM %1;"
-                           )).arg(table))) {
-        qWarning() << Q_FUNC_INFO;
-        qWarning() << "Failed to execute transfer query!";
-        qWarning() << query.lastQuery();
-        qWarning() << query.lastError().text();
-        *errorString = query.lastError().text();
-
-        if (!query.exec(QString(QStringLiteral("DROP TABLE %1")).arg(table))) {
-            qWarning() << Q_FUNC_INFO;
-            qWarning() << "Failed to drop temporary ambience table";
-            qWarning() << query.lastQuery();
-            *errorString = query.lastError().text();
-            return false;
-        }
         return false;
     }
 
@@ -414,14 +377,6 @@ bool TransferModel::executeQuery(QVector<TransferDBRecord> *rows, int *activeTra
         }
 
         rows->append(record);
-    }
-
-    if (!query.exec(QString(QStringLiteral("DROP TABLE %1")).arg(table))) {
-        qWarning() << Q_FUNC_INFO;
-        qWarning() << "Failed to drop temporary ambience table";
-        qWarning() << query.lastQuery();
-        *errorString = query.lastError().text();
-        return false;
     }
 
     QMutexLocker locker(&m_mutex);

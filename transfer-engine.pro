@@ -3,6 +3,7 @@ SUBDIRS  = lib src declarative tests
 
 src.depends = lib
 tests.depends = lib
+declarative.depends = lib
 
 # no daemon for Qt 4
 equals(QT_MAJOR_VERSION, 4): SUBDIRS -= src

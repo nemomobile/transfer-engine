@@ -57,7 +57,9 @@ void ExamplePluginInfo::query()
     // TODO: Translations for 3rd party plugins is not yet supported by Sailfish OS.
     //       Adding support there later, but for now just use what ever non-translated
     //       string here. This string will be visible in the share method list.
-    info.displayName     = "Example Display Name";
+    //: Display name for example share plugin
+    //% "Example plugin"
+    info.displayName     = qtTrId("example-localization-li-id");
 
     // Method ID is a unique identifier for this plugin. It is used to identify which share plugin should be
     // used for starting the sharing.

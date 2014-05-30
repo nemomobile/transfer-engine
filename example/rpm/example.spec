@@ -22,7 +22,7 @@ Requires:  declarative-transferengine-qt5 >= 0.0.44
 %defattr(-,root,root,-)
 %{_libdir}/nemo-transferengine/plugins/*shareplugin.so
 %{_datadir}/nemo-transferengine/plugins/*.qml
-%{_datadir}/translations/example_share_plugin_eng_en.qm
+%{_datadir}/translations/nemotransferengine/*.qm
 
 %package ts-devel
 Summary:   Translation source for Transfer Engine share plugins

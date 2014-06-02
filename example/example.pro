@@ -20,13 +20,11 @@ SOURCES += \
 OTHER_FILES += \
     ExampleShareUI.qml
 
-
 shareui.files = *.qml
 shareui.path = /usr/share/nemo-transferengine/plugins
 
 target.path = /usr/lib/nemo-transferengine/plugins
 INSTALLS += target shareui
-
 
 TS_FILE = $$OUT_PWD/example_share_plugin.ts
 EE_QM = $$OUT_PWD/example_share_plugin_eng_en.qm
@@ -47,17 +45,28 @@ engineering_english.depends = ts
 engineering_english.input = $$TS_FILE
 engineering_english.output = $$EE_QM
 
-engineering_english_install.path = /usr/share/translations
+engineering_english_install.path = /usr/share/translations/nemotransferengine
 engineering_english_install.files = $$EE_QM
 engineering_english_install.CONFIG += no_check_exist
 
-QMAKE_EXTRA_TARGETS += ts engineering_english
+TS_FI_FILE = translations/example_share_plugin_fi.ts
+QM_FI_FILE = example_share_plugin_fi.qm
 
-PRE_TARGETDEPS += ts engineering_english
+finnish.commands += lrelease -idbased $$TS_FI_FILE -qm $$QM_FI_FILE
+finnish.CONFIG += no_check_exist no_link
+finnish.depends = ts
+finnish.input = $$TS_FI_FILE
+finnish.output = $$QM_FI_FILE
 
-INSTALLS += ts_install engineering_english_install
+finnish_install.path = /usr/share/translations/nemotransferengine
+finnish_install.files = $$QM_FI_FILE
+finnish_install.CONFIG += no_check_exist
 
+QMAKE_EXTRA_TARGETS += ts engineering_english finnish
 
+PRE_TARGETDEPS += ts engineering_english finnish
+
+INSTALLS += ts_install engineering_english_install finnish_install
 
 OTHER_FILES += \
     rpm/*

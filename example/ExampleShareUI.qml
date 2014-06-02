@@ -61,7 +61,9 @@ ShareDialog {
         Label {
             anchors.centerIn:parent
             width: viewWidth
-            text: "Example Test Share UI"
+            //: Label for example share UI
+            //% "Example Test Share UI"
+            text: qsTrId("example-test-share-ui-la-id")
             horizontalAlignment: Text.AlignHCenter
         }
     }
@@ -77,8 +79,9 @@ ShareDialog {
     }
 
     DialogHeader {
-        // TODO: Localization not supported for 3rd party plugins yet
-        acceptText: "Example Share"
+        //: Header for example share plugin
+        //% "Example Share"
+        acceptText: qsTrId("example-share-he-id")
     }
 }
 

@@ -390,7 +390,7 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
         MNotification notification(eventType);
         notification.setSummary(fileName);
         notification.setBody(msgNBody);
-        notification.setImage("icon-l-share");
+        notification.setImage("icon-lock-transfer");
 
 
         // Check if we have existing group and use that instead of creating a new one.
@@ -408,7 +408,7 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
         // No existing groups, create a new one from the scratch
         if (group == 0){
             group = new MNotificationGroup(eventType);
-            group->setImage("icon-l-share");
+            group->setImage("icon-lock-transfer");
             // Add to the groups, it will be deleted when the list is cleaned
             groups.append(group);
         }

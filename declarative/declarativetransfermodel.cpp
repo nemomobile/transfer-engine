@@ -35,7 +35,6 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QThreadStorage>
-#include <QUuid>
 
 #define DB_PATH ".local/nemo-transferengine"
 #define DB_NAME "transferdb.sqlite"
@@ -46,22 +45,10 @@ template <> bool compareIdentity<TransferDBRecord>(
     return item.transfer_id == reference.transfer_id;
 }
 
-class QSqlDatabaseWrapper
+class QSqliteDatabase : public QSqlDatabase
 {
 public:
-    QSqlDatabaseWrapper(const QSqlDatabase& db) : m_db(db) {}
-    ~QSqlDatabaseWrapper() {
-        QString name = m_db.connectionName();
-	m_db = QSqlDatabase(); // Drop our last reference.
-	if (!name.isEmpty()) {
-	    QSqlDatabase::removeDatabase(name);
-	}
-    }
-
-    QSqlDatabase& database() { return m_db; }
-
-private:
-    QSqlDatabase m_db;
+    QSqliteDatabase() : QSqlDatabase(QLatin1String("QSQLITE")) {}
 };
 
 TransferModel::TransferModel(QObject *parent)
@@ -412,27 +399,20 @@ bool TransferModel::executeQuery(QVector<TransferDBRecord> *rows, int *activeTra
 
 QSqlDatabase TransferModel::database()
 {
-    static QThreadStorage<QSqlDatabaseWrapper *> thread_database;
+    static QThreadStorage<QSqlDatabase> thread_database;
 
     if (!thread_database.hasLocalData()) {
         const QString absDbPath = QDir::homePath() + QDir::separator()
                                 + DB_PATH + QDir::separator()
                                 + DB_NAME;
 
-        const QString uuid = QUuid::createUuid().toString();
-        QSqlDatabase database = QSqlDatabase::addDatabase(
-                    QLatin1String("QSQLITE"),
-                    QLatin1String("transferengine-") + uuid);
+	QSqliteDatabase database;
         database.setDatabaseName(absDbPath);
         database.setConnectOptions(QLatin1String("QSQLITE_OPEN_READONLY")); // sanity check
-
-	QSqlDatabaseWrapper *wrapper = new QSqlDatabaseWrapper(database);
-	thread_database.setLocalData(wrapper);
+	thread_database.setLocalData(database);
     }
 
-    QSqlDatabaseWrapper *wrapper = thread_database.localData();
-    QSqlDatabase &database = wrapper->database();
-
+    QSqlDatabase &database = thread_database.localData();
     if (!database.isOpen() && !database.open()) {
         qWarning() << "Failed to open transfer engine database";
         qWarning() << database.lastError();

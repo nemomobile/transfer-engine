@@ -49,19 +49,19 @@ template <> bool compareIdentity<TransferDBRecord>(
 class QSqlDatabaseWrapper
 {
 public:
-  QSqlDatabaseWrapper(const QSqlDatabase& db) : m_db(db) {}
-  ~QSqlDatabaseWrapper() {
-    QString name = m_db.connectionName();
-    m_db = QSqlDatabase(); // Drop our last reference.
-    if (!name.isEmpty()) {
-      QSqlDatabase::removeDatabase(name);
+    QSqlDatabaseWrapper(const QSqlDatabase& db) : m_db(db) {}
+    ~QSqlDatabaseWrapper() {
+        QString name = m_db.connectionName();
+	m_db = QSqlDatabase(); // Drop our last reference.
+	if (!name.isEmpty()) {
+	    QSqlDatabase::removeDatabase(name);
+	}
     }
-  }
 
-  QSqlDatabase& database() { return m_db; }
+    QSqlDatabase& database() { return m_db; }
 
 private:
-  QSqlDatabase m_db;
+    QSqlDatabase m_db;
 };
 
 TransferModel::TransferModel(QObject *parent)

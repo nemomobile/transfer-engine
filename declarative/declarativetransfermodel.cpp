@@ -46,6 +46,24 @@ template <> bool compareIdentity<TransferDBRecord>(
     return item.transfer_id == reference.transfer_id;
 }
 
+class QSqlDatabaseWrapper
+{
+public:
+  QSqlDatabaseWrapper(const QSqlDatabase& db) : m_db(db) {}
+  ~QSqlDatabaseWrapper() {
+    QString name = m_db.connectionName();
+    m_db = QSqlDatabase(); // Drop our last reference.
+    if (!name.isEmpty()) {
+      QSqlDatabase::removeDatabase(name);
+    }
+  }
+
+  QSqlDatabase& database() { return m_db; }
+
+private:
+  QSqlDatabase m_db;
+};
+
 TransferModel::TransferModel(QObject *parent)
     : QAbstractListModel(parent)
     , m_rows(new QVector<TransferDBRecord>())
@@ -394,7 +412,7 @@ bool TransferModel::executeQuery(QVector<TransferDBRecord> *rows, int *activeTra
 
 QSqlDatabase TransferModel::database()
 {
-    static QThreadStorage<QSqlDatabase> thread_database;
+    static QThreadStorage<QSqlDatabaseWrapper *> thread_database;
 
     if (!thread_database.hasLocalData()) {
         const QString absDbPath = QDir::homePath() + QDir::separator()
@@ -407,10 +425,14 @@ QSqlDatabase TransferModel::database()
                     QLatin1String("transferengine-") + uuid);
         database.setDatabaseName(absDbPath);
         database.setConnectOptions(QLatin1String("QSQLITE_OPEN_READONLY")); // sanity check
-        thread_database.setLocalData(database);
+
+	QSqlDatabaseWrapper *wrapper = new QSqlDatabaseWrapper(database);
+	thread_database.setLocalData(wrapper);
     }
 
-    QSqlDatabase &database = thread_database.localData();
+    QSqlDatabaseWrapper *wrapper = thread_database.localData();
+    QSqlDatabase &database = wrapper->database();
+
     if (!database.isOpen() && !database.open()) {
         qWarning() << "Failed to open transfer engine database";
         qWarning() << database.lastError();

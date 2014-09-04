@@ -45,10 +45,10 @@ template <> bool compareIdentity<TransferDBRecord>(
     return item.transfer_id == reference.transfer_id;
 }
 
-class QSqliteDatabase : public QSqlDatabase
+class TransferDatabase : public QSqlDatabase
 {
 public:
-    QSqliteDatabase() : QSqlDatabase(QLatin1String("QSQLITE")) {}
+    TransferDatabase() : QSqlDatabase(QLatin1String("QSQLITE")) {}
 };
 
 TransferModel::TransferModel(QObject *parent)
@@ -406,7 +406,7 @@ QSqlDatabase TransferModel::database()
                                 + DB_PATH + QDir::separator()
                                 + DB_NAME;
 
-	QSqliteDatabase database;
+	TransferDatabase database;
         database.setDatabaseName(absDbPath);
         database.setConnectOptions(QLatin1String("QSQLITE_OPEN_READONLY")); // sanity check
 	thread_database.setLocalData(database);

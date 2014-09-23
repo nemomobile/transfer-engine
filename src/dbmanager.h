@@ -51,7 +51,7 @@ public:
                             const QString &cancelMethod,
                             const QString &restartMethod);
 
-    int createTransferEntry(MediaItem *mediaItem);
+    int createTransferEntry(const MediaItem *mediaItem);
 
     bool updateTransferStatus(int key, TransferEngineData::TransferStatus status);
 

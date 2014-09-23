@@ -236,10 +236,8 @@ void TransferEnginePrivate::enabledPluginsCheck()
             if (info->ready()) {
                 if (info->info().count() > 0) {
                     m_enabledPlugins << info->info();
-                } else {
-                    // Plugin has nothing to provide, just ignore it
-                    delete info;
                 }
+                delete info;
             } else {
                 // These object will be cleaned in pluginInfoReady() slot.
                 m_infoObjects << info;
@@ -1020,6 +1018,8 @@ int TransferEngine::createSync(const QString &displayName,
     mediaItem->setValue(MediaItem::RestartSupported,!restartMethod.isEmpty());
 
     const int key = DbManager::instance()->createTransferEntry(mediaItem);
+    delete mediaItem;
+
     Q_D(TransferEngine);
     d->m_activityMonitor->newActivity(key);
     d->m_keyTypeCache.insert(key, TransferEngineData::Sync);

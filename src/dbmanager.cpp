@@ -405,7 +405,7 @@ int DbManager::createCallbackEntry(int key,
 
     This method returns a key of the created transfer or -1 on failure.
 */
-int DbManager::createTransferEntry(MediaItem *mediaItem)
+int DbManager::createTransferEntry(const MediaItem *mediaItem)
 {
     Q_D(DbManager);
     QSqlQuery query;

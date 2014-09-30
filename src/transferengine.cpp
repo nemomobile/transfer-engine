@@ -147,6 +147,11 @@ TransferEnginePrivate::TransferEnginePrivate(TransferEngine *parent):
     m_fileWatcherTimer->setSingleShot(true);
     connect(m_fileWatcherTimer, SIGNAL(timeout()), this, SLOT(enabledPluginsCheck()));
 
+    m_delayedExitTimer = new QTimer(this);
+    m_delayedExitTimer->setSingleShot(true);
+    m_delayedExitTimer->setInterval(5000);
+    connect(m_delayedExitTimer, SIGNAL(timeout()), this, SLOT(delayedExitSafely()));
+
     m_fileWatcher = new QFileSystemWatcher(this);
     m_fileWatcher->addPath(SHARE_PLUGINS_PATH);
     connect(m_fileWatcher, SIGNAL(directoryChanged(QString)), this, SLOT(pluginDirChanged()));
@@ -177,19 +182,17 @@ void TransferEnginePrivate::pluginDirChanged()
 void TransferEnginePrivate::exitSafely()
 {
     if (!m_activityMonitor->activeTransfers()) {
-        qDebug() << Q_FUNC_INFO;
-        QTimer::singleShot(2000, this, SLOT(delayedExitSafely()));
+        qDebug() << "Scheduling exit in" << m_delayedExitTimer->interval() << "ms";
+        m_delayedExitTimer->start();
+    } else {
+        m_delayedExitTimer->stop();
     }
 }
 
 void TransferEnginePrivate::delayedExitSafely()
 {
-    if (m_activityMonitor->activeTransfers()) {
-        qDebug() << "Keeping transfer engine alive, transfers still ongoing";
-    } else {
-        qDebug() << "Stopping transfer engine";
-        qApp->exit();
-    }
+    qDebug() << "Stopping transfer engine";
+    qApp->exit();
 }
 
 void TransferEnginePrivate::enabledPluginsCheck()

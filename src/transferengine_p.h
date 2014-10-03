@@ -83,8 +83,6 @@ private:
     QTimer *m_timer;
 };
 
-
-
 class TransferEnginePrivate: QObject
 {
     Q_OBJECT
@@ -133,6 +131,7 @@ public:
     MediaTransferInterface *loadPlugin(const QString &pluginId) const;
     QString mediaFileOrResourceName(MediaItem *mediaItem) const;
 
+private:
     QMap <MediaTransferInterface*, int> m_plugins;
     QMap <int, TransferEngineData::TransferType> m_keyTypeCache;
     bool m_notificationsEnabled;
@@ -141,6 +140,7 @@ public:
     Accounts::Manager *m_accountManager;
     QFileSystemWatcher *m_fileWatcher;
     QTimer *m_fileWatcherTimer;
+    QTimer *m_delayedExitTimer;
     QSettings m_settings;
     ClientActivityMonitor *m_activityMonitor;
     TransferEngine *q_ptr;

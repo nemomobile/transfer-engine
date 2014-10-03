@@ -147,6 +147,12 @@ TransferEnginePrivate::TransferEnginePrivate(TransferEngine *parent):
     m_fileWatcherTimer->setSingleShot(true);
     connect(m_fileWatcherTimer, SIGNAL(timeout()), this, SLOT(enabledPluginsCheck()));
 
+    m_delayedExitTimer = new QTimer(this);
+    m_delayedExitTimer->setSingleShot(true);
+    m_delayedExitTimer->setInterval(5000);
+    m_delayedExitTimer->start(); // Exit if nothing happens within 5 sec
+    connect(m_delayedExitTimer, SIGNAL(timeout()), this, SLOT(delayedExitSafely()));
+
     m_fileWatcher = new QFileSystemWatcher(this);
     m_fileWatcher->addPath(SHARE_PLUGINS_PATH);
     connect(m_fileWatcher, SIGNAL(directoryChanged(QString)), this, SLOT(pluginDirChanged()));
@@ -177,19 +183,17 @@ void TransferEnginePrivate::pluginDirChanged()
 void TransferEnginePrivate::exitSafely()
 {
     if (!m_activityMonitor->activeTransfers()) {
-        qDebug() << Q_FUNC_INFO;
-        QTimer::singleShot(2000, this, SLOT(delayedExitSafely()));
+        qDebug() << "Scheduling exit in" << m_delayedExitTimer->interval() << "ms";
+        m_delayedExitTimer->start();
+    } else {
+        m_delayedExitTimer->stop();
     }
 }
 
 void TransferEnginePrivate::delayedExitSafely()
 {
-    if (m_activityMonitor->activeTransfers()) {
-        qDebug() << "Keeping transfer engine alive, transfers still ongoing";
-    } else {
-        qDebug() << "Stopping transfer engine";
-        qApp->exit();
-    }
+    qDebug() << "Stopping transfer engine";
+    qApp->exit();
 }
 
 void TransferEnginePrivate::enabledPluginsCheck()
@@ -863,6 +867,8 @@ int TransferEngine::uploadMediaItem(const QString &source,
                                     const QVariantMap &userData)
 {
     Q_D(TransferEngine);
+    d->exitSafely();
+
     MediaTransferInterface *muif = d->loadPlugin(serviceId);
     if (muif == 0) {
         qWarning() << "TransferEngine::uploadMediaItem Failed to get MediaTransferInterface";
@@ -903,6 +909,8 @@ int TransferEngine::uploadMediaItemContent(const QVariantMap &content,
                                            const QVariantMap &userData)
 {
     Q_D(TransferEngine);
+    d->exitSafely();
+
     MediaTransferInterface *muif = d->loadPlugin(serviceId);
     if (muif == 0) {
         qWarning() << "TransferEngine::uploadMediaItemContent Failed to get MediaTransferInterface";
@@ -1038,6 +1046,8 @@ int TransferEngine::createSync(const QString &displayName,
 void TransferEngine::startTransfer(int transferId)
 {
     Q_D(TransferEngine);
+    d->exitSafely();
+
     TransferEngineData::TransferType type = d->transferType(transferId);
     if (type == TransferEngineData::Undefined) {
         qWarning() << "TransferEngine::startTransfer: failed to get transfer type";
@@ -1072,8 +1082,9 @@ void TransferEngine::startTransfer(int transferId)
 */
 void TransferEngine::restartTransfer(int transferId)
 {
-
     Q_D(TransferEngine);
+    d->exitSafely();
+
     TransferEngineData::TransferType type = d->transferType(transferId);
     if (type == TransferEngineData::Undefined) {
         qWarning() << "TransferEngine::restartTransfer: failed to get transfer type";
@@ -1131,6 +1142,8 @@ void TransferEngine::finishTransfer(int transferId, int status, const QString &r
 {
     Q_UNUSED(reason);
     Q_D(TransferEngine);
+    d->exitSafely();
+
     TransferEngineData::TransferType type = d->transferType(transferId);
     if (type == TransferEngineData::Undefined || type == TransferEngineData::Upload) {
         return; // We don't handle plugins here
@@ -1153,6 +1166,7 @@ void TransferEngine::finishTransfer(int transferId, int status, const QString &r
         transferStatus == TransferEngineData::TransferInterrupted) {
         DbManager::instance()->updateTransferStatus(transferId, transferStatus);
         d->sendNotification(type, transferStatus, fileName);
+        d->m_activityMonitor->activityFinished(transferId);
         emit statusChanged(transferId, status);
 
         bool notify = false;
@@ -1174,8 +1188,6 @@ void TransferEngine::finishTransfer(int transferId, int status, const QString &r
         if (notify) {
             emit transfersChanged();
         }
-
-        d->m_activityMonitor->activityFinished(transferId);
     }
 }
 
@@ -1186,8 +1198,9 @@ void TransferEngine::finishTransfer(int transferId, int status, const QString &r
 void TransferEngine::updateTransferProgress(int transferId, double progress)
 {
     Q_D(TransferEngine);
-    TransferEngineData::TransferType type = d->transferType(transferId);
+    d->exitSafely();
 
+    TransferEngineData::TransferType type = d->transferType(transferId);
     if (type == TransferEngineData::Undefined || type == TransferEngineData::Upload) {
         return;
     }
@@ -1205,6 +1218,8 @@ void TransferEngine::updateTransferProgress(int transferId, double progress)
  */
 QList<TransferDBRecord> TransferEngine::transfers()
 {    
+    Q_D(TransferEngine);
+    d->exitSafely();
     return DbManager::instance()->transfers();
 }
 
@@ -1216,6 +1231,7 @@ QList<TransferDBRecord> TransferEngine::transfers()
 QList <TransferMethodInfo> TransferEngine::transferMethods()
 {
     Q_D(TransferEngine);
+    d->exitSafely();
     return d->enabledPlugins();
 }
 
@@ -1224,6 +1240,8 @@ QList <TransferMethodInfo> TransferEngine::transferMethods()
  */
 void TransferEngine::clearTransfers()
 {    
+    Q_D(TransferEngine);
+    d->exitSafely();
     if (DbManager::instance()->clearTransfers()) {
         emit transfersChanged();
     } else {
@@ -1242,8 +1260,9 @@ void TransferEngine::clearTransfers()
  */
 void TransferEngine::cancelTransfer(int transferId)
 {
-
     Q_D(TransferEngine);
+    d->exitSafely();
+
     TransferEngineData::TransferType type = d->transferType(transferId);
 
     // Handle canceling of Download or Sync
@@ -1271,6 +1290,7 @@ void TransferEngine::cancelTransfer(int transferId)
 void TransferEngine::enableNotifications(bool enable)
 {
     Q_D(TransferEngine);
+    d->exitSafely();
     if (d->m_notificationsEnabled != enable) {
         d->m_notificationsEnabled = enable;
     }
@@ -1283,11 +1303,6 @@ void TransferEngine::enableNotifications(bool enable)
 bool TransferEngine::notificationsEnabled()
 {
     Q_D(TransferEngine);
+    d->exitSafely();
     return d->m_notificationsEnabled;
 }
-
-
-
-
-
-

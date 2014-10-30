@@ -5,6 +5,12 @@ INCLUDEPATH += . ../lib
 
 QT += dbus sql
 
+packagesExist(qt5-boostable) {
+  PKGCONFIG += qt5-boostable
+} else {
+  warning("qt5-boostable not available; startup times will be slower")
+}
+
 equals(QT_MAJOR_VERSION, 4): LIBS += -L../lib -lnemotransferengine
 equals(QT_MAJOR_VERSION, 5): LIBS += -L../lib -lnemotransferengine-qt5
 

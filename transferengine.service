@@ -1,0 +1,10 @@
+[Unit]
+Description=Transfer engine
+After=dbus.socket booster-qt5.service
+Requires=dbus.socket
+
+[Service]
+ExecStart=/usr/bin/invoker --type=qt5 --global-syms /usr/bin/nemo-transfer-engine
+Type=dbus
+BusName=org.nemo.transferengine
+

@@ -11,15 +11,13 @@ packagesExist(qt5-boostable) {
   warning("qt5-boostable not available; startup times will be slower")
 }
 
-equals(QT_MAJOR_VERSION, 4): LIBS += -L../lib -lnemotransferengine
-equals(QT_MAJOR_VERSION, 5): LIBS += -L../lib -lnemotransferengine-qt5
+LIBS += -L../lib -lnemotransferengine-qt5
 
 # generate adaptor code
 system(qdbusxml2cpp -c TransferEngineAdaptor -a transferengineadaptor.h:transferengineadaptor.cpp -i metatypedeclarations.h ../dbus/org.nemo.transferengine.xml)
 
 CONFIG += link_pkgconfig
-equals(QT_MAJOR_VERSION, 4): PKGCONFIG += mlite accounts-qt
-equals(QT_MAJOR_VERSION, 5): PKGCONFIG += mlite5 accounts-qt5
+PKGCONFIG += mlite5 accounts-qt5
 
 # translations
 TS_FILE = $$OUT_PWD/nemo-transfer-engine.ts

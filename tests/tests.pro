@@ -1,13 +1,11 @@
-equals(QT_MAJOR_VERSION, 4): PACKAGENAME = nemo-transfer-engine
-equals(QT_MAJOR_VERSION, 5): PACKAGENAME = nemo-transfer-engine-qt5
+PACKAGENAME = nemo-transfer-engine-qt5
 
 TEMPLATE = app
 TARGET = ut_nemo-transfer-engine
 DEPENDPATH += .
 INCLUDEPATH += . ../src ../lib
 CONFIG += link_pkgconfig
-equals(QT_MAJOR_VERSION, 4): PKGCONFIG += quillmetadata
-equals(QT_MAJOR_VERSION, 5): PKGCONFIG += quillmetadata-qt5
+PKGCONFIG += quillmetadata-qt5
 
 # Test files
 HEADERS += \

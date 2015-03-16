@@ -40,8 +40,7 @@
 #include <QFileSystemWatcher>
 #include <QTimer>
 
-#include <MNotification>
-#include <MNotificationGroup>
+#include <notification.h>
 
 #include <signal.h>
 
@@ -52,6 +51,10 @@
 #define FILE_WATCHER_TIMEOUT 5000
 #define ACTIVITY_MONITOR_TIMEOUT 1*60*1000 // 1 minute in ms
 #define TRANSFER_EXPIRATION_THRESHOLD 3*60 // 3 minutes in seconds
+
+#define TRANSFER_EVENT_CATEGORY "transfer"
+#define TRANSFER_COMPLETE_EVENT_CATEGORY "transfer.complete"
+#define TRANSFER_ERROR_EVENT_CATEGORY "transfer.error"
 
 TransferEngineSignalHandler * TransferEngineSignalHandler::instance()
 {
@@ -295,86 +298,15 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
         return;
     }
 
-    QString msgGSummary;
-    QString msgNBody;
-    QString eventType;
-    bool bannerOnly = false;
+    QString category;
+    QString body;
+    QString summary;
+    QString previewBody;
+    QString previewSummary;
 
-    QList<MNotification*> nList = MNotification::notifications();
-    QMultiMap <QString, MNotification*> nMap;
-
-    // Get the existing notifications and sort them based on their event types
-    foreach(MNotification *n, nList) {
-        nMap.insert(n->eventType(), n);
-    }
-
-    if (status == TransferEngineData::TransferFinished) {
-        switch(type) {
-        case TransferEngineData::Upload:
-            //: Notification for successful file upload
-            //% "File uploaded"
-            msgNBody = qtTrId("transferengine-no-file-upload-success");
-            msgGSummary.clear();
-            eventType = MNotification::TransferEvent; // Use "generic" transfer event for uploads
-            bannerOnly = true;
-            break;
-        case TransferEngineData::Download:
-            eventType = MNotification::TransferCompleteEvent;
-            //: Notification for successful file download
-            //% "File downloaded"
-            msgNBody = qtTrId("transferengine-no-file-download-success");
-            //: NotificationGroup summary for successful download
-            //% "%n file(s) downloaded"
-            msgGSummary = qtTrId("transferengine-no-number-of-downloads",
-                                 nMap.values(eventType).count() + 1);
-            break;
-        case TransferEngineData::Sync:
-            // Ok exit
-            return;
-        default:
-            qWarning() << "TransferEnginePrivate::sendNotification: unknown state";
-            return;
-        }
-    } else {
-    if (status == TransferEngineData::TransferInterrupted) {
-        eventType = MNotification::TransferErrorEvent;
-
-        switch (type) {
-        case TransferEngineData::Upload:
-            //: Notification for failed file upload
-            //% "Upload failed!"
-            msgNBody = qtTrId("transferengine-no-file-upload-failure");
-            //% "%n upload(s) failed"
-            msgGSummary = qtTrId("transferengine-no-number-of-upload-failures",
-                                 nMap.values(eventType).count() + 1);
-            break;
-        case TransferEngineData::Download:
-            //: Notification for failed file download
-            //% "Download failed!"
-            msgNBody = qtTrId("transferengine-no-file-download-failure");
-            //% "%n download(s) failed"
-            msgGSummary = qtTrId("transferengine-no-number-of-download-failures",
-                                 nMap.values(eventType).count() + 1);
-            break;
-        case TransferEngineData::Sync:
-            //: Notification for sync failure
-            //% "Sync failed!"
-            msgNBody = qtTrId("transferengine-no-sync-failure");
-            //% "%n sync(s) failed"
-            msgGSummary = qtTrId("transferengine-no-number-of-sync-failures",
-                                 nMap.values(eventType).count() + 1);
-            break;
-        default:
-            qWarning() << "TransferEnginePrivate::sendNotification: unknown state";
-            return;
-        }
-
-
-    } else {
-    if (status == TransferEngineData::TransferCanceled) {
-        // Exit, no banners or events when user has canceled a transfer
-        return;
-    }}}
+    // TODO: explicit grouping of transfer notifications is now removed, as grouping
+    // will now be performed by lipstick.  We may need to reinstate group summary
+    // notifications at some later point...
 
     // Notification & Banner rules:
     //
@@ -385,66 +317,117 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
     // Show an event in the EventView:
     // - For downloads
     // - For failed uploads, downloads and syncs
-    //
-    // Use grouping always
-    if (!(msgNBody.isEmpty() && eventType.isEmpty())) {
-        // First create the notification
-        MNotification notification(eventType);
-        notification.setSummary(fileName);
-        notification.setBody(msgNBody);
-        notification.setImage("icon-lock-transfer");
 
+    QList<QObject *> nList = Notification::notifications();
+    Notification *existing = 0;
 
-        // Check if we have existing group and use that instead of creating a new one.
-        QList<MNotificationGroup*> groups = MNotificationGroup::notificationGroups();
-        MNotificationGroup *group = 0;
-        if (groups.count() > 0) {
-            foreach(MNotificationGroup *g, groups) {
-                if (g->eventType() == eventType) {
-                    group = g;
-                    break;
-                }
+    foreach (QObject *obj, nList) {
+        if (Notification *n = qobject_cast<Notification *>(obj)) {
+            if (n->summary() == fileName || n->previewSummary() == fileName) {
+                // This existing notification is for this file
+                existing = n;
+                break;
             }
         }
-
-        // No existing groups, create a new one from the scratch
-        if (group == 0){
-            group = new MNotificationGroup(eventType);
-            group->setImage("icon-lock-transfer");
-            // Add to the groups, it will be deleted when the list is cleaned
-            groups.append(group);
-        }
-
-        if (bannerOnly) {
-            // This makes notifications to appear banners only
-            group->setSummary(QString());
-        } else {
-            // This is the summary text which is shown when notifications are grouped
-            group->setSummary(msgGSummary);
-            group->setBody(fileName);
-        }
-
-        // Set default action for groups
-        MRemoteAction rAct = createRemoteActionForGroup();
-        if (!rAct.toString().isEmpty()) {
-            group->setAction(rAct);
-        }
-
-        notification.setGroup(*group);
-        notification.publish();
-
-        // always publish the group to make updates appear
-        group->publish();
-
-        // Cleanup
-        if (groups.count()) {
-            qDeleteAll(groups);
-        }
-
-        if (nList.count()) {
-            qDeleteAll(nList);
-        }
     }
+
+    if (status == TransferEngineData::TransferFinished) {
+        switch(type) {
+        case TransferEngineData::Upload:
+            //: Notification for successful file upload
+            //% "File uploaded"
+            previewBody = qtTrId("transferengine-no-file-upload-success");
+            previewSummary = fileName;
+            category = TRANSFER_EVENT_CATEGORY; // Use "generic" transfer event for uploads
+            break;
+        case TransferEngineData::Download:
+            category = TRANSFER_COMPLETE_EVENT_CATEGORY;
+            //: Notification for successful file download
+            //% "File downloaded"
+            body = qtTrId("transferengine-no-file-download-success");
+            summary = fileName;
+            break;
+        case TransferEngineData::Sync:
+            // Ok exit
+            break;
+        default:
+            qWarning() << "TransferEnginePrivate::sendNotification: unknown state";
+            break;
+        }
+    } else {
+    if (status == TransferEngineData::TransferInterrupted) {
+        category = TRANSFER_ERROR_EVENT_CATEGORY;
+
+        switch (type) {
+        case TransferEngineData::Upload:
+            //: Notification for failed file upload
+            //% "Upload failed!"
+            body = qtTrId("transferengine-no-file-upload-failure");
+            break;
+        case TransferEngineData::Download:
+            //: Notification for failed file download
+            //% "Download failed!"
+            body = qtTrId("transferengine-no-file-download-failure");
+            break;
+        case TransferEngineData::Sync:
+            //: Notification for sync failure
+            //% "Sync failed!"
+            body = qtTrId("transferengine-no-sync-failure");
+            break;
+        default:
+            qWarning() << "TransferEnginePrivate::sendNotification: unknown state";
+            category.clear();
+            break;
+        }
+
+        summary = fileName;
+        previewSummary = summary;
+        previewBody = body;
+    } else {
+    if (status == TransferEngineData::TransferCanceled) {
+        // Exit, no banners or events when user has canceled a transfer
+
+        // Remove any existing notification
+        if (existing) {
+            existing->close();
+        }
+    }}}
+
+    if (!category.isEmpty()) {
+        Notification notification;
+
+        if (!existing) {
+            // Create a new notification
+            notification.setAppIcon("icon-lock-transfer");
+
+            if (m_settings.status() != QSettings::NoError) {
+                qWarning() << Q_FUNC_INFO << "Failed to read settings!" << m_settings.status();
+            } else {
+                m_settings.beginGroup("transfers");
+                const QString service = m_settings.value("service").toString();
+                const QString path = m_settings.value("path").toString();
+                const QString iface = m_settings.value("interface").toString();
+                const QString method = m_settings.value("method").toString();
+                m_settings.endGroup();
+
+                if (!service.isEmpty() && !path.isEmpty() && !iface.isEmpty() && !method.isEmpty()) {
+                    notification.setRemoteAction(Notification::remoteAction("default", "", service, path, iface, method));
+                }
+            }
+
+            existing = &notification;
+        }
+
+        // Update the notification
+        existing->setCategory(category);
+        existing->setSummary(summary);
+        existing->setBody(body);
+        existing->setPreviewSummary(previewSummary);
+        existing->setPreviewBody(previewBody);
+        existing->publish();
+    }
+
+    qDeleteAll(nList);
 }
 
 int TransferEnginePrivate::uploadMediaItem(MediaItem *mediaItem,
@@ -713,23 +696,6 @@ void TransferEnginePrivate::callbackCall(int transferId, CallbackMethodType meth
     remoteInterface.call(methodName, transferId);    
 }
 
-
-MRemoteAction TransferEnginePrivate::createRemoteActionForGroup()
-{
-    if (m_settings.status() != QSettings::NoError) {
-        qWarning() << Q_FUNC_INFO << "Failed to read settings!" << m_settings.status();
-        return MRemoteAction();
-    }
-
-    m_settings.beginGroup("transfers");
-    const QString service = m_settings.value("service").toString();
-    const QString path = m_settings.value("path").toString();
-    const QString iface = m_settings.value("interface").toString();
-    const QString method = m_settings.value("method").toString();
-    m_settings.endGroup();
-
-    return MRemoteAction(service, path, iface, method);
-}
 
 /*!
     \class TransferEngine

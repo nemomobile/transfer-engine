@@ -17,7 +17,7 @@ LIBS += -L../lib -lnemotransferengine-qt5
 system(qdbusxml2cpp -c TransferEngineAdaptor -a transferengineadaptor.h:transferengineadaptor.cpp -i metatypedeclarations.h ../dbus/org.nemo.transferengine.xml)
 
 CONFIG += link_pkgconfig
-PKGCONFIG += mlite5 accounts-qt5
+PKGCONFIG += accounts-qt5 nemonotifications-qt5
 
 # translations
 TS_FILE = $$OUT_PWD/nemo-transfer-engine.ts

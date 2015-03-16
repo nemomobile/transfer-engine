@@ -14,8 +14,8 @@ BuildRequires: pkgconfig(Qt5Qml)
 BuildRequires: pkgconfig(Qt5Quick)
 BuildRequires: pkgconfig(accounts-qt5)
 BuildRequires: desktop-file-utils
-BuildRequires: pkgconfig(mlite5)
 BuildRequires: pkgconfig(quillmetadata-qt5)
+BuildRequires: pkgconfig(nemonotifications-qt5) >= 1.0.4
 BuildRequires: qt5-qttools-linguist
 BuildRequires: qt5-qttools-qthelp-devel
 BuildRequires: qt5-plugin-platform-minimal

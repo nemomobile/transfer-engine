@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS  = lib src declarative tests
+SUBDIRS  = lib src declarative tests data
 
 src.depends = lib
 tests.depends = lib

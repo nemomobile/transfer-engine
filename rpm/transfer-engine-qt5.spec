@@ -35,7 +35,7 @@ Obsoletes: nemo-transferengine <= 0.0.19
 %{_bindir}/nemo-transfer-engine
 %{_datadir}/dbus-1/services/org.nemo.transferengine.service
 %{_datadir}/translations/nemo-transfer-engine_eng_en.qm
-
+%{_datadir}/lipstick/notificationcategories/*
 
 %package -n libnemotransferengine-qt5
 Summary: Transfer engine library.

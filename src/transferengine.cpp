@@ -52,9 +52,9 @@
 #define ACTIVITY_MONITOR_TIMEOUT 1*60*1000 // 1 minute in ms
 #define TRANSFER_EXPIRATION_THRESHOLD 3*60 // 3 minutes in seconds
 
-#define TRANSFER_EVENT_CATEGORY "transfer"
-#define TRANSFER_COMPLETE_EVENT_CATEGORY "transfer.complete"
-#define TRANSFER_ERROR_EVENT_CATEGORY "transfer.error"
+#define TRANSFER_EVENT_CATEGORY "x-nemo.transfer"
+#define TRANSFER_COMPLETE_EVENT_CATEGORY "x-nemo.transfer.complete"
+#define TRANSFER_ERROR_EVENT_CATEGORY "x-nemo.transfer.error"
 
 TransferEngineSignalHandler * TransferEngineSignalHandler::instance()
 {
@@ -398,8 +398,6 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
 
         if (!existing) {
             // Create a new notification
-            notification.setAppIcon("icon-lock-transfer");
-
             if (m_settings.status() != QSettings::NoError) {
                 qWarning() << Q_FUNC_INFO << "Failed to read settings!" << m_settings.status();
             } else {

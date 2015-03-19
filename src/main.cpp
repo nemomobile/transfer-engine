@@ -43,6 +43,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     translator.load(QLocale(), "nemo-transfer-engine", "-", translationPath);
     app.installTranslator(&translator);
 
+    //% "Transfers"
+    app.setApplicationName(qtTrId("transferengine-ap-transfers"));
 
     TransferEngine engine;
     return app.exec();

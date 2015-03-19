@@ -30,7 +30,6 @@
 #include <QObject>
 #include <QMap>
 #include <QSettings>
-#include <MRemoteAction>
 
 #include "mediatransferinterface.h"
 #include "transfermethodinfo.h"
@@ -112,7 +111,6 @@ public:
                         const QVariantMap &userData);
     inline TransferEngineData::TransferType transferType(int transferId);
     void callbackCall(int transferId, CallbackMethodType method);
-    MRemoteAction createRemoteActionForGroup();
 
 public Q_SLOTS:
     void exitSafely();

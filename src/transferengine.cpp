@@ -409,7 +409,8 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
                 m_settings.endGroup();
 
                 if (!service.isEmpty() && !path.isEmpty() && !iface.isEmpty() && !method.isEmpty()) {
-                    notification.setRemoteAction(Notification::remoteAction("default", "", service, path, iface, method));
+                    notification.setRemoteActions(QVariantList() << Notification::remoteAction("default", "", service, path, iface, method)
+                                                                 << Notification::remoteAction("app", "", service, path, iface, method));
                 }
             }
 
@@ -418,6 +419,10 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
 
         // Update the notification
         existing->setCategory(category);
+                                                                         //% "Warnings"
+        existing->setAppName(category == TRANSFER_ERROR_EVENT_CATEGORY ? qtTrId("transferengine-notification_errors_group")
+                                                                         //% "Transfers"
+                                                                       : qtTrId("transferengine-notification_group"));
         existing->setSummary(summary);
         existing->setBody(body);
         existing->setPreviewSummary(previewSummary);

@@ -1,4 +1,4 @@
-Name: nemo-transferengine-qt5
+Name: transfer-engine-qt5
 Version: 0.0.34
 Release: 0
 Summary: Transfer Engine for uploading media content and tracking transfers.
@@ -22,8 +22,9 @@ BuildRequires: qt5-plugin-platform-minimal
 BuildRequires: qt5-plugin-sqldriver-sqlite
 BuildRequires: pkgconfig(qt5-boostable)
 Requires: libnemotransferengine-qt5 = %{version}
-Provides: nemo-transferengine > 0.0.19
-Obsoletes: nemo-transferengine <= 0.0.19
+Provides: transfer-engine-qt5
+Obsoletes: nemo-transferengine-qt5
+Obsoletes: nemo-transferengine
 
 %description
 %{summary}
@@ -68,8 +69,9 @@ Requires: libnemotransferengine-qt5 = %{version}
 Summary:   Translation source for Nemo TransferEngine
 License:   LGPLv2.1
 Group:     System Environment/Daemon
-Provides: nemo-transferengine-ts-devel > 0.0.19
-Obsoletes: nemo-transferengine-ts-devel <= 0.0.19
+Provides: transfer-engine-qt5-ts-devel
+Obsoletes: nemo-transferengine-qt5-ts-devel
+Obsoletes: nemo-transferengine-ts-devel
 
 %description ts-devel
 Translation source for Nemo TransferEngine
@@ -82,6 +84,9 @@ Translation source for Nemo TransferEngine
 Summary:   Unit tests for Nemo TransferEngine
 License:   LGPLv2.1
 Group:     System Environment/Daemon
+Provides: transfer-engine-qt5-tests
+Obsoletes: nemo-transferengine-qt5-tests
+Obsoletes: nemo-transferengine-tests
 
 %description tests
 Unit tests for Nemo TransferEngine
@@ -94,15 +99,16 @@ Unit tests for Nemo TransferEngine
 Summary:   Documentation for Nemo TransferEngine
 License:   BSD
 Group:     System Environment/Daemon
-Provides: nemo-transferengine-doc > 0.0.19
-Obsoletes: nemo-transferengine-doc <= 0.0.19
+Provides: transfer-engine-qt5-doc
+Obsoletes: nemo-transferengine-qt5-doc
+Obsoletes: nemo-transferengine-doc
 
 %description doc
 Documentation for Nemo TransferEngine
 
 %files doc
 %defattr(-,root,root,-)
-%{_datadir}/doc/nemo-transferengine-qt5/*
+%{_datadir}/doc/transfer-engine-qt5/*
 
 
 
@@ -132,7 +138,7 @@ cp -R doc/html/* %{buildroot}/%{_docdir}/%{name}/
 %post -n libnemotransferengine-qt5
 /sbin/ldconfig
 
-%post -n nemo-transferengine-qt5
+%post -n transfer-engine-qt5
 if [ -n "%{te_pid}" ]
 then
     kill -s 10 %{te_pid}

@@ -417,12 +417,16 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
             existing = &notification;
         }
 
+        //: Group name for notifications of successful transfers
+        //% "Transfers"
+        const QString transfersGroup(qtTrId("transferengine-notification_group"));
+        //: Group name for notifications of failed transfers
+        //% "Warnings"
+        const QString errorsGroup(qtTrId("transferengine-notification_errors_group"));
+
         // Update the notification
         existing->setCategory(category);
-                                                                         //% "Warnings"
-        existing->setAppName(category == TRANSFER_ERROR_EVENT_CATEGORY ? qtTrId("transferengine-notification_errors_group")
-                                                                         //% "Transfers"
-                                                                       : qtTrId("transferengine-notification_group"));
+        existing->setAppName(category == TRANSFER_ERROR_EVENT_CATEGORY ? errorsGroup : transfersGroup);
         existing->setSummary(summary);
         existing->setBody(body);
         existing->setPreviewSummary(previewSummary);

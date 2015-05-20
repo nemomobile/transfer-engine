@@ -361,18 +361,17 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
         switch (type) {
         case TransferEngineData::Upload:
             //: Notification for failed file upload
-            //% "Upload failed!"
-            body = qtTrId("transferengine-no-file-upload-failure");
+            //% "Upload failed"
+            body = qtTrId("transferengine-la-file_upload_failed");
             break;
         case TransferEngineData::Download:
             //: Notification for failed file download
-            //% "Download failed!"
-            body = qtTrId("transferengine-no-file-download-failure");
+            //% "Download failed"
+            body = qtTrId("transferengine-la-file_download_failed");
             break;
         case TransferEngineData::Sync:
-            //: Notification for sync failure
-            //% "Sync failed!"
-            body = qtTrId("transferengine-no-sync-failure");
+            // no notification required
+            category.clear();
             break;
         default:
             qWarning() << "TransferEnginePrivate::sendNotification: unknown state";

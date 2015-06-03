@@ -346,6 +346,8 @@ void TransferEnginePrivate::sendNotification(TransferEngineData::TransferType ty
             //% "File downloaded"
             body = qtTrId("transferengine-no-file-download-success");
             summary = fileName;
+            previewBody = body;
+            previewSummary = summary;
             break;
         case TransferEngineData::Sync:
             // Ok exit

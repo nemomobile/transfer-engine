@@ -321,17 +321,16 @@ QString ImageOperation::scaleImageToSize(const QString &sourceFile, quint64 targ
 
 void ImageOperation::imageOrientation(const QString &sourceFile, int *angle, bool *mirror)
 {
+    *angle = 0;
+    *mirror = false;
+
     if(!QuillMetadata::canRead(sourceFile)) {
         qWarning() << Q_FUNC_INFO << "Can't read metadata";
-        *angle = 0;
-        *mirror = false;
         return;
     }
     QuillMetadata md(sourceFile);
     if (!md.hasExif()) {
         qWarning() << "Metadata invalid";
-        *angle = 0;
-        *mirror = false;
         return;
     }
 
